@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import xlsxwriter
-from io import BytesIO
-
-buffer = BytesIO()
 
 
 #st.text_input("Votre mot de passe", key="name")
@@ -92,17 +88,3 @@ df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libell
 
 st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
 df_fourn_libel.T
-
-# download button 2 to download dataframe as xlsx
-with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-    # Write each dataframe to a different worksheet.
-    df_fourn_libel.to_excel(writer, sheet_name='Sheet1', index=False)
-    # Close the Pandas Excel writer and output the Excel file to the buffer
-    writer.save()
-
-    download = st.download_button(
-        label="Download data as Excel",
-        data=buffer,
-        file_name='large_df.xlsx',
-        mime='application/vnd.ms-excel'
-    )
