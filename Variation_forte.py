@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import time
-import io
+from io import BytesIO
+from pyxlsb import open_workbook as open_xlsb
 
-buffer = io.BytesIO()
+output = BytesIO()
 
 #st.text_input("Votre mot de passe", key="name")
 
@@ -92,17 +92,15 @@ df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libell
 st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
 df_fourn_libel.T
 
-# Create a Pandas Excel writer using XlsxWriter as the engine.
-with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer: 
-    # Write each dataframe to a different worksheet.
-    df_fourn_libel.to_excel(writer)
-    
-    # Close the Pandas Excel writer and output the Excel file to the buffer
-    writer.save()
+writer = pd.ExcelWriter(output, engine='xlsxwriter')
+df_fourn_libel.to_excel(writer, index=False, sheet_name='Sheet1')
+workbook = writer.book
+worksheet = writer.sheets['Sheet1']
+writer.save()
+processed_data = output.getvalue()
 
-    st.download_button(
-        label="Exporter sous Excel",
-        data=buffer,
-        file_name="Sortie.xls",
-        mime="application/vnd.ms-excel"
-    )
+st.download_button(
+    label='Exporter sous Excel',
+    data=processed_data,
+    file_name= 'Sortie.xlsx')
+
