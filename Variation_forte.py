@@ -99,6 +99,8 @@ df_fourn_libel.loc[:, 'fret']     = df_fourn_libel['fret'].map('{:,d}'.format)
 df_fourn_libel.loc[:, 'D&T_tx'] = df_fourn_libel['D&T_tx'].map('{:.2f}'.format)
 df_fourn_libel.loc[:, 'PU']     = df_fourn_libel['PU'].map('{:.2f}'.format)
 df_fourn_libel.loc[:, 'PU_moy'] = df_fourn_libel['PU_moy'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'PU_min'] = df_fourn_libel['PU_min'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'PU_max'] = df_fourn_libel['PU_max'].map('{:.2f}'.format)
 df_fourn_libel.loc[:, 'Ecart']  = df_fourn_libel['Ecart'].map('{:.2f}'.format)
 
 st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
