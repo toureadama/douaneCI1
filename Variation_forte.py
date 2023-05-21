@@ -88,3 +88,13 @@ df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libell
 
 st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
 df_fourn_libel.T
+
+csv = df_fourn_libel.to_csv(index=False).encode('utf-8')
+
+# download button 1 to download dataframe as csv
+download1 = st.download_button(
+    label="Export sous CSV",
+    data=csv,
+    file_name='Sortie.csv',
+    mime='text/csv'
+)
