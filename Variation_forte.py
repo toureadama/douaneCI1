@@ -11,10 +11,17 @@ import numpy as np
     #st.write("Mot de passe incorrect")
 #else:
 @st.cache_resource
-def load_file(dep):
-    # Chargement du fichier des données
+def load_all_file():
     df_CIAB1 = pd.read_csv('df_rest.csv')
     df_Scan  = pd.read_csv('df_Scan.csv')
+    
+    return df_CIAB1, df_Scan
+
+df_CIAB1, df_Scan = load_all_file() 
+
+@st.cache_resource
+def load_file(dep):
+    # Chargement du fichier des données
     if dep == 2:
         df = df_Scan
     else:
