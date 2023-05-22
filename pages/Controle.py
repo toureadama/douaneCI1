@@ -25,8 +25,7 @@ elif department == 'Scanner':
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 
-#df = df.drop(columns=df.columns[0,1])
-st.write(df.columns)
+df = df.drop(columns=df.columns[:2])
 
 PosTarif = st.sidebar.selectbox(
     'Choisir la position tarifaire',
