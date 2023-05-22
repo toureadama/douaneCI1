@@ -16,7 +16,7 @@ df_CIAB1, df_Scan = load_all_file(update)
 
 department = st.sidebar.radio(
     "Choisir le département",
-    ('CIAB1', 'Scanner', 'BAE'))
+    ('CIAB1', 'Scanner'))
 
 if department == 'CIAB1':
     df = df_CIAB1
