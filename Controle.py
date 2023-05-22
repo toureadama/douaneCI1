@@ -1,39 +1,29 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import time
 
+update = False
 
 @st.cache_resource
-def load_file():
-    # Chargement du fichier des données
-    df = pd.read_csv('df_rest.csv')
-    df = df.drop(columns=df.columns[0])
+def load_all_file(update):
+    df_CIAB1 = pd.read_csv('df_CIAB1.csv')
+    df_Scan  = pd.read_csv('df_Scan.csv')
+    
+    return df_CIAB1, df_Scan
 
-    # Calcul du frêt
-    df = df.dropna()
-    df["fret"] = df["Val CAF"] - df["Val FOB"]
-    # valeur unitaire (Val Fob / Poids net)
-    df = df[df["Pds Net"] != 0]
-    df["PU"] = df["Val FOB"] / df["Pds Net"]
-    # Calcul du taux de la taxe de douane
-    df["D&T_tx"] = df["D&T"].copy()
-    df["D&T_tx"] = df["D&T"] / df["Val CAF"]
+df_CIAB1, df_Scan = load_all_file(update) 
 
-    df_mean = df[['Sous_Produit', 'Origine', 'PU']].groupby(['Sous_Produit', 'Origine']).mean()
 
-    df["PU_moy"] = df["PU"].copy()
+department = st.sidebar.radio(
+    "Choisir le département",
+    ('CIAB1', 'Scanner'))
 
-    for i in range(df.shape[0]):
-        df["PU_moy"].iloc[i] = df_mean.loc[(df.Sous_Produit.iloc[i], df.Origine.iloc[i])][0]
+if department == 'CIAB1':
+    df = df_CIAB1
+elif department == 'Scanner':
+    df = df_Scan
+else:
+    st.sidebar.write("Veuillez sélectionner le département.")
 
-    df["Ecart"] = df["PU_moy"] / df["PU"]
-    df.insert(16, 'Sous_Produit', df.pop('Sous_Produit'))
-    df.insert(27, 'D&T_tx', df.pop('D&T_tx'))
-
-    return df
-
-df = load_file()
 
 PosTarif = st.sidebar.selectbox(
     'Choisir la position tarifaire',
