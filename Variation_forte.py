@@ -27,7 +27,6 @@ else:
 
 # Seuil critique de x fois la moyenne du groupe
 seuil = st.sidebar.slider('Seuil', 0, 6, 5)
-st.write(f"Les colonnes de df sont {df.columns}")
 
 nb_crit = df[df["Ecart"] > seuil]
 pourc = df[df["Ecart"] > seuil].shape[0]/df.shape[0] * 100
