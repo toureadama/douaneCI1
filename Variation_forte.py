@@ -11,9 +11,15 @@ import numpy as np
     #st.write("Mot de passe incorrect")
 #else:
 @st.cache_resource
-def load_file():
+def load_file(dep):
     # Chargement du fichier des données
-    df = pd.read_csv('df_rest.csv')
+    df_CIAB1 = pd.read_csv('df_rest.csv')
+    df_Scan  = pd.read_csv('df_Scan.csv')
+    if dep == 2:
+        df = df_Scan
+    else:
+        df = df_CIAB1
+        
     df = df.drop(columns=df.columns[0])
 
     # Calcul du frêt
@@ -45,7 +51,20 @@ def load_file():
 
     return df
 
-df = load_file()
+department = st.sidebar.radio(
+    "Choisir le département",
+    ('CIAB1', 'Scanner'))
+
+if department == 'CIAB1':
+    dep = 1
+elif department == 'Scanner':
+    dep = 2
+else:
+    st.sidebar.write("Veuillez sélectionner le département.")
+
+
+df = load_file(dep)
+
 
 # Seuil critique de x fois la moyenne du groupe
 seuil = st.sidebar.slider('Seuil', 0, 6, 5)
