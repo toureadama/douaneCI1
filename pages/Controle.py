@@ -78,3 +78,12 @@ Comp.loc[:, 'Ecart']  = Comp['Ecart'].map('{:.2f}'.format)
 st.write(f"Quelques exemples de déclarations de la même catégorie.")
 st.write(Comp.T)
 
+csv = Comp.to_csv(index=False).encode('utf-8')
+
+# download button 1 to download dataframe as csv
+download1 = st.download_button(
+    label="Export sous CSV",
+    data=csv,
+    file_name='Sortie.csv',
+    mime='text/csv'
+)
