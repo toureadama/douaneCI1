@@ -2,26 +2,29 @@ import streamlit as st
 import pandas as pd
 import pandas as pd
 
-update = False
+update = True
 
 @st.cache_resource
 def load_all_file(update):
-    df_CIAB1 = pd.read_csv('df_CIAB1.csv')
-    df_Scan  = pd.read_csv('df_Scan.csv')
+    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
+    df_Scan      = pd.read_csv('df_Scan.csv')
+    df_BAE_Auto  = pd.read_csv('df_BAE.csv')
     
-    return df_CIAB1, df_Scan
+    return df_CIAB1, df_Scan, df_BAE_Auto
 
-df_CIAB1, df_Scan = load_all_file(update) 
+df_CIAB1, df_Scan, df_BAE_Auto = load_all_file(update) 
 
 
 department = st.sidebar.radio(
     "Choisir le département",
-    ('CIAB1', 'Scanner'))
+    ('CIAB1', 'Scanner', 'BAE'))
 
 if department == 'CIAB1':
     df = df_CIAB1
 elif department == 'Scanner':
     df = df_Scan
+elif department == 'BAE':
+    df = df_BAE_Auto
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 

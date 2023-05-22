@@ -2,26 +2,29 @@ import streamlit as st
 import pandas as pd
 import pandas as pd
 
-update = False
+update = True
 
 @st.cache_resource
 def load_all_file(update):
-    df_CIAB1 = pd.read_csv('df_CIAB1.csv')
-    df_Scan  = pd.read_csv('df_Scan.csv')
+    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
+    df_Scan      = pd.read_csv('df_Scan.csv')
+    df_BAE_Auto  = pd.read_csv('df_BAE.csv')
     
-    return df_CIAB1, df_Scan
+    return df_CIAB1, df_Scan, df_BAE_Auto
 
-df_CIAB1, df_Scan = load_all_file(update) 
+df_CIAB1, df_Scan, df_BAE_Auto = load_all_file(update) 
 
 
 department = st.sidebar.radio(
     "Choisir le département",
-    ('CIAB1', 'Scanner'))
+    ('CIAB1', 'Scanner', 'BAE'))
 
 if department == 'CIAB1':
     df = df_CIAB1
 elif department == 'Scanner':
     df = df_Scan
+elif department == 'BAE':
+    df = df_BAE_Auto
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 
@@ -62,18 +65,18 @@ Comp = df[
 
 # Modiffication pour l'affichage de certaines données
 #col_dec = ['D&T', 'Val FOB', 'Val CAF', 'Pds Brut', 'Pds Net', 'fret']
-Comp.loc[:, 'D&T']      = Comp['D&T'].map('{:,d}'.format)
-Comp.loc[:, 'Val FOB']  = Comp['Val FOB'].map('{:,d}'.format)
-Comp.loc[:, 'Val CAF']  = Comp['Val CAF'].map('{:,d}'.format)
-Comp.loc[:, 'Pds Brut'] = Comp['Pds Brut'].map('{:,d}'.format)
-Comp.loc[:, 'Pds Net']  = Comp['Pds Net'].map('{:,d}'.format)
-Comp.loc[:, 'fret']     = Comp['fret'].map('{:,d}'.format)
+#Comp.loc[:, 'D&T']      = Comp['D&T'].map('{:,d}'.format)
+#Comp.loc[:, 'Val FOB']  = Comp['Val FOB'].map('{:,d}'.format)
+#Comp.loc[:, 'Val CAF']  = Comp['Val CAF'].map('{:,d}'.format)
+#Comp.loc[:, 'Pds Brut'] = Comp['Pds Brut'].map('{:,d}'.format)
+#Comp.loc[:, 'Pds Net']  = Comp['Pds Net'].map('{:,d}'.format)
+#Comp.loc[:, 'fret']     = Comp['fret'].map('{:,d}'.format)
 
 #col_mille = ['D&T_tx', 'PU', 'PU_moy', 'Ecart']
-Comp.loc[:, 'D&T_tx'] = Comp['D&T_tx'].map('{:.2f}'.format)
-Comp.loc[:, 'PU']     = Comp['PU'].map('{:.2f}'.format)
-Comp.loc[:, 'PU_moy'] = Comp['PU_moy'].map('{:.2f}'.format)
-Comp.loc[:, 'Ecart']  = Comp['Ecart'].map('{:.2f}'.format)
+#Comp.loc[:, 'D&T_tx'] = Comp['D&T_tx'].map('{:.2f}'.format)
+#Comp.loc[:, 'PU']     = Comp['PU'].map('{:.2f}'.format)
+#Comp.loc[:, 'PU_moy'] = Comp['PU_moy'].map('{:.2f}'.format)
+#Comp.loc[:, 'Ecart']  = Comp['Ecart'].map('{:.2f}'.format)
 
 st.write(f"Quelques exemples de déclarations de la même catégorie.")
 st.write(Comp.T)
