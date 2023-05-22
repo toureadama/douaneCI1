@@ -2,14 +2,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+update = False
+
 @st.cache_resource
-def load_all_file():
+def load_all_file(update):
     df_CIAB1 = pd.read_csv('df_CIAB1.csv')
     df_Scan  = pd.read_csv('df_Scan.csv')
     
     return df_CIAB1, df_Scan
 
-df_CIAB1, df_Scan = load_all_file() 
+df_CIAB1, df_Scan = load_all_file(update) 
 
 
 department = st.sidebar.radio(
