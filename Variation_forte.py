@@ -25,6 +25,8 @@ elif department == 'Scanner':
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 
+st.write(df.columns)
+
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 # Seuil critique de x fois la moyenne du groupe
