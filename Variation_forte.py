@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-update = True
+update = False
 
 @st.cache_resource
 def load_all_file(update):
@@ -9,10 +9,9 @@ def load_all_file(update):
     df_Scan      = pd.read_csv('df_Scan.csv')
     #df_BAE_Auto  = pd.read_csv('df_BAE.csv')
     
-    return df_CIAB1, df_Scan#, df_BAE_Auto
+    return df_CIAB1, df_Scan
 
 df_CIAB1, df_Scan = load_all_file(update) 
-
 
 department = st.sidebar.radio(
     "Choisir le département",
