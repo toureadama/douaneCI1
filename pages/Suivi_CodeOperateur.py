@@ -32,7 +32,7 @@ df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 Operateur = st.sidebar.selectbox(
     'Code Opérateur',
-    df['Code Opérateur'].unique())
+    df['Code Opérateur'].unique(), index=10)
 
 if Operateur:
     PosTarif = st.sidebar.selectbox(
