@@ -35,10 +35,9 @@ nb_crit = df[df["Ecart"] > seuil]
 pourc = df[df["Ecart"] > seuil].shape[0]/df.shape[0] * 100
 
 st.write(f"Le nombre de déclarations critiques à :red[{seuil:.0f}] fois la moyenne est {nb_crit.shape[0]:.0f} déclarations(s). Ce qui correspond à {pourc:.1f} % de l'ensemble du groupe concerné.")
-st.write(len(nb_crit["PU_moy"]), type(nb_crit["PU_moy"]))
-st.write(nb_crit["PU_moy"])
-st.write(len(nb_crit["Pds Net"]), type(nb_crit["Pds Net"]))
-st.write(nb_crit["Pds Net"])
+
+st.write(nb_crit["PU_moy"] * nb_crit["Pds Net"])
+
 nb_crit["Val FOB moy equivalent"] = nb_crit["PU_moy"] * nb_crit["Pds Net"]
 nb_crit.insert(16, 'Sous_Produit', nb_crit.pop('Sous_Produit'))
 nb_crit.insert(38, 'Val FOB', nb_crit.pop('Val FOB'))
