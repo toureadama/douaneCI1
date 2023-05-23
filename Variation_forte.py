@@ -27,7 +27,8 @@ def load_file(dep):
     else:
         df = df_CIAB1
         
-    df = df.drop(columns=df.columns[0])
+    #df = df.drop(columns=df.columns[0])
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
     # Calcul du frêt
     df = df.dropna()
