@@ -1,32 +1,77 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
-update = False
 
+#st.text_input("Votre mot de passe", key="name")
+
+
+# You can access the value at any point with:
+#if st.session_state.name != "":
+    #st.write("Mot de passe incorrect")
+#else:
 @st.cache_resource
-def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
-    df_Scan      = pd.read_csv('df_Scan.csv')
-    #df_BAE_Auto  = pd.read_csv('df_BAE.csv')
+def load_all_file():
+    df_CIAB1 = pd.read_csv('df_rest.csv')
+    df_Scan  = pd.read_csv('df_Scan.csv')
     
     return df_CIAB1, df_Scan
 
-df_CIAB1, df_Scan = load_all_file(update) 
+df_CIAB1, df_Scan = load_all_file() 
+
+@st.cache_resource
+def load_file(dep):
+    # Chargement du fichier des données
+    if dep == 2:
+        df = df_Scan
+    else:
+        df = df_CIAB1
+        
+    df = df.drop(columns=df.columns[0])
+
+    # Calcul du frêt
+    df = df.dropna()
+    df["fret"] = df["Val CAF"] - df["Val FOB"]
+    # valeur unitaire (Val Fob / Poids net)
+    df = df[df["Pds Net"] != 0]
+    df["PU"] = df["Val FOB"] / df["Pds Net"]
+    # Calcul du taux de la taxe de douane
+    df["D&T_tx"] = df["D&T"].copy()
+    df["D&T_tx"] = df["D&T"] / df["Val CAF"]
+
+    df_mean = df[['Sous_Produit', 'Origine', 'PU']].groupby(['Sous_Produit', 'Origine']).mean()
+    df_min  = df[['Sous_Produit', 'Origine', 'PU']].groupby(['Sous_Produit', 'Origine']).min()
+    df_max  = df[['Sous_Produit', 'Origine', 'PU']].groupby(['Sous_Produit', 'Origine']).max()
+
+    df["PU_moy"] = df["PU"].copy()
+    df["PU_min"] = df["PU"].copy()
+    df["PU_max"] = df["PU"].copy()
+
+    for i in range(df.shape[0]):
+        df["PU_moy"].iloc[i] = df_mean.loc[(df.Sous_Produit.iloc[i], df.Origine.iloc[i])][0]
+        df["PU_min"].iloc[i] = df_min.loc[(df.Sous_Produit.iloc[i], df.Origine.iloc[i])][0]
+        df["PU_max"].iloc[i] = df_max.loc[(df.Sous_Produit.iloc[i], df.Origine.iloc[i])][0]
+
+    df["Ecart"] = df["PU_moy"] / df["PU"]
+    df.insert(16, 'Sous_Produit', df.pop('Sous_Produit'))
+    df.insert(27, 'D&T_tx', df.pop('D&T_tx'))
+
+    return df
 
 department = st.sidebar.radio(
     "Choisir le département",
     ('CIAB1', 'Scanner'))
 
 if department == 'CIAB1':
-    df = df_CIAB1
+    dep = 1
 elif department == 'Scanner':
-    df = df_Scan
+    dep = 2
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 
-st.write(df.columns)
 
-df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+df = load_file(dep)
+
 
 # Seuil critique de x fois la moyenne du groupe
 seuil = st.sidebar.slider('Seuil', 0, 6, 5)
