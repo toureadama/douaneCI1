@@ -39,7 +39,7 @@ st.write(f"Le nombre de déclarations critiques à :red[{seuil:.0f}] fois la moy
 st.write(nb_crit["PU_moy"].sum())
 st.write(nb_crit["Pds Net"].sum())
 
-nb_crit["Val FOB moy equivalent"] = nb_crit["PU_moy"] * nb_crit["Pds Net"]
+#nb_crit["Val FOB moy equivalent"] = nb_crit["PU_moy"] * nb_crit["Pds Net"]
 nb_crit.insert(16, 'Sous_Produit', nb_crit.pop('Sous_Produit'))
 nb_crit.insert(38, 'Val FOB', nb_crit.pop('Val FOB'))
 
