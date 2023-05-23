@@ -35,7 +35,7 @@ nb_crit = df[df["Ecart"] > seuil]
 pourc = df[df["Ecart"] > seuil].shape[0]/df.shape[0] * 100
 
 st.write(f"Le nombre de déclarations critiques à :red[{seuil:.0f}] fois la moyenne est {nb_crit.shape[0]:.0f} déclarations(s). Ce qui correspond à {pourc:.1f} % de l'ensemble du groupe concerné.")
-st.write(nb_crit.head())
+st.write(nb_crit["PU_moy"])
 nb_crit["Val FOB moy equivalent"] = nb_crit["PU_moy"] * nb_crit["Pds Net"]
 nb_crit.insert(16, 'Sous_Produit', nb_crit.pop('Sous_Produit'))
 nb_crit.insert(38, 'Val FOB', nb_crit.pop('Val FOB'))
@@ -68,20 +68,20 @@ df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libell
 
 # Modiffication pour l'affichage de certaines données
 #col_dec = ['D&T', 'Val FOB', 'Val CAF', 'Pds Brut', 'Pds Net', 'fret']
-df_fourn_libel.loc[:, 'D&T']      = df_fourn_libel['D&T'].map('{:,d}'.format)
-df_fourn_libel.loc[:, 'Val FOB']  = df_fourn_libel['Val FOB'].map('{:,d}'.format)
-df_fourn_libel.loc[:, 'Val CAF']  = df_fourn_libel['Val CAF'].map('{:,d}'.format)
-df_fourn_libel.loc[:, 'Pds Brut'] = df_fourn_libel['Pds Brut'].map('{:,d}'.format)
-df_fourn_libel.loc[:, 'Pds Net']  = df_fourn_libel['Pds Net'].map('{:,d}'.format)
-df_fourn_libel.loc[:, 'fret']     = df_fourn_libel['fret'].map('{:,d}'.format)
+#df_fourn_libel.loc[:, 'D&T']      = df_fourn_libel['D&T'].map('{:,d}'.format)
+#df_fourn_libel.loc[:, 'Val FOB']  = df_fourn_libel['Val FOB'].map('{:,d}'.format)
+#df_fourn_libel.loc[:, 'Val CAF']  = df_fourn_libel['Val CAF'].map('{:,d}'.format)
+#df_fourn_libel.loc[:, 'Pds Brut'] = df_fourn_libel['Pds Brut'].map('{:,d}'.format)
+#df_fourn_libel.loc[:, 'Pds Net']  = df_fourn_libel['Pds Net'].map('{:,d}'.format)
+#df_fourn_libel.loc[:, 'fret']     = df_fourn_libel['fret'].map('{:,d}'.format)
 
 #col_mille = ['D&T_tx', 'PU', 'PU_moy', 'Ecart']
-df_fourn_libel.loc[:, 'D&T_tx'] = df_fourn_libel['D&T_tx'].map('{:.2f}'.format)
-df_fourn_libel.loc[:, 'PU']     = df_fourn_libel['PU'].map('{:.2f}'.format)
-df_fourn_libel.loc[:, 'PU_moy'] = df_fourn_libel['PU_moy'].map('{:.2f}'.format)
-df_fourn_libel.loc[:, 'PU_min'] = df_fourn_libel['PU_min'].map('{:.2f}'.format)
-df_fourn_libel.loc[:, 'PU_max'] = df_fourn_libel['PU_max'].map('{:.2f}'.format)
-df_fourn_libel.loc[:, 'Ecart']  = df_fourn_libel['Ecart'].map('{:.2f}'.format)
+#df_fourn_libel.loc[:, 'D&T_tx'] = df_fourn_libel['D&T_tx'].map('{:.2f}'.format)
+#df_fourn_libel.loc[:, 'PU']     = df_fourn_libel['PU'].map('{:.2f}'.format)
+#df_fourn_libel.loc[:, 'PU_moy'] = df_fourn_libel['PU_moy'].map('{:.2f}'.format)
+#df_fourn_libel.loc[:, 'PU_min'] = df_fourn_libel['PU_min'].map('{:.2f}'.format)
+#df_fourn_libel.loc[:, 'PU_max'] = df_fourn_libel['PU_max'].map('{:.2f}'.format)
+#df_fourn_libel.loc[:, 'Ecart']  = df_fourn_libel['Ecart'].map('{:.2f}'.format)
 
 st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
 df_fourn_libel.T
