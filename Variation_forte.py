@@ -1,30 +1,30 @@
 import streamlit as st
 import pandas as pd
 
-update = True
+update = False
 
 @st.cache_resource
 def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_rest.csv')
+    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
     df_Scan      = pd.read_csv('df_Scan.csv')
-    df_BAE_Auto  = pd.read_csv('df_BAE.csv')
+    #df_BAE_Auto  = pd.read_csv('df_BAE.csv')
     
-    return df_CIAB1, df_Scan, df_BAE_Auto
+    return df_CIAB1, df_Scan
 
-df_CIAB1, df_Scan, df_BAE_Auto = load_all_file(update) 
+df_CIAB1, df_Scan = load_all_file(update) 
 
 department = st.sidebar.radio(
     "Choisir le département",
-    ('CIAB1', 'Scanner', 'BAE'))
+    ('CIAB1', 'Scanner'))
 
 if department == 'CIAB1':
     df = df_CIAB1
 elif department == 'Scanner':
     df = df_Scan
-elif department == 'BAE':
-    df = df_BAE_Auto
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
+
+st.write(df.columns)
 
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
@@ -36,12 +36,10 @@ pourc = df[df["Ecart"] > seuil].shape[0]/df.shape[0] * 100
 
 st.write(f"Le nombre de déclarations critiques à :red[{seuil:.0f}] fois la moyenne est {nb_crit.shape[0]:.0f} déclarations(s). Ce qui correspond à {pourc:.1f} % de l'ensemble du groupe concerné.")
 
-st.write(nb_crit["PU_moy"].sum())
-st.write(nb_crit["Pds Net"].sum())
-
-#nb_crit["Val FOB moy equivalent"] = nb_crit["PU_moy"] * nb_crit["Pds Net"]
+nb_crit["Val FOB moy equivalent"] = nb_crit["PU_moy"] * nb_crit["Pds Net"]
 nb_crit.insert(16, 'Sous_Produit', nb_crit.pop('Sous_Produit'))
 nb_crit.insert(38, 'Val FOB', nb_crit.pop('Val FOB'))
+
 
 declaration = st.sidebar.selectbox(
     'Choisir la déclaration',
@@ -71,20 +69,20 @@ df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libell
 
 # Modiffication pour l'affichage de certaines données
 #col_dec = ['D&T', 'Val FOB', 'Val CAF', 'Pds Brut', 'Pds Net', 'fret']
-#df_fourn_libel.loc[:, 'D&T']      = df_fourn_libel['D&T'].map('{:,d}'.format)
-#df_fourn_libel.loc[:, 'Val FOB']  = df_fourn_libel['Val FOB'].map('{:,d}'.format)
-#df_fourn_libel.loc[:, 'Val CAF']  = df_fourn_libel['Val CAF'].map('{:,d}'.format)
-#df_fourn_libel.loc[:, 'Pds Brut'] = df_fourn_libel['Pds Brut'].map('{:,d}'.format)
-#df_fourn_libel.loc[:, 'Pds Net']  = df_fourn_libel['Pds Net'].map('{:,d}'.format)
-#df_fourn_libel.loc[:, 'fret']     = df_fourn_libel['fret'].map('{:,d}'.format)
+df_fourn_libel.loc[:, 'D&T']      = df_fourn_libel['D&T'].map('{:,d}'.format)
+df_fourn_libel.loc[:, 'Val FOB']  = df_fourn_libel['Val FOB'].map('{:,d}'.format)
+df_fourn_libel.loc[:, 'Val CAF']  = df_fourn_libel['Val CAF'].map('{:,d}'.format)
+df_fourn_libel.loc[:, 'Pds Brut'] = df_fourn_libel['Pds Brut'].map('{:,d}'.format)
+df_fourn_libel.loc[:, 'Pds Net']  = df_fourn_libel['Pds Net'].map('{:,d}'.format)
+df_fourn_libel.loc[:, 'fret']     = df_fourn_libel['fret'].map('{:,d}'.format)
 
 #col_mille = ['D&T_tx', 'PU', 'PU_moy', 'Ecart']
-#df_fourn_libel.loc[:, 'D&T_tx'] = df_fourn_libel['D&T_tx'].map('{:.2f}'.format)
-#df_fourn_libel.loc[:, 'PU']     = df_fourn_libel['PU'].map('{:.2f}'.format)
-#df_fourn_libel.loc[:, 'PU_moy'] = df_fourn_libel['PU_moy'].map('{:.2f}'.format)
-#df_fourn_libel.loc[:, 'PU_min'] = df_fourn_libel['PU_min'].map('{:.2f}'.format)
-#df_fourn_libel.loc[:, 'PU_max'] = df_fourn_libel['PU_max'].map('{:.2f}'.format)
-#df_fourn_libel.loc[:, 'Ecart']  = df_fourn_libel['Ecart'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'D&T_tx'] = df_fourn_libel['D&T_tx'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'PU']     = df_fourn_libel['PU'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'PU_moy'] = df_fourn_libel['PU_moy'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'PU_min'] = df_fourn_libel['PU_min'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'PU_max'] = df_fourn_libel['PU_max'].map('{:.2f}'.format)
+df_fourn_libel.loc[:, 'Ecart']  = df_fourn_libel['Ecart'].map('{:.2f}'.format)
 
 st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
 df_fourn_libel.T
