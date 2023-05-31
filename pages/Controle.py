@@ -50,13 +50,38 @@ if PosTarif :
 PdsNet = st.sidebar.number_input(
     'Renseigner le poids net (kgs)', 0)
 
+ValeurFOB = st.sidebar.number_input(
+    'Renseigner la valeur FOB')
+
+exch = st.sidebar.number_input(
+    'Renseigner le taux de change de la devise du FOB et le FCFA', 1.00)
+
 Val_moy = df[
     (df["Produit"] == PosTarif) 
     & (df["Sous_Produit"] == Libelle) 
     & (df["Origine"] == Origin)]["PU_moy"].unique()[0]
 
+Val_min = df[
+    (df["Produit"] == PosTarif) 
+    & (df["Sous_Produit"] == Libelle) 
+    & (df["Origine"] == Origin)]["PU_min"].unique()[0]
+
+Val_max = df[
+    (df["Produit"] == PosTarif) 
+    & (df["Sous_Produit"] == Libelle) 
+    & (df["Origine"] == Origin)]["PU_max"].unique()[0]
+
+ValFOBref = PdsNet * Val_moy
+
 st.write(f"La valeur FOB moyenne doit être:")
-st.header(f"**:blue[{PdsNet * Val_moy:,.0f}]** FCFA")
+st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
+st.write(f"La valeur FOB minimale :blue[{PdsNet * Val_min:,.0f}]** FCFA")
+st.write(f"La valeur FOB maximale :blue[{PdsNet * Val_max:,.0f}]** FCFA")
+
+ValDD = ValFOBref - ValeurFOB * exch
+if ValDD > 0:
+    st.write(f"La valeur FOB déclarée par l'opérateur est de **:blue[{ValeurFOB * exch:,.0f}]** FCFA. Elle est sous-évaluée. Donc, ")
+    st.write(f"la valeur taxable du DC est :red[{ValDD:,.0f}] FCFA")
 
 Comp = df[
     (df["Produit"] == PosTarif) 
@@ -66,7 +91,6 @@ Comp = df[
 Comp.loc[:, "Pds Net Rel"] = abs(Comp.loc[:, "Pds Net"] - PdsNet)
 Comp.sort_values(by=["Pds Net Rel"], inplace=True)
 Comp.drop(columns=["Pds Net Rel"], inplace=True)
-Comp.loc[:, 'Pds Net']  = Comp['Pds Net'].map('{:,d}'.format)
 
 st.write(f"Quelques exemples de déclarations de la même catégorie.")
 st.write(Comp.T)
