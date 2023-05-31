@@ -30,7 +30,7 @@ else:
     st.sidebar.write("Veuillez sélectionner le département.")
         
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-df.loc[:, 'Pds Net']  = df.loc[:, 'Pds Net'].map('{:,d}'.format)
+#df.loc[:, 'Pds Net']  = df.loc[:, 'Pds Net'].map('{:,d}'.format)
 
 # Seuil critique de x fois la moyenne du groupe
 seuil = st.sidebar.slider('Seuil', 0, 6, 5)
