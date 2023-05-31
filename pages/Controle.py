@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-update = True
+update = False
 
 @st.cache_resource
 def load_all_file(update):
