@@ -10,6 +10,7 @@ show_pages([
     Page("pages/Variation_CIAB6.py","Variation6")
 ])
 
+# Listes des mots de passe par département
 list_MDP       = ['BONJOUR' , 'BONSOIR', 'X', 'Y', 'Z' ]
 list_MDP_CIAB1 = ['BONJOUR1', 'BONSOIR1', 'A', 'B', 'C', 'D', 'E']
 list_MDP_CIAB3 = ['BONJOUR3', 'BONSOIR3', 'CIAB3']
