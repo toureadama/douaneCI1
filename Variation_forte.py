@@ -1,102 +1,34 @@
 import streamlit as st
-import pandas as pd
+from streamlit_extras.switch_page_button import switch_page
 from st_pages import Page, show_pages, hide_pages
 
 show_pages([
-    Page("Home.py","Accueil"),
-    Page("pages/Variation_forte.py","Variation"),
-    Page("pages/Suivi_CodeOperateur.py","Suivi"),
-    Page("pages/Controle.py","Contrôle"),
+    Page("Variation_forte.py","Accueil"),
+    Page("pages/Variation.py","Variation"),
+    Page("pages/Variation_CIAB1.py","Variation1"),
+    Page("pages/Variation_CIAB3.py","Variation3"),
+    Page("pages/Variation_CIAB6.py","Variation6")
 ])
 
-#hide_pages(['Accueil', 'Variation', 'Suivi', 'Contrôle'])
+list_MDP       = ['BONJOUR' , 'BONSOIR', 'X', 'Y', 'Z' ]
+list_MDP_CIAB1 = ['BONJOUR1', 'BONSOIR1', 'A', 'B', 'C', 'D', 'E']
+list_MDP_CIAB3 = ['BONJOUR3', 'BONSOIR3', 'CIAB3']
+list_MDP_CIAB6 = ['BONJOUR6', 'BONSOIR6', 'CIAB6']
 
 
-update = False
+hide_pages(['Accueil', 'Variation', 'Variation1', 'Variation3', 'Variation6'])
 
-@st.cache_resource
-def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
-    df_Scan      = pd.read_csv('df_Scan.csv')
-    df_BAE_Auto  = pd.read_csv('df_BAE.csv')
-    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv')
-    df_CIAB3     = pd.read_csv('df_CIAB3.csv')
-    df_Auto3     = pd.read_csv('df_Auto3.csv')
+st.text_input("Votre mot de passe", key="name", type='password')
+
+# You can access the value at any point with:
+if st.session_state.name in list_MDP:
+    switch_page('Variation')
+elif st.session_state.name in list_MDP_CIAB1:
+    switch_page('Variation1')
+elif st.session_state.name in list_MDP_CIAB3:
+    switch_page('Variation3')
+elif st.session_state.name in list_MDP_CIAB6:
+    switch_page('Variation6')
+else:
+    st.write("Mot de passe incorrect")
     
-    return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3
-
-df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3 = load_all_file(update) 
-
-department = st.sidebar.radio(
-    "Choisir le département",
-    ('CIAB1', 'CIAB1_Scanner', 'CIAB1_Auto', 'CIAB6_neuf', 'CIAB3', 'CIAB3_Auto'))
-
-if department == 'CIAB1':
-    df = df_CIAB1
-elif department == 'CIAB1_Scanner':
-    df = df_Scan
-elif department == 'CIAB1_Auto':
-    df = df_BAE_Auto
-elif department == 'CIAB6_neuf':
-    df = df_CIAB6_neuf
-elif department == 'CIAB3':
-    df = df_CIAB3
-elif department == 'CIAB3_Auto':
-    df = df_Auto3
-else:
-    st.sidebar.write("Veuillez sélectionner le département.")
-        
-df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-#df.loc[:, 'Pds Net']  = df.loc[:, 'Pds Net'].map('{:,d}'.format)
-
-# Seuil critique de x fois la moyenne du groupe
-seuil = st.sidebar.slider('Seuil', 0, 6, 5)
-
-nb_crit = df[df["Ecart"] > seuil]
-pourc = df[df["Ecart"] > seuil].shape[0]/df.shape[0] * 100
-
-st.write(f"Le nombre de déclarations critiques à :red[{seuil:.0f}] fois la moyenne est {nb_crit.shape[0]:.0f} déclarations(s). Ce qui correspond à {pourc:.1f} % de l'ensemble du groupe concerné.")
-
-nb_crit.insert(16, 'Sous_Produit', nb_crit.pop('Sous_Produit'))
-nb_crit.insert(38, 'Val FOB', nb_crit.pop('Val FOB'))
-
-
-declaration = st.sidebar.selectbox(
-    'Choisir la déclaration',
-    nb_crit['N°déclaration'])
-
-result = nb_crit[nb_crit['N°déclaration']==declaration].index
-
-if len(result) > 1:
-    st.write(f"Attention, il y a {len(result)} fois cette même déclaration")
-    decla = st.selectbox(
-    'Choisir une position de la déclaration',
-    list(range(len(result))))
-    r = result[decla]
-else:
-    r = result[0]
-
-gt = nb_crit["N°déclaration"][r]
-st.write(f"le numéro de déclaration:{gt}")
-
-Fourn = nb_crit["Fournisseur"][r]
-Pos_tarif = nb_crit["Produit"][r]
-Libelle = nb_crit["Sous_Produit"][r]
-st.write(f"Le fournisseur: **{Fourn}**")
-st.write(f"La position tarifaire:     **{Pos_tarif}**--- **{Libelle}**.")
-
-df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libelle)]
-
-
-st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
-df_fourn_libel.T
-
-csv = df_fourn_libel.to_csv(index=False).encode('utf-8')
-
-# download button 1 to download dataframe as csv
-download1 = st.download_button(
-    label="Export sous CSV",
-    data=csv,
-    file_name='Sortie.csv',
-    mime='text/csv'
-)

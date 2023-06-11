@@ -4,9 +4,9 @@ from st_pages import Page, show_pages, hide_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages2/Variation_CIAB6.py","Variation"),
-    Page("pages2/ControleCIAB6.py","Contrôle"),
-    Page("pages2/Suivi_CodeOperateurCIAB6.py","Suivi Opérateur")
+    Page("pages/Variation_CIAB6.py","Variation"),
+    Page("pages/ControleCIAB6.py","Contrôle"),
+    Page("pages/Suivi_CodeOperateurCIAB6.py","Suivi Opérateur")
 ])
 
 #hide_pages(['Variation',  'Suivi Opérateur'])
