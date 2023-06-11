@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st_pages import Page, show_pages, hide_pages
+from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -8,9 +8,6 @@ show_pages([
     Page("pages/Controle.py","Contrôle"),
     Page("pages/Suivi_CodeOperateur.py","Suivi Opérateur")
 ])
-
-#hide_pages(['Contrôle', 'Suivi Opérateur'])
-
 
 update = False
 
