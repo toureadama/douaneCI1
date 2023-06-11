@@ -21,87 +21,91 @@ def load_all_file(update):
 
 df_CIAB1, df_Scan = load_all_file(update) 
 
-department = st.sidebar.radio(
-        "Choisir le département",
-        ('CIAB1', 'Scanner'))
+# Obligation de fournir le numéro de la déclaration
+NumDecla = st.sidebar.text_input("Renseigner le numéro de déclaration")
 
-if department == 'CIAB1':
-    df = df_CIAB1
-elif department == 'Scanner':
-    df = df_Scan
-else:
-    st.sidebar.write("Veuillez sélectionner le département.")
+if NumDecla :
+    department = st.sidebar.radio(
+            "Choisir le département",
+            ('CIAB1', 'Scanner'))
 
-df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    if department == 'CIAB1':
+        df = df_CIAB1
+    elif department == 'Scanner':
+        df = df_Scan
+    else:
+        st.sidebar.write("Veuillez sélectionner le département.")
 
-PosTarif = st.sidebar.selectbox(
-    'Choisir la position tarifaire',
-    df['Produit'].unique())
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-if PosTarif :
-    Libelle = st.sidebar.selectbox(
-        'Choisir le libellé TEC',
-        df[df['Produit']==PosTarif]['Sous_Produit'].unique())
+    PosTarif = st.sidebar.selectbox(
+        'Choisir la position tarifaire',
+        df['Produit'].unique())
 
-    if Libelle:
-        Origin = st.sidebar.selectbox(
-            'Origine du produit',
-            df[(df['Produit']==PosTarif) & (df["Sous_Produit"] == Libelle)]['Origine'].unique())
+    if PosTarif :
+        Libelle = st.sidebar.selectbox(
+            'Choisir le libellé TEC',
+            df[df['Produit']==PosTarif]['Sous_Produit'].unique())
 
-PdsNet = st.sidebar.number_input(
-    'Renseigner le poids net (kgs)', 0)
+        if Libelle:
+            Origin = st.sidebar.selectbox(
+                'Origine du produit',
+                df[(df['Produit']==PosTarif) & (df["Sous_Produit"] == Libelle)]['Origine'].unique())
 
-ValeurFOB = st.sidebar.number_input(
-    'Renseigner la valeur FOB')
+    PdsNet = st.sidebar.number_input(
+        'Renseigner le poids net (kgs)', 0)
 
-exch = st.sidebar.number_input(
-    'Renseigner le taux de change de la devise du FOB et le FCFA', 1.00)
+    ValeurFOB = st.sidebar.number_input(
+        'Renseigner la valeur FOB')
 
-Val_moy = df[
-    (df["Produit"] == PosTarif) 
-    & (df["Sous_Produit"] == Libelle) 
-    & (df["Origine"] == Origin)]["PU_moy"].unique()[0]
+    exch = st.sidebar.number_input(
+        'Renseigner le taux de change de la devise du FOB et le FCFA', 1.00)
 
-Val_min = df[
-    (df["Produit"] == PosTarif) 
-    & (df["Sous_Produit"] == Libelle) 
-    & (df["Origine"] == Origin)]["PU_min"].unique()[0]
+    Val_moy = df[
+        (df["Produit"] == PosTarif) 
+        & (df["Sous_Produit"] == Libelle) 
+        & (df["Origine"] == Origin)]["PU_moy"].unique()[0]
 
-Val_max = df[
-    (df["Produit"] == PosTarif) 
-    & (df["Sous_Produit"] == Libelle) 
-    & (df["Origine"] == Origin)]["PU_max"].unique()[0]
+    Val_min = df[
+        (df["Produit"] == PosTarif) 
+        & (df["Sous_Produit"] == Libelle) 
+        & (df["Origine"] == Origin)]["PU_min"].unique()[0]
 
-ValFOBref = PdsNet * Val_moy
+    Val_max = df[
+        (df["Produit"] == PosTarif) 
+        & (df["Sous_Produit"] == Libelle) 
+        & (df["Origine"] == Origin)]["PU_max"].unique()[0]
 
-st.write(f"La valeur FOB moyenne doit être:")
-st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
-st.write(f"La valeur FOB minimale :blue[{PdsNet * Val_min:,.0f}] FCFA")
-st.write(f"La valeur FOB maximale :blue[{PdsNet * Val_max:,.0f}] FCFA")
+    ValFOBref = PdsNet * Val_moy
 
-ValDD = ValFOBref - ValeurFOB * exch
-if ValDD > 0:
-    st.write(f"La valeur FOB déclarée par l'opérateur est de **:blue[{ValeurFOB * exch:,.0f}]** FCFA. Elle est sous-évaluée. Donc, ")
-    st.write(f"la valeur taxable du DC est :red[{ValDD:,.0f}] FCFA")
+    st.write(f"La valeur FOB moyenne doit être:")
+    st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
+    st.write(f"La valeur FOB minimale :blue[{PdsNet * Val_min:,.0f}] FCFA")
+    st.write(f"La valeur FOB maximale :blue[{PdsNet * Val_max:,.0f}] FCFA")
 
-Comp = df[
-    (df["Produit"] == PosTarif) 
-    & (df["Sous_Produit"] == Libelle) 
-    & (df["Origine"] == Origin)]
+    ValDD = ValFOBref - ValeurFOB * exch
+    if ValDD > 0:
+        st.write(f"La valeur FOB déclarée par l'opérateur est de **:blue[{ValeurFOB * exch:,.0f}]** FCFA. Elle est sous-évaluée. Donc, ")
+        st.write(f"la valeur taxable du DC est :red[{ValDD:,.0f}] FCFA")
 
-Comp.loc[:, "Pds Net Rel"] = abs(Comp.loc[:, "Pds Net"] - PdsNet)
-Comp.sort_values(by=["Pds Net Rel"], inplace=True)
-Comp.drop(columns=["Pds Net Rel"], inplace=True)
+    Comp = df[
+        (df["Produit"] == PosTarif) 
+        & (df["Sous_Produit"] == Libelle) 
+        & (df["Origine"] == Origin)]
 
-st.write(f"Quelques exemples de déclarations de la même catégorie.")
-st.write(Comp.T)
+    Comp.loc[:, "Pds Net Rel"] = abs(Comp.loc[:, "Pds Net"] - PdsNet)
+    Comp.sort_values(by=["Pds Net Rel"], inplace=True)
+    Comp.drop(columns=["Pds Net Rel"], inplace=True)
 
-csv = Comp.to_csv(index=False).encode('utf-8')
+    st.write(f"Quelques exemples de déclarations de la même catégorie.")
+    st.write(Comp.T)
 
-# download button 1 to download dataframe as csv
-download1 = st.download_button(
-    label="Export sous CSV",
-    data=csv,
-    file_name='Sortie.csv',
-    mime='text/csv'
-)
+    csv = Comp.to_csv(index=False).encode('utf-8')
+
+    # download button 1 to download dataframe as csv
+    download1 = st.download_button(
+        label="Export sous CSV",
+        data=csv,
+        file_name='Sortie.csv',
+        mime='text/csv'
+    )
