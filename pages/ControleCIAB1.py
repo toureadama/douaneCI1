@@ -98,7 +98,7 @@ if NumDecla :
     Comp.drop(columns=["Pds Net Rel"], inplace=True)
 
     # Appréciation de la suspicion
-    st.write("Suspicion confirmée?")
+    st.markdown(":red[Suspicion confirmée?]")
     col1, col2 = st.columns(2)
     col1.checkbox('Oui')
     col2.checkbox('Non')
