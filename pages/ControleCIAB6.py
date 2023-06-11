@@ -85,6 +85,12 @@ if NumDecla :
     Comp.sort_values(by=["Pds Net Rel"], inplace=True)
     Comp.drop(columns=["Pds Net Rel"], inplace=True)
 
+    # Appréciation de la suspicion
+    st.write("Suspicion confirmée?")
+    col1, col2 = st.columns(2)
+    col1.checkbox('Oui')
+    col2.checkbox('Non')
+
     st.write(f"Quelques exemples de déclarations de la même catégorie.")
     st.write(Comp.T)
 
