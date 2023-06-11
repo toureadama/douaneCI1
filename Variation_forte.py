@@ -16,7 +16,6 @@ list_MDP_CIAB1 = ['BONJOUR1', 'BONSOIR1', 'A', 'B', 'C', 'D', 'E']
 list_MDP_CIAB3 = ['BONJOUR3', 'BONSOIR3', 'CIAB3']
 list_MDP_CIAB6 = ['BONJOUR6', 'BONSOIR6', 'CIAB6']
 
-
 hide_pages(['Accueil', 'Variation', 'Variation1', 'Variation3', 'Variation6'])
 
 st.text_input("Votre mot de passe", key="name", type='password')

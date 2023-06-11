@@ -100,8 +100,10 @@ if NumDecla :
     # Appréciation de la suspicion
     st.markdown(":red[Suspicion confirmée?]")
     col1, col2 = st.columns(2)
-    col1.checkbox('Oui')
-    col2.checkbox('Non')
+    if col1.checkbox('Oui'):
+        col2.checkbox('Non', disabled=False)
+    if col2.checkbox('Oui'):
+        col1.checkbox('Non', disabled=False)
 
 
     st.write(f"Quelques exemples de déclarations de la même catégorie.")
