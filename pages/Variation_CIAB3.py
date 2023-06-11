@@ -4,50 +4,24 @@ from st_pages import Page, show_pages, hide_pages
 
 show_pages([
     Page("Home.py","Accueil"),
-    Page("pages/Variation_forte.py","Variation"),
-    Page("pages/Suivi_CodeOperateur.py","Suivi"),
-    Page("pages/Controle.py","Contrôle"),
+    Page("pages2/Variation_CIAB3.py","Variation"),
+    Page("pages2/ControleCIAB3.py","Contrôle"),
+    Page("pages2/Suivi_CodeOperateurCIAB3.py","Suivi Opérateur")
 ])
 
-#hide_pages(['Accueil', 'Variation', 'Suivi', 'Contrôle'])
-
+#hide_pages(['Contrôle', 'Suivi Opérateur'])
 
 update = False
 
-@st.cache_resource
+@st.cache_resource 
 def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
-    df_Scan      = pd.read_csv('df_Scan.csv')
-    df_BAE_Auto  = pd.read_csv('df_BAE.csv')
-    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv')
-    df_CIAB3     = pd.read_csv('df_CIAB3.csv')
-    df_Auto3     = pd.read_csv('df_Auto3.csv')
+    df  = pd.read_csv('df_CIAB3.csv')
     
-    return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3
+    return df
 
-df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3 = load_all_file(update) 
-
-department = st.sidebar.radio(
-    "Choisir le département",
-    ('CIAB1', 'CIAB1_Scanner', 'CIAB1_Auto', 'CIAB6_neuf', 'CIAB3', 'CIAB3_Auto'))
-
-if department == 'CIAB1':
-    df = df_CIAB1
-elif department == 'CIAB1_Scanner':
-    df = df_Scan
-elif department == 'CIAB1_Auto':
-    df = df_BAE_Auto
-elif department == 'CIAB6_neuf':
-    df = df_CIAB6_neuf
-elif department == 'CIAB3':
-    df = df_CIAB3
-elif department == 'CIAB3_Auto':
-    df = df_Auto3
-else:
-    st.sidebar.write("Veuillez sélectionner le département.")
+df = load_all_file(update) 
         
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-#df.loc[:, 'Pds Net']  = df.loc[:, 'Pds Net'].map('{:,d}'.format)
 
 # Seuil critique de x fois la moyenne du groupe
 seuil = st.sidebar.slider('Seuil', 0, 6, 5)
