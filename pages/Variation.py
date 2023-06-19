@@ -84,16 +84,21 @@ st.write(f"La position tarifaire:     **{Pos_tarif}**--- **{Libelle}**.")
 
 df_fourn_libel = df[(df["Fournisseur"] == Fourn) & (df["Sous_Produit"] == Libelle)]
 
+# Excure la déclaration comparée de la liste des déclarations équivalentes
+df_fourn_libel = df_fourn_libel[df_fourn_libel["N°déclaration"] != declaration]
 
-st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
-df_fourn_libel.T
+if df_fourn_libel.shape[0] > 0:
+    st.write("Nombre de déclarations équivalente:", df_fourn_libel.shape[0])
+    df_fourn_libel.T
 
-csv = df_fourn_libel.to_csv(index=False).encode('utf-8')
+    csv = df_fourn_libel.to_csv(index=False).encode('utf-8')
 
-# download button 1 to download dataframe as csv
-download1 = st.download_button(
-    label="Export sous CSV",
-    data=csv,
-    file_name='Sortie.csv',
-    mime='text/csv'
-)
+    # download button 1 to download dataframe as csv
+    download1 = st.download_button(
+        label="Export sous CSV",
+        data=csv,
+        file_name='Sortie.csv',
+        mime='text/csv'
+    )
+else:
+    st.write(f":red[Il n'existe pas d'autre déclaration avec la même position tarifaire achetée chez le même fournisseur.]")
