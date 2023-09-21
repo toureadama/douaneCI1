@@ -49,7 +49,7 @@ ValFOB_max = df_moy[
     (df_moy["Produit"] == PosTarif) 
     & (df_moy["Origine"] == Origin)]['PU_max'].iloc[0] * PdsNet
 
-st.write(f"La valeur FOB doit être:")
+st.write(f"La valeur FOB doit être d'environ:")
 st.subheader(f"**:blue[{ValFOB_moy:,.0f}]** FCFA")
 
 #st.write(f"Elle doit être comprise entre **:blue[{ValFOB_min:,.0f}]** FCFA et **:blue[{ValFOB_max:,.0f}]** FCFA")
