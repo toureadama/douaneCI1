@@ -7,7 +7,7 @@ show_pages([
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau")
 ])
 
-update = True
+update = False
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
@@ -23,6 +23,33 @@ PosTarif = st.sidebar.selectbox(
     'Choisir la position tarifaire',
     df_moy['Produit'].unique())
 
+if PosTarif :
+    Origin = st.sidebar.selectbox(
+        'Choisir la provenance du produit',
+        df_moy[df_moy['Produit']==PosTarif]['Origine'].unique())
 
+st.write(f"Quelques statistiques unitaires sur ce produit.")
 
+st.write(df_moy[(df_moy["Produit"] == PosTarif) 
+                & (df_moy["Origine"] == Origin)][['Sous_Produit', 'PU_moy', 
+                                                  'PU_min', 'PU_max', 'PU_med']])
 
+PdsNet = st.number_input(
+    'Renseigner le poids net (kgs)', 0)
+
+ValFOB_moy = df_moy[
+    (df_moy["Produit"] == PosTarif) 
+    & (df_moy["Origine"] == Origin)]['PU_moy'].iloc[0] * PdsNet
+
+ValFOB_min = df_moy[
+    (df_moy["Produit"] == PosTarif) 
+    & (df_moy["Origine"] == Origin)]['PU_min'].iloc[0] * PdsNet
+
+ValFOB_max = df_moy[
+    (df_moy["Produit"] == PosTarif) 
+    & (df_moy["Origine"] == Origin)]['PU_max'].iloc[0] * PdsNet
+
+st.write(f"La valeur FOB doit être:")
+st.subheader(f"**:blue[{ValFOB_moy:,.0f}]** FCFA")
+
+#st.write(f"Elle doit être comprise entre **:blue[{ValFOB_min:,.0f}]** FCFA et **:blue[{ValFOB_max:,.0f}]** FCFA")
