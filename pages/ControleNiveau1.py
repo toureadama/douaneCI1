@@ -28,7 +28,7 @@ if PosTarif :
         'Choisir la provenance du produit',
         df_moy[df_moy['Produit']==PosTarif]['Origine'].unique())
 
-st.write(f"Quelques statistiques unitaires sur ce produit.")
+st.write(f"Quelques statistiques unitaires récentes sur cette position tarifaire de cette origine.")
 
 st.write(df_moy[(df_moy["Produit"] == PosTarif) 
                 & (df_moy["Origine"] == Origin)][['Sous_Produit', 'PU_moy', 
