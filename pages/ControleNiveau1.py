@@ -13,11 +13,14 @@ update = False
 @st.cache_resource
 def load_all_file(update):
     df_moy = pd.read_csv('sortie_moy.csv')
-    return df_moy
+    # Chargement des codes SH et libéllés 
+    df_code = pd.read_excel("C:/Users/toure/Desktop/OpenClassrooms/DOUANES CI/TEC_CEDEAO/TEC_CEDEAO_SH_2017_LR_TAXES.xlsx")
+    return df_moy, df_code
 
-df_moy = load_all_file(update) 
+df_moy, df_code = load_all_file(update) 
 
-df_moy = df_moy.loc[:, ~df_moy.columns.str.contains('^Unnamed')]
+df_moy  = df_moy.loc[:, ~df_moy.columns.str.contains('^Unnamed')]
+df_code = df_code.loc[:, ~df_code.columns.str.contains('^Unnamed')]
 
 PosTarif = st.sidebar.selectbox(
     'Choisir la position tarifaire',
@@ -53,3 +56,9 @@ st.write(f"La valeur FOB doit être d'environ:")
 st.subheader(f"**:blue[{ValFOB_moy:,.0f}]** FCFA")
 
 #st.write(f"Elle doit être comprise entre **:blue[{ValFOB_min:,.0f}]** FCFA et **:blue[{ValFOB_max:,.0f}]** FCFA")
+
+PosTarif_code = st.selectbox(
+    'Choisir la position tarifaire',
+    df_code['CODE_SH'].unique())
+
+st.write(df_code[(df_code["CODE_SH"] == PosTarif_code)])
