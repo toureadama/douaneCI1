@@ -7,7 +7,7 @@ show_pages([
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau")
 ])
 
-update = False
+update = True
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource

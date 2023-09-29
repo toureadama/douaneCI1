@@ -109,3 +109,19 @@ if df_fourn_libel.shape[0] > 0:
     )
 else:
     st.write(f":red[Il n'existe pas d'autre déclaration avec la même position tarifaire achetée chez le même fournisseur.]")
+
+
+st.write(nb_crit['N°déclaration'].iloc[2])
+st.write(nb_crit[nb_crit['N°déclaration']== nb_crit['N°déclaration'].iloc[2]].index[0])
+
+def tableau(nb_crit):
+    for i in nb_crit.shape[0]:
+        r = nb_crit[nb_crit['N°déclaration']== nb_crit['N°déclaration'].iloc[i]].index[0]
+        df_fourn_libel = df[
+            (df["Fournisseur"] == nb_crit["Fournisseur"][r]) & (df["Sous_Produit"] == nb_crit["Sous_Produit"][r])]
+        # Excure la déclaration comparée de la liste des déclarations équivalentes
+        df_fourn_libel = df_fourn_libel[
+            df_fourn_libel["N°déclaration"] != nb_crit['N°déclaration'].iloc[i]]
+        df_equiv.iloc[i] = df_fourn_libel.iloc[i]
+    return df_equiv
+       
