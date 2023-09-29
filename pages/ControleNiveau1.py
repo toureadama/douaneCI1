@@ -14,7 +14,7 @@ update = True
 def load_all_file(update):
     df_moy = pd.read_csv('sortie_moy.csv')
     # Chargement des codes SH et libéllés 
-    df_code = pd.read_excel("TEC_CEDEAO_SH_2017_LR_TAXES.xlsx")
+    df_code = pd.read_csv("TEC_CEDEAO_SH_2017_LR_TAXES.csv")
     return df_moy, df_code
 
 df_moy, df_code = load_all_file(update) 
