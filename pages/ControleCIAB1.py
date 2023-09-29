@@ -105,13 +105,15 @@ if NumDecla :
 
     st.write(f"Quelques exemples de déclarations de la même catégorie.")
     st.write(Comp.T)
-
-    csv = Comp.to_csv(index=False).encode('utf-8')
-
-    # download button 1 to download dataframe as csv
-    download1 = st.download_button(
-        label="Export sous CSV",
-        data=csv,
-        file_name='Sortie.csv',
-        mime='text/csv'
-    )
+    
+    def to_excel(df):
+        output = BytesIO()
+        writer = pd.ExcelWriter(output, engine='xlsxwriter')
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+        writer.save()
+        processed_data = output.getvalue()
+        return processed_data
+    df_xlsx = to_excel(Comp)
+    st.download_button(label='Export sous Excel',
+                                    data=df_xlsx ,
+                                    file_name= 'Sortie.xlsx')
