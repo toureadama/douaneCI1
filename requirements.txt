@@ -1,2 +1,5 @@
 st-pages==0.4.1
 streamlit-extras==0.2.7
+streamlit==1.22.0
+pyxlsb==1.0.10
+openpyxl==3.0.10
