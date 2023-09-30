@@ -1,3 +1,14 @@
+import streamlit as st
+import pandas as pd
+from st_pages import Page, show_pages
+from io import BytesIO
+show_pages([
+    Page("Variation_forte.py","Accueil"),
+    Page("pages/Variation.py","Variation"),
+    Page("pages/Controle.py","Contrôle"),
+    Page("pages/Suivi_CodeOperateur.py","Suivi Opérateur")
+])
+
 update = False
 
 # Chargement des fichiers contenant déjà les variables retraitées
