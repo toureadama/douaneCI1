@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
-st.write("hello")
 from st_pages import Page, show_pages
+import xlsxwriter
+from io import BytesIO
+from pyxlsb import open_workbook as open_xlsb
+
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
