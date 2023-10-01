@@ -128,7 +128,7 @@ if NumDecla :
     excel_data = to_excel2(Comp)
     file_name = "sortie.xlsx"
     st.download_button(
-        f"Exporter {file_name}",
+        f"Exporter sous Excel",
         excel_data,
         file_name,
         f"text/{file_name}",
