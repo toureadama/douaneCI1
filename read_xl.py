@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import xlsxwriter
 from io import BytesIO
 
 output = BytesIO()
@@ -8,23 +7,6 @@ output = BytesIO()
 df = pd.read_excel("C:/Users/toure/Desktop/OpenClassrooms/DOUANES CI/TEC_CEDEAO/TEC_CEDEAO_SH_2017_LR_TAXES.xlsx")
 #st.dataframe(df)
 st.write(df.head())
-
-
-# Write files to in-memory strings using BytesIO
-# See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
-workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-worksheet = workbook.add_worksheet()
-
-worksheet.write('A1', 'Hello')
-workbook.close()
-
-st.download_button(
-    label="Download Excel workbook",
-    data=output.getvalue(),
-    file_name="workbook.xlsx",
-    mime="application/vnd.ms-excel"
-)
-
 
 def to_excel(df):
     output = BytesIO()
