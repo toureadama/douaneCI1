@@ -4,7 +4,7 @@ from io import BytesIO
 
 output = BytesIO()
 
-df = pd.read_excel("TEC_CEDEAO/TEC_CEDEAO_SH_2017_LR_TAXES.xlsx")
+df = pd.read_csv("TEC_CEDEAO_SH_2017_LR_TAXES.csv")
 #st.dataframe(df)
 st.write(df.head())
 
