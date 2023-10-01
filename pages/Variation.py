@@ -110,9 +110,10 @@ if df_fourn_libel.shape[0] > 0:
 else:
     st.write(f":red[Il n'existe pas d'autre déclaration avec la même position tarifaire achetée chez le même fournisseur.]")
 
+# Mettre dans un tableau toutes les déclarations avec 3 équivalentes
 
-st.write(nb_crit['N°déclaration'].iloc[2])
-st.write(nb_crit[nb_crit['N°déclaration']== nb_crit['N°déclaration'].iloc[2]].index[0])
+#st.write(nb_crit['N°déclaration'].iloc[2])
+#st.write(nb_crit[nb_crit['N°déclaration']== nb_crit['N°déclaration'].iloc[2]].index[0])
 
 def tableau(nb_crit):
     for i in nb_crit.shape[0]:

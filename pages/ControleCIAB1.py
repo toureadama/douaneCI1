@@ -20,7 +20,7 @@ def load_all_file(update):
     return df_CIAB1, df_Scan
 
 df_CIAB1, df_Scan = load_all_file(update) 
-st.write("hello p")
+
 # Obligation de fournir le numéro de la déclaration
 NumDecla = st.sidebar.text_input("Renseigner le numéro de déclaration")
 
