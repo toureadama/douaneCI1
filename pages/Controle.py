@@ -114,14 +114,7 @@ Comp.drop(columns=["Pds Net Rel"], inplace=True)
 st.write(f"Quelques exemples de déclarations de la même catégorie.")
 st.write(Comp.T)
 
-csv = Comp.to_csv(index=False).encode('utf-8')
-
-download1 = st.download_button(
-    label="Export sous CSV",
-    data=csv,
-    file_name='Sortie.csv',
-    mime='text/csv'
-)
+output = BytesIO()
 
 def to_excel2(df):
     in_memory_fp = BytesIO()
@@ -131,11 +124,11 @@ def to_excel2(df):
     return in_memory_fp.read()
 
 excel_data = to_excel2(Comp)
-file_name = "excel.xlsx"
+file_name = "sortie.xlsx"
 st.download_button(
-    f"Click to download {file_name}",
+    f"Exporter sous Excel",
     excel_data,
     file_name,
     f"text/{file_name}",
-     key=file_name
+    key=file_name
 )
