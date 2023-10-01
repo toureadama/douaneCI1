@@ -115,6 +115,8 @@ if NumDecla :
        # file_name='Sortie.csv',
         #mime='text/csv'
     #)
+    
+    from io import BytesIO
 
     output = BytesIO()
 
