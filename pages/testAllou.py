@@ -12,7 +12,7 @@ def load_all_file(update):
     
     return df
 
-dpp = load_all_file()
+dpp = load_all_file(update)
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
