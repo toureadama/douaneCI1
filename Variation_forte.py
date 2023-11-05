@@ -26,7 +26,7 @@ list_MDP_CIAB7 = ['BONJOUR7', 'BONSOIR7', 'CIAB7']
 list_MDP_ALLOU  = ['BAP']
 
 hide_pages(['Accueil', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7','XL2']) # , 'XL', 'Allou'
+            'Variation3', 'Variation5', 'Variation6', 'Variation7','XL2', 'Allou']) # , 'XL'
 
 st.text_input("Votre mot de passe", key="name", type='password')
 
@@ -35,8 +35,8 @@ if st.session_state.name in list_MDP:
     switch_page('Variation')
 elif st.session_state.name in list_MDP_NIV1:
     switch_page('Contrôle 1er niveau') 
-#elif st.session_state.name in list_MDP_ALLOU:
-    #switch_page('Allou')   
+elif st.session_state.name in list_MDP_ALLOU:
+    switch_page('Allou')   
 elif st.session_state.name in list_MDP_CIAB1:
     switch_page('Variation1')
 elif st.session_state.name in list_MDP_CIAB3:
