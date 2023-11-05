@@ -9,7 +9,7 @@ update = False
 @st.cache_resource
 def load_all_file(update):
     df = pd.read_csv("sortie_viandes_abats.csv")
-    
+    st.write(df.shape)
     return df
 
 dpp = load_all_file(update)
