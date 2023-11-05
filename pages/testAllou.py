@@ -1,7 +1,12 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
 from io import BytesIO
+from st_pages import Page, show_pages
 
+show_pages([
+    Page("Variation_forte.py","Accueil"),
+    Page("pages/testAllou.py","Allou")
+])
 # Chargement et observation du fichier 
 
 update = True
