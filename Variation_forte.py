@@ -15,7 +15,7 @@ show_pages([
     Page("pages/Variation_CIAB7.py","Variation7")
 ])
 
-# Listes des mots de passe par département.
+# Listes des mots de passe par département avec des tests.
 list_MDP_NIV1  = ['OUI' , 'NIV1' ]
 list_MDP       = ['BONJOUR' , 'BONSOIR', 'X', 'Y', 'Z' ]
 list_MDP_CIAB1 = ['BONJOUR1', 'BONSOIR1', 'A', 'B', 'C', 'D', 'E']
