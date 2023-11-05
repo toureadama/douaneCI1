@@ -26,7 +26,7 @@ list_MDP_CIAB7 = ['BONJOUR7', 'BONSOIR7', 'CIAB7']
 list_MDP_ALLOU  = ['BAP']
 
 hide_pages(['Accueil', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7','XL2', 'Allou']) # , 'XL'
+            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'Allou']) # , 'XL','XL2'
 
 st.text_input("Votre mot de passe", key="name", type='password')
 
