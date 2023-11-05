@@ -4,15 +4,15 @@ from io import BytesIO
 
 # Chargement et observation du fichier 
 
-update = False
+update = True
 
-#@st.cache_resource
-def load_all_file(update):
-    df = pd.read_csv("sortie_viandes_abats.csv")
+@st.cache_resource
+def load_file(update):
+    df = pd.read_csv('sortie_viandes_abats.csv')
     st.write(df.shape)
     return df
 
-dpp = load_all_file(update)
+dpp = load_file(update)
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
