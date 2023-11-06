@@ -5,7 +5,8 @@ from st_pages import Page, show_pages, hide_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("read_xl2.py","XL2"),
-    Page("pages/testAllou.py","Allou"),
+    Page("pages/testAllou.py","Recherche"),
+    Page("pages/testAlloupareto.py","Analyse Risques"),
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
     Page("pages/Variation.py","Variation"),
     Page("pages/Variation_CIAB1.py","Variation1"),
@@ -24,9 +25,10 @@ list_MDP_CIAB5 = ['BONJOUR5', 'BONSOIR5', 'CIAB5']
 list_MDP_CIAB6 = ['BONJOUR6', 'BONSOIR6', 'CIAB6']
 list_MDP_CIAB7 = ['BONJOUR7', 'BONSOIR7', 'CIAB7']
 list_MDP_ALLOU  = ['BAP']
+list_MDP_ALLOUPAR  = ['PAR']
 
 hide_pages(['Accueil', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'Allou']) # , 'XL','XL2'
+            'Variation3', 'Variation5', 'Variation6', 'Variation7','XL2', 'Recherche', 'Analyse Risques']) # 
 
 st.text_input("Votre mot de passe", key="name", type='password')
 
@@ -36,7 +38,9 @@ if st.session_state.name in list_MDP:
 elif st.session_state.name in list_MDP_NIV1:
     switch_page('Contrôle 1er niveau') 
 elif st.session_state.name in list_MDP_ALLOU:
-    switch_page('Allou')   
+    switch_page('Recherche')   
+elif st.session_state.name in list_MDP_ALLOUPAR:
+    switch_page('Analyse Risques')   
 elif st.session_state.name in list_MDP_CIAB1:
     switch_page('Variation1')
 elif st.session_state.name in list_MDP_CIAB3:

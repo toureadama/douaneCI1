@@ -5,7 +5,8 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/testAllou.py","Allou")
+    Page("pages/testAllou.py","Recherche"),
+    Page("pages/testAlloupareto.py","Analyse Risques")
 ])
 # Chargement et observation du fichier 
 
@@ -18,6 +19,8 @@ def load_file(update):
     return df
 
 dpp = load_file(update)
+
+dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
