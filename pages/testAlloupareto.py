@@ -54,6 +54,8 @@ download1 = st.download_button(
 
 # Traitement des fraudes en espèces
 
+resultEsp['Position SH'] = resultEsp['Position SH'].map('{:.0f}'.format)
+
 st.write('Tableau pour analyser les déclarations Espèces')
 st.dataframe(resultEsp[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 'nbre déclarations']], use_container_width=True)
 
