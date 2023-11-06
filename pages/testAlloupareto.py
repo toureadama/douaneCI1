@@ -6,7 +6,8 @@ from st_pages import Page, show_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/testAllou.py","Recherche"),
-    Page("pages/testAlloupareto.py","Analyse Risques")
+    Page("pages/testAlloupareto.py","Analyse Risques"),
+    Page("pages/testKarim.py","PU REC")
 ])
 # Chargement et observation du fichier 
 
