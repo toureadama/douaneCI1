@@ -58,10 +58,10 @@ st.dataframe(resultEsp[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 
 
 csv2 = resultEsp.to_csv(index=False).encode('utf-8')
 
-# download button 1 to download dataframe as csv
+# download button 2 to download dataframe as csv
 download2 = st.download_button(
-    label="Export sous CSV",
+    label="Exporter sous CSV",
     data=csv2,
-    file_name='SortieFrm.csv',
+    file_name='SortieEsp.csv',
     mime='text/csv'
 )
