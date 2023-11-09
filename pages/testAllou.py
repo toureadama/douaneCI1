@@ -24,11 +24,16 @@ dpp = load_file(update)
 
 dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
+dpp['Date de la déclaration'] = pd.to_datetime(dpp['Date de la déclaration'])
+
 date_min = min(dpp['Date de la déclaration'])
 date_max = max(dpp['Date de la déclaration'])
 
-#debut = st.sidebar.date_input("Date de début:", min_value=date_min, max_value=date_max)
-#fin   = st.sidebar.date_input("Date de fin:", min_value=date_min, max_value=date_max) 
+debut = st.sidebar.date_input("Date de début:", value=date_min)
+fin   = st.sidebar.date_input("Date de fin:", value=date_max)
+
+dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) & 
+          (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
