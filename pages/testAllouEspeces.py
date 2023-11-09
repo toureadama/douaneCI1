@@ -16,7 +16,7 @@ update = False
 
 @st.cache_resource
 def load_file(update):
-    df = pd.read_csv('C:/Users/toure/Desktop/OpenClassrooms/DOUANES CI/especes.csv')
+    df = pd.read_csv('especes.csv')
     
     return df
 
