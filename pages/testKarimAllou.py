@@ -16,19 +16,13 @@ update = True
 
 @st.cache_resource
 def load_file(update):
-    df = pd.read_csv('sortie_viandes_abats.csv')
+    df = pd.read_csv('mens_sortie_viandes_abats.csv')
     
     return df
 
 dpp = load_file(update)
 
 dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
-
-date_min = min(dpp['Date de la déclaration'])
-date_max = max(dpp['Date de la déclaration'])
-
-#debut = st.sidebar.date_input("Date de début:", min_value=date_min, max_value=date_max)
-#fin   = st.sidebar.date_input("Date de fin:", min_value=date_min, max_value=date_max) 
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
@@ -41,11 +35,10 @@ descMarch = st.sidebar.selectbox(
     resultSH['DESCRIPTION MARCHANDISE'].unique())
 
 resultDesMarch = resultSH[resultSH['DESCRIPTION MARCHANDISE']==descMarch]
+resultDesMarch = resultDesMarch[['Origine', 'PU REC', 'N°Déclaration REC']].drop_duplicates()
 
+st.write('Données de comparaison')
 st.dataframe(resultDesMarch, use_container_width=True)
-st.write('Nombre de champs concernés:', resultDesMarch.shape[0])
-
-# Extraction sous Excel
 
 csv = resultDesMarch.to_csv(index=False).encode('utf-8')
 
@@ -53,6 +46,6 @@ csv = resultDesMarch.to_csv(index=False).encode('utf-8')
 download1 = st.download_button(
     label="Export sous CSV",
     data=csv,
-    file_name='Sortie.csv',
+    file_name='SortieFrm.csv',
     mime='text/csv'
 )

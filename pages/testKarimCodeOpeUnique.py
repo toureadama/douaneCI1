@@ -23,23 +23,17 @@ dpp = load_file(update)
 
 dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
-prod = st.sidebar.selectbox(
-    'Choisir la position tarifaire',
-    dpp['Position SH'].unique())
+codop = st.sidebar.selectbox(
+    'Choisir le code opérateur',
+    dpp['Code opérateur'].unique())
 
-resultSH = dpp[dpp['Position SH']==prod]
+resultcodop = dpp[dpp['Code opérateur']==codop]
+resultcodop = resultcodop[['DESCRIPTION MARCHANDISE', 'Origine', 'PU REC', 'N°Déclaration REC']].drop_duplicates()
+st.dataframe(resultcodop, use_container_width=True)
 
-descMarch = st.sidebar.selectbox(
-    'Choisir la description de la marchandise',
-    resultSH['DESCRIPTION MARCHANDISE'].unique())
+st.write("Nombre de déclarations trouvées :", f"{resultcodop.shape[0]}")
 
-resultDesMarch = resultSH[resultSH['DESCRIPTION MARCHANDISE']==descMarch]
-resultDesMarch = resultDesMarch[['Origine', 'PU REC', 'N°Déclaration REC']].drop_duplicates()
-
-st.write('Données de comparaison')
-st.dataframe(resultDesMarch, use_container_width=True)
-
-csv = resultDesMarch.to_csv(index=False).encode('utf-8')
+csv = resultcodop.to_csv(index=False).encode('utf-8')
 
 # download button 1 to download dataframe as csv
 download1 = st.download_button(

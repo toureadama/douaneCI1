@@ -6,12 +6,13 @@ from st_pages import Page, show_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/testAllou.py","Recherche"),
+    Page("pages/testKarimAllou.py","PU REC"),
     Page("pages/testAlloupareto.py","Analyse Risques"),
-    Page("pages/testKarim.py","PU REC")
+    Page("pages/testAllouEspeces.py","Analyse Espèces")
 ])
 # Chargement et observation du fichier 
 
-update = False
+update = True
 
 @st.cache_resource
 def load_file(update):
