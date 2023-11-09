@@ -9,7 +9,7 @@ show_pages([
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testAlloupareto.py","Analyse Risques"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces")
+    Page("pages/testAllouEspeces.py","Analyse Espèces"),
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
     Page("pages/Variation.py","Variation"),
     Page("pages/Variation_CIAB1.py","Variation1"),
