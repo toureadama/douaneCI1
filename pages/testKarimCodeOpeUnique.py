@@ -29,8 +29,7 @@ codop = st.sidebar.selectbox(
 
 resultcodop = dpp[dpp['Code opérateur']==codop]
 resultcodop = resultcodop[['DESCRIPTION MARCHANDISE', 'Origine', 'PU REC', 'N°Déclaration REC']].drop_duplicates()
-st.write(resultcodop.shape)
-#st.dataframe(resultcodop, use_container_width=True)
+st.dataframe(resultcodop, use_container_width=True)
 
 #st.write("Nombre de déclarations trouvées :", f"{resultcodop.shape[0]}")
 
