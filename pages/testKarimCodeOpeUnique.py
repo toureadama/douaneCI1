@@ -23,6 +23,8 @@ dpp = load_file(update)
 
 dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
+st.write(dpp.columns)
+
 codop = st.sidebar.selectbox(
     'Choisir le code opérateur',
     dpp['Code opérateur'].unique())
