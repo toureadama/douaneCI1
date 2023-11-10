@@ -37,5 +37,3 @@ dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) &
           (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
 
 st.write(dpp.shape)
-
-st.write(dpp.columns)
