@@ -7,7 +7,7 @@ show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testKarimAllou.py","PU REC"),
-    Page("pages/testAlloupareto.py","Analyse Risques"),
+    Page("pages/testAlloupareto.py","Analyse Valeurs"),
     Page("pages/testAllouEspeces.py","Analyse Espèces")
 ])
 # Chargement et observation du fichier 
