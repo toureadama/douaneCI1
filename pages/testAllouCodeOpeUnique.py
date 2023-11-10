@@ -13,7 +13,7 @@ show_pages([
 ])
 # Chargement et observation du fichier 
 
-update = False
+update = True
 
 @st.cache_resource
 def load_file(update):
