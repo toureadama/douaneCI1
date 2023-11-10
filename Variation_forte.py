@@ -8,7 +8,7 @@ show_pages([
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
-    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2")
+    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2"),
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
