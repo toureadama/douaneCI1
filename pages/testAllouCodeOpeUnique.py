@@ -37,23 +37,23 @@ dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) &
           (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
 
 
-codop = st.sidebar.selectbox(
-    'Choisir le code opérateur',
-    dpp['Code opérateur'].unique())
+#codop = st.sidebar.selectbox(
+    #'Choisir le code opérateur',
+    #dpp['Code opérateur'].unique())
 
-resultcodop = dpp[dpp['Code opérateur']==codop]
-resultcodop = resultcodop.drop_duplicates()
+#resultcodop = dpp[dpp['Code opérateur']==codop]
+#resultcodop = resultcodop.drop_duplicates()
 
-st.dataframe(resultcodop, use_container_width=True)
+#st.dataframe(resultcodop, use_container_width=True)
 
-st.write("Nombre de déclarations trouvées :", f"{resultcodop.shape[0]}")
+#st.write("Nombre de déclarations trouvées :", f"{resultcodop.shape[0]}")
 
-csv = resultcodop.to_csv(index=False).encode('utf-8')
+#csv = resultcodop.to_csv(index=False).encode('utf-8')
 
-# download button 1 to download dataframe as csv
-download1 = st.download_button(
-    label="Export sous CSV",
-    data=csv,
-    file_name='SortieFrm.csv',
-    mime='text/csv'
-)
+## download button 1 to download dataframe as csv
+#download1 = st.download_button(
+    #label="Export sous CSV",
+    #data=csv,
+    #file_name='SortieFrm.csv',
+    #mime='text/csv'
+#)
