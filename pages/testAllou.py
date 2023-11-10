@@ -46,6 +46,7 @@ descMarch = st.sidebar.selectbox(
     resultSH['DESCRIPTION MARCHANDISE'].unique())
 
 resultDesMarch = resultSH[resultSH['DESCRIPTION MARCHANDISE']==descMarch]
+st.write(resultDesMarch.columns)
 
 st.dataframe(resultDesMarch, use_container_width=True)
 st.write('Nombre de champs concernés:', resultDesMarch.shape[0])
