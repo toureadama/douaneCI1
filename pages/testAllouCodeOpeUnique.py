@@ -37,9 +37,7 @@ dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) &
           (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
 
 
-#codop = st.sidebar.selectbox(
-    #'Choisir le code opérateur',
-    #dpp['Code opérateur'].unique())
+
 
 #resultcodop = dpp[dpp['Code opérateur']==codop]
 #resultcodop = resultcodop.drop_duplicates()
@@ -57,3 +55,7 @@ dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) &
     #file_name='SortieFrm.csv',
     #mime='text/csv'
 #)
+
+#codop = st.sidebar.selectbox(
+    #'Choisir le code opérateur',
+    #dpp['Code opérateur'].unique())
