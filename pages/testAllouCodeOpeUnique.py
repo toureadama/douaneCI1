@@ -35,3 +35,5 @@ fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 
 dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) & 
           (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
+
+st.write(dpp.shape)
