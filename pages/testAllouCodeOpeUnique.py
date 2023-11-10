@@ -37,3 +37,9 @@ dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) &
           (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
 
 st.write(dpp.shape)
+
+codop = st.sidebar.selectbox(
+    'Choisir le code opérateur',
+    dpp['Code opérateur'].unique())
+
+st.write(codop)
