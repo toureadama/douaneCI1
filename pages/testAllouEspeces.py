@@ -8,7 +8,8 @@ show_pages([
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testKarimAllou.py","PU REC"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces")
+    Page("pages/testAllouEspeces.py","Analyse Espèces"),
+    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur")
 ])
 # Chargement et observation du fichier 
 
@@ -44,6 +45,10 @@ result = result[['DESCRIPTION MARCHANDISE', 'N°Déclaration', 'Date de la décl
 result['TC'] = result['TC'].map('{:.1%}'.format)
 result['DC'] = result['DC'].map('{:.0f}'.format)
 result['Position SH'] = result['Position SH'].map('{:.0f}'.format)
+
+# Traitement des fraudes en valeur
+st.write('Tableau pour analyser les déclarations Espèces')
+
 
 st.dataframe(result.sort_values(by='TC', ascending=False), use_container_width=True)
 st.write('Nombre de champs concernés:', result.shape[0])

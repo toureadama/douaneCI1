@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from io import BytesIO
 from st_pages import Page, show_pages
 
 show_pages([
@@ -10,9 +11,9 @@ show_pages([
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
     Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur")
 ])
-
 # Chargement et observation du fichier 
-update = True
+
+update = False
 
 @st.cache_resource
 def load_file(update):
@@ -35,29 +36,24 @@ fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) & 
           (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
 
-prod = st.sidebar.selectbox(
-    'Choisir la position tarifaire',
-    dpp['Position SH'].unique())
 
-resultSH = dpp[dpp['Position SH']==prod]
+codop = st.sidebar.selectbox(
+    'Choisir le code opérateur',
+    dpp['Code opérateur'].unique())
 
-descMarch = st.sidebar.selectbox(
-    'Choisir la description de la marchandise',
-    resultSH['DESCRIPTION MARCHANDISE'].unique())
+resultcodop = dpp[dpp['Code opérateur']==codop]
+resultcodop = resultcodop.drop_duplicates()
 
-resultDesMarch = resultSH[resultSH['DESCRIPTION MARCHANDISE']==descMarch]
+st.dataframe(resultcodop, use_container_width=True)
 
-st.dataframe(resultDesMarch, use_container_width=True)
-st.write('Nombre de champs concernés:', resultDesMarch.shape[0])
+st.write("Nombre de déclarations trouvées :", f"{resultcodop.shape[0]}")
 
-# Extraction sous Excel
-
-csv = resultDesMarch.to_csv(index=False).encode('utf-8')
+csv = resultcodop.to_csv(index=False).encode('utf-8')
 
 # download button 1 to download dataframe as csv
 download1 = st.download_button(
     label="Export sous CSV",
     data=csv,
-    file_name='Sortie.csv',
+    file_name='SortieFrm.csv',
     mime='text/csv'
 )

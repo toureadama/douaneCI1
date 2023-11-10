@@ -8,7 +8,8 @@ show_pages([
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testKarimAllou.py","PU REC"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces")
+    Page("pages/testAllouEspeces.py","Analyse Espèces"),
+    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur")
 ])
 # Chargement et observation du fichier 
 
@@ -33,12 +34,9 @@ resultEsp = frm[frm['pareto'] > par/100].sort_values(by='nbre déclarations', as
 # Traitement des fraudes en valeur
 st.write('Tableau pour analyser les déclarations Valeurs')
 
-# Extraction sous Excel
 
 result['Position SH'] = result['Position SH'].map('{:.0f}'.format)
 result['percent']     = result['percent'].map('{:.2f}'.format)
-#result['cum_percent'] = result['cum_percent'].map('{:.2f}'.format)
-#result['pareto']      = result['pareto'].map('{:.2f}'.format)
 
 st.dataframe(result[['DESCRIPTION MARCHANDISE', 'Position SH', 'nbre déclarations',	'percent']], use_container_width=True)
 

@@ -8,6 +8,7 @@ show_pages([
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
+    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2")
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
@@ -34,7 +35,7 @@ list_MDP_KARIM  = ['CV']
 hide_pages(['Accueil', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
             'Variation3', 'Variation5', 'Variation6', 'Variation7','XL2',
              'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
-             "Analyse Espèces", "Analyse CC"
+             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
              ]) # 
 
 st.text_input("Votre mot de passe", key="name", type='password')
