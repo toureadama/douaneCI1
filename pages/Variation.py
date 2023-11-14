@@ -107,7 +107,7 @@ if df_fourn_libel.shape[0] > 0:
         data=csv,
         file_name='Sortie.csv',
         mime='text/csv'
-    )
+        )
 else:
     st.write(f":red[Il n'existe pas d'autre déclaration avec la même position tarifaire achetée chez le même fournisseur.]")
 
