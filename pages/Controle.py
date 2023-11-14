@@ -119,16 +119,9 @@ st.write(Comp.T)
 csv = Comp.to_csv(index=False).encode('utf-8')
 
 # download button 1 to download dataframe as csv
-#download1 = st.download_button(
-    #label="Export sous CSV",
-    #data=csv,
-    #file_name='Sortie.csv',
-    #mime='text/csv'
-    #)
-
-domp = st.download_button(
-    label="test csv",
+download = st.download_button(
+    label="Export sous csv",
     data=csv,
-    file_name="test_sortie.csv",
+    file_name="Sortie.csv",
     mime="text/csv"
 )
