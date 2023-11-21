@@ -18,7 +18,8 @@ show_pages([
     Page("pages/Variation_CIAB3.py","Variation3"),
     Page("pages/Variation_CIAB5.py","Variation5"),
     Page("pages/Variation_CIAB6.py","Variation6"),
-    Page("pages/Variation_CIAB7.py","Variation7")
+    Page("pages/Variation_CIAB7.py","Variation7"),
+    Page("pages/Variation_CIABP.py","VariationP")
 ])
 
 # Listes des mots de passe par département avec des tests.
@@ -29,11 +30,12 @@ list_MDP_CIAB3 = ['BONJOUR3', 'BONSOIR3', 'CIAB3']
 list_MDP_CIAB5 = ['BONJOUR5', 'BONSOIR5', 'CIAB5']
 list_MDP_CIAB6 = ['BONJOUR6', 'BONSOIR6', 'CIAB6']
 list_MDP_CIAB7 = ['BONJOUR7', 'BONSOIR7', 'CIAB7']
+list_MDP_CIABP = ['BONJOURP', 'BONSOIRP', 'CIABP']
 list_MDP_ALLOU  = ['BAP']
 list_MDP_KARIM  = ['CV']
 
 hide_pages(['Accueil', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7','XL2',
+            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'VariationP','XL2',
              'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
              ]) # 
@@ -59,6 +61,8 @@ elif st.session_state.name in list_MDP_CIAB6:
     switch_page('Variation6')
 elif st.session_state.name in list_MDP_CIAB7:
     switch_page('Variation7')
+elif st.session_state.name in list_MDP_CIABP:
+    switch_page('VariationP')
 else:
     st.write("Mot de passe incorrect")
     
