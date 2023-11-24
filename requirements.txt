@@ -7,3 +7,4 @@ xlsxwriter==3.0.3
 mysqlclient==2.2.0
 SQLAlchemy==1.4.39
 mysql.connector==2.2.9
+mysql==0.0.3
