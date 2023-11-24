@@ -9,7 +9,7 @@ show_pages([
     Page("pages/Suivi_CodeOperateur.py","Suivi Opérateur")
 ])
 
-update = False
+update = True
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
@@ -22,14 +22,15 @@ def load_all_file(update):
     df_Auto3     = pd.read_csv('df_Auto3.csv')
     df_CIAB5     = pd.read_csv('df_CIAB5.csv')
     df_CIAB7     = pd.read_csv('df_CIAB7.csv')
+    df_CIABP     = pd.read_csv('df_CIABP.csv')
     
-    return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7
+    return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7, df_CIABP
 
-df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7 = load_all_file(update) 
+df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7, df_CIABP = load_all_file(update) 
 
 department = st.sidebar.radio(
     "Choisir le département",
-    ('CIAB1', 'CIAB1_Scanner', 'CIAB1_Auto', 'CIAB6_neuf', 'CIAB3', 'CIAB3_Auto', 'CIAB5', 'CIAB7'))
+    ('CIAB1', 'CIAB1_Scanner', 'CIAB1_Auto', 'CIAB6_neuf', 'CIAB3', 'CIAB3_Auto', 'CIAB5', 'CIAB7', 'CIABP'))
 
 if department == 'CIAB1':
     df = df_CIAB1
@@ -47,6 +48,8 @@ elif department == 'CIAB5':
     df = df_CIAB5
 elif department == 'CIAB7':
     df = df_CIAB7
+elif department == 'CIABP':
+    df = df_CIABP
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 
@@ -114,21 +117,14 @@ Comp.drop(columns=["Pds Net Rel"], inplace=True)
 st.write(f"Quelques exemples de déclarations de la même catégorie.")
 st.write(Comp.T)
 
-output = BytesIO()
+# Extraction sous Excel
 
-def to_excel2(df):
-    in_memory_fp = BytesIO()
-    df.to_excel(in_memory_fp)
-    # Write the file out to disk to demonstrate that it worked.
-    in_memory_fp.seek(0, 0)
-    return in_memory_fp.read()
+csv = Comp.to_csv(index=False).encode('utf-8')
 
-excel_data = to_excel2(Comp)
-file_name = "sortie.xlsx"
-st.download_button(
-    f"Exporter sous Excel",
-    excel_data,
-    file_name,
-    f"text/{file_name}",
-    key=file_name
+# download button 1 to download dataframe as csv
+download = st.download_button(
+    label="Export sous csv",
+    data=csv,
+    file_name="Sortie.csv",
+    mime="text/csv"
 )

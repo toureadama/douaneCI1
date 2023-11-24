@@ -10,7 +10,7 @@ show_pages([
     Page("pages/Suivi_CodeOperateur.py","Suivi Opérateur")
 ])
 
-update = False
+update = True
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
@@ -23,14 +23,15 @@ def load_all_file(update):
     df_Auto3     = pd.read_csv('df_Auto3.csv')
     df_CIAB5     = pd.read_csv('df_CIAB5.csv')
     df_CIAB7     = pd.read_csv('df_CIAB7.csv')
+    df_CIABP     = pd.read_csv('df_CIABP.csv')
     
-    return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7
+    return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7, df_CIABP
 
-df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7 = load_all_file(update) 
+df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7, df_CIABP = load_all_file(update) 
 
 department = st.sidebar.radio(
     "Choisir le département",
-    ('CIAB1', 'CIAB1_Scanner', 'CIAB1_Auto', 'CIAB6_neuf', 'CIAB3', 'CIAB3_Auto', 'CIAB5', 'CIAB7'))
+    ('CIAB1', 'CIAB1_Scanner', 'CIAB1_Auto', 'CIAB6_neuf', 'CIAB3', 'CIAB3_Auto', 'CIAB5', 'CIAB7', 'CIABP'))
 
 if department == 'CIAB1':
     df = df_CIAB1
@@ -48,6 +49,8 @@ elif department == 'CIAB5':
     df = df_CIAB5
 elif department == 'CIAB7':
     df = df_CIAB7
+elif department == 'CIABP':
+    df = df_CIABP
 else:
     st.sidebar.write("Veuillez sélectionner le département.")
 
