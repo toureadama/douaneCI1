@@ -4,6 +4,7 @@ from st_pages import Page, show_pages, hide_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
+    Page("Administrateur.py","Admin"),
     Page("read_xl2.py","XL2"),
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
@@ -33,8 +34,9 @@ list_MDP_CIAB7 = ['BONJOUR7', 'BONSOIR7', 'CIAB7']
 list_MDP_CIABP = ['BONJOURP', 'BONSOIRP', 'CIABP']
 list_MDP_ALLOU  = ['BAP']
 list_MDP_KARIM  = ['CV']
+list_MDP_ADMIN  = ['SERGE']
 
-hide_pages(['Accueil', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
+hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
             'Variation3', 'Variation5', 'Variation6', 'Variation7', 'VariationP','XL2',
              'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
@@ -45,6 +47,8 @@ st.text_input("Votre mot de passe", key="name", type='password')
 # You can access the value at any point with:
 if st.session_state.name in list_MDP:
     switch_page('Variation')
+elif st.session_state.name in list_MDP_ADMIN:
+    switch_page('Admin') 
 elif st.session_state.name in list_MDP_NIV1:
     switch_page('Contrôle 1er niveau') 
 elif st.session_state.name in list_MDP_ALLOU:
