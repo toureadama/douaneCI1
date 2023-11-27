@@ -1,5 +1,6 @@
 import pandas as pd
 import mysql.connector 
+import pymysql.cursors
 import streamlit as st
 from st_pages import Page, show_pages
 from st_aggrid import AgGrid, GridUpdateMode
@@ -12,11 +13,12 @@ show_pages([
 
 
 #Etablir la connexion
-mydb = mysql.connector.connect(
+mydb = pymysql.connect(
     host = 'sql11.freemysqlhosting.net',
     user = 'sql11664568',
     password = 'fMJHRX62M7',
-    database = 'sql11664568'
+    database = 'sql11664568',
+    cursorclass=pymysql.cursors.DictCursor
 )
 
 mycursor = mydb.cursor()
