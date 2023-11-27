@@ -13,13 +13,16 @@ show_pages([
 
 
 #Etablir la connexion
-mydb = pymysql.connect(
-    host = 'sql11.freemysqlhosting.net',
-    user = 'sql11664568',
-    password = 'fMJHRX62M7',
-    database = 'sql11664568',
+@st.cache_resource
+def init_connection():
+    host = 'sql11.freemysqlhosting.net'
+    user = 'sql11664568'
+    password = 'fMJHRX62M7'
+    database = 'sql11664568'
     cursorclass=pymysql.cursors.DictCursor
-)
+    return pymysql.connect(host=host, database=database, user=user, password=password, cursorclass=cursorclass)
+
+mydb = init_connection()
 
 mycursor = mydb.cursor()
 
