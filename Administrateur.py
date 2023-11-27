@@ -1,5 +1,4 @@
 import pandas as pd
-import mysql.connector 
 import pymysql.cursors
 import streamlit as st
 from st_pages import Page, show_pages
