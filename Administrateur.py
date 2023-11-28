@@ -39,8 +39,6 @@ def main():
 
         mycursor.execute("select * from basededonnees")
         resultBDD = pd.DataFrame(mycursor.fetchall())
-        st.write(resultBDD)
-        #st.write(list(resultBur['NomBureau']))
 
         mycursor.execute("select * from habilitation")
         resultACC = pd.DataFrame(mycursor.fetchall())
@@ -48,7 +46,7 @@ def main():
         nom=st.text_input("Nom",'')
         prenom=st.text_input("Prénom")
         bur=st.selectbox("Bureau", list(resultBur['NomBureau']))
-        bdd=st.selectbox("Base de données", list(resultBDD.loc[:,1]))
+        bdd=st.selectbox("Base de données", list(resultBDD['BDD']))
         if bdd == 'Décisionnel':
             acc=st.selectbox("Privilège d'accès", ['Manager', 'Vérificateur'])
         if bdd == 'RFCV':
