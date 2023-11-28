@@ -67,8 +67,13 @@ def main():
         mycursor.execute("select * from utilisateur")
         result = mycursor.fetchall()
         result = pd.DataFrame(result, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
-        st.dataframe(result)
-        
+        #*******************
+        mycursor.execute("select * from bureau")
+        res = mycursor.fetchall()
+        res = pd.DataFrame(res)
+        st.dataframe(res)
+        #*******************
+
         gd = GridOptionsBuilder.from_dataframe(result)
         gd.configure_pagination(enabled=True)
         gd.configure_default_column(editable=True, groupable=True)
