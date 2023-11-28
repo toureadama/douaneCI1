@@ -24,6 +24,8 @@ show_pages([
 
 #mydb = init_connection()
 # OUT ******************************
+st.write("DB user:", st.secrets['db_credentials']["user"])
+
 mydb = pymysql.connect(**st.secrets.db_credentials)
 mycursor = mydb.cursor()
 
