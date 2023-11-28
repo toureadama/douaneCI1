@@ -43,17 +43,19 @@ def main():
         mycursor.execute("select * from habilitation")
         resultACC = pd.DataFrame(mycursor.fetchall())
 
-        nom=st.text_input("Nom",'')
-        prenom=st.text_input("Prénom")
-        bur=st.selectbox("Bureau", [' '] + list(resultBur['NomBureau']))
-        bdd=st.selectbox("Base de données", [' '] + list(resultBDD['BDD']))
-        if bdd == 'Décisionnel':
-            acc=st.selectbox("Privilège d'accès", [' ', 'Manager', 'Vérificateur'],)
-        if bdd == 'RFCV':
-            acc=st.selectbox("Privilège d'accès", [' ', 'CB', 'CV'])
-        identifiant=st.text_input("Identifiant de connexion")
-        password=st.text_input("Mot de passe")
-        if st.button("Créer"):
+        with st.form(key= 'creer', clear_on_submit=True):
+            nom=st.text_input("Nom",'')
+            prenom=st.text_input("Prénom")
+            bur=st.selectbox("Bureau", [' '] + list(resultBur['NomBureau']))
+            bdd=st.selectbox("Base de données", [' '] + list(resultBDD['BDD']))
+            if bdd == 'Décisionnel':
+                acc=st.selectbox("Privilège d'accès", [' ', 'Manager', 'Vérificateur'],)
+            if bdd == 'RFCV':
+                acc=st.selectbox("Privilège d'accès", [' ', 'CB', 'CV'])
+            identifiant=st.text_input("Identifiant de connexion")
+            password=st.text_input("Mot de passe")
+            creer_button = st.form_submit_button('Créer')
+        if creer_button:
             sql= "insert into utilisateur(nom,prenom,bureau,bdd,acces,identifiant,password) values(%s,%s,%s,%s,%s,%s,%s)"
             val= (nom,prenom,bur,bdd,acc,identifiant,password)
             mycursor.execute(sql,val)
@@ -103,14 +105,16 @@ def main():
 
 
         if result.shape[0]==1:
-            nom=st.text_input("nouveau Nom", result['Nom'].iloc[0])
-            prenom=st.text_input("nouveau Prénom", result['Prenom'].iloc[0])
-            bur=st.text_input("nouveau Bureau", result['Bureau'].iloc[0])
-            bdd=st.text_input("Base de données", result['BDD'].iloc[0])
-            acc=st.text_input("Privilège d'accès", result['Acces'].iloc[0])
-            identifiant=st.text_input("nouvel identifiant de connexion", result['Identifiant'].iloc[0])
-            password=st.text_input("nouveau mot de passe", result['Password'].iloc[0])
-            if st.button("Modifier"):
+            with st.form(key= 'modifier', clear_on_submit=True):
+                nom=st.text_input("nouveau Nom", result['Nom'].iloc[0])
+                prenom=st.text_input("nouveau Prénom", result['Prenom'].iloc[0])
+                bur=st.text_input("nouveau Bureau", result['Bureau'].iloc[0])
+                bdd=st.text_input("Base de données", result['BDD'].iloc[0])
+                acc=st.text_input("Privilège d'accès", result['Acces'].iloc[0])
+                identifiant=st.text_input("nouvel identifiant de connexion", result['Identifiant'].iloc[0])
+                password=st.text_input("nouveau mot de passe", result['Password'].iloc[0])
+                modifier_button = st.form_submit_button('Mofifier')
+            if modifier_button:
                 sql="update utilisateur set nom=%s, prenom=%s, bureau=%s, bdd=%s, acces=%s, identifiant=%s, password=%s where id =%s"
                 val= (nom,prenom,bur,bdd,acc,identifiant,password,id)
                 mycursor.execute(sql,val)
