@@ -36,18 +36,18 @@ def main():
         st.subheader("Créer un nouvel utilisateur")
         mycursor.execute("select * from bureau")
         resultBur = pd.DataFrame(mycursor.fetchall())
-        st.write(list(resultBur['NomBureau']))
-        #st.write(list(resultBur['NomBureau'].iloc[:,1]))
 
         mycursor.execute("select * from basededonnees")
         resultBDD = pd.DataFrame(mycursor.fetchall())
+        st.write(resultBDD)
+        #st.write(list(resultBur['NomBureau']))
 
         mycursor.execute("select * from habilitation")
         resultACC = pd.DataFrame(mycursor.fetchall())
 
         nom=st.text_input("Nom",'')
         prenom=st.text_input("Prénom")
-        bur=st.selectbox("Bureau", list(resultBur.loc[:,1]))
+        bur=st.selectbox("Bureau", list(resultBur['NomBureau']))
         bdd=st.selectbox("Base de données", list(resultBDD.loc[:,1]))
         if bdd == 'Décisionnel':
             acc=st.selectbox("Privilège d'accès", ['Manager', 'Vérificateur'])
