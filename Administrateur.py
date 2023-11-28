@@ -97,12 +97,13 @@ def main():
         id=st.number_input("Enter ID",min_value=1)
 
         mycursor.execute("select * from utilisateur")
-        result = pd.DataFrame(mycursor.fetchall(), columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
+        result = pd.DataFrame(mycursor.fetchall())#, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
         result = result[result.ID==id]
+        st.write(result)
 
         if result.shape[0]==1:
             nom=st.text_input("nouveau Nom", result['Nom'].iloc[0])
-            prenom=st.text_input("nouveau Prenom", result['Prénom'].iloc[0])
+            prenom=st.text_input("nouveau Prénom", result['Prénom'].iloc[0])
             bur=st.text_input("nouveau Bureau", result['Bureau'].iloc[0])
             bdd=st.text_input("Base de données", result['Base_de_donnees'].iloc[0])
             acc=st.text_input("Privilège d'accès", result['Habilitation'].iloc[0])
