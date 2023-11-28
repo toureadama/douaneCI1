@@ -103,12 +103,12 @@ def main():
 
         if result.shape[0]==1:
             nom=st.text_input("nouveau Nom", result['Nom'].iloc[0])
-            prenom=st.text_input("nouveau Prénom", result['Prénom'].iloc[0])
+            prenom=st.text_input("nouveau Prénom", result['Prenom'].iloc[0])
             bur=st.text_input("nouveau Bureau", result['Bureau'].iloc[0])
-            bdd=st.text_input("Base de données", result['Base_de_donnees'].iloc[0])
-            acc=st.text_input("Privilège d'accès", result['Habilitation'].iloc[0])
-            identifiant=st.text_input("nouvel Identifiant de connexion", result['Identifiant'].iloc[0])
-            password=st.text_input("nouveau Mot de passe", result['Mot_de_passe'].iloc[0])
+            bdd=st.text_input("Base de données", result['BDD'].iloc[0])
+            acc=st.text_input("Privilège d'accès", result['Acces'].iloc[0])
+            identifiant=st.text_input("nouvel identifiant de connexion", result['Identifiant'].iloc[0])
+            password=st.text_input("nouveau mot de passe", result['Password'].iloc[0])
             if st.button("Modifier"):
                 sql="update utilisateur set nom=%s, prenom=%s, bureau=%s, bdd=%s, acces=%s, identifiant=%s, password=%s where id =%s"
                 val= (nom,prenom,bur,bdd,acc,identifiant,password,id)
