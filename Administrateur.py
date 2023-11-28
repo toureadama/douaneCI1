@@ -12,7 +12,7 @@ show_pages([
 
 
 #Etablir la connexion
-@st.cache_resource
+#@st.cache_resource
 def init_connection():
     host = 'sql11.freemysqlhosting.net'
     user = 'sql11664568'
@@ -120,7 +120,6 @@ def main():
             st.write("Cet identifiant n'est pas créé.")
 
 if mycursor:
-    st.write("Connexion OK!")
     if __name__ == "__main__":
         main()
 else:
