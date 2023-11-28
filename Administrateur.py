@@ -97,7 +97,7 @@ def main():
         id=st.number_input("Enter ID",min_value=1)
 
         mycursor.execute("select * from utilisateur")
-        result = pd.DataFrame(mycursor.fetchall())
+        result = pd.DataFrame(mycursor.fetchall())#, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
         result = result[result.ID==id]
 
         if result.shape[0]==1:
