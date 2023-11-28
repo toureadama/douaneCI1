@@ -68,7 +68,7 @@ def main():
         result = mycursor.fetchall()
         result = pd.DataFrame(result, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
         #*******************
-        mycursor.execute("select * from basededonnees")
+        mycursor.execute("select * from utilisateur")
         res = mycursor.fetchall()
         res = pd.DataFrame(res)
         st.dataframe(res)
