@@ -48,9 +48,9 @@ def main():
         bur=st.selectbox("Bureau", list(resultBur['NomBureau']))
         bdd=st.selectbox("Base de données", list(resultBDD['BDD']))
         if bdd == 'Décisionnel':
-            acc=st.selectbox("Privilège d'accès", ['Manager', 'Vérificateur'])
+            acc=st.selectbox("Privilège d'accès", [' ', 'Manager', 'Vérificateur'],)
         if bdd == 'RFCV':
-            acc=st.selectbox("Privilège d'accès", ['CB', 'CV'])
+            acc=st.selectbox("Privilège d'accès", [' ', 'CB', 'CV'])
         identifiant=st.text_input("Identifiant de connexion")
         password=st.text_input("Mot de passe")
         if st.button("Créer"):
@@ -67,7 +67,7 @@ def main():
         mycursor.execute("select * from utilisateur")
         result = mycursor.fetchall()
         result = pd.DataFrame(result)
-        
+
         gd = GridOptionsBuilder.from_dataframe(result)
         gd.configure_pagination(enabled=True)
         gd.configure_default_column(editable=True, groupable=True)
@@ -89,6 +89,7 @@ def main():
                     val=(id,)
                     mycursor.execute(sql,val)
                     mydb.commit()
+                    st.success("Suppression réussie!!!")
 
 
     elif option=="Modifier":
