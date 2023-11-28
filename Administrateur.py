@@ -36,7 +36,8 @@ def main():
         st.subheader("Créer un nouvel utilisateur")
         mycursor.execute("select * from bureau")
         resultBur = pd.DataFrame(mycursor.fetchall())
-
+        st.write(resultBur)
+        
         mycursor.execute("select * from basededonnees")
         resultBDD = pd.DataFrame(mycursor.fetchall())
 
