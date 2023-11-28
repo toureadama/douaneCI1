@@ -37,7 +37,7 @@ def main():
         mycursor.execute("select * from bureau")
         resultBur = pd.DataFrame(mycursor.fetchall())
         #st.write(resultBur)
-        st.write(list(resultBur['NomBureau'].loc[:,1]))
+        st.write(list(resultBur['NomBureau'].iloc[:,1]))
 
         mycursor.execute("select * from basededonnees")
         resultBDD = pd.DataFrame(mycursor.fetchall())
