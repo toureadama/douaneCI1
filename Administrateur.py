@@ -100,6 +100,7 @@ def main():
         result = pd.DataFrame(mycursor.fetchall())#, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
         result = result[result.ID==id]
 
+
         if result.shape[0]==1:
             nom=st.text_input("nouveau Nom", result['Nom'].iloc[0])
             prenom=st.text_input("nouveau Prénom", result['Prenom'].iloc[0])
