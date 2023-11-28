@@ -12,7 +12,7 @@ show_pages([
 
 
 #Etablir la connexion
-@st.cache_resource
+#@st.cache_resource
 def init_connection():
     host = 'sql11.freemysqlhosting.net'
     user = 'sql11664568'
@@ -34,7 +34,6 @@ def main():
     # Perform Selected CRUD Operations
     if option=="Créer":
         st.subheader("Créer un nouvel utilisateur")
-
         mycursor.execute("select * from bureau")
         resultBur = pd.DataFrame(mycursor.fetchall())
 
