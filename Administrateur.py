@@ -36,7 +36,7 @@ def main():
         st.subheader("Créer un nouvel utilisateur")
         mycursor.execute("select * from bureau")
         resultBur = pd.DataFrame(mycursor.fetchall())
-        st.write(resultBur['NomBureau'][0:2])
+        st.write(list(resultBur['NomBureau']))
         #st.write(list(resultBur['NomBureau'].iloc[:,1]))
 
         mycursor.execute("select * from basededonnees")
