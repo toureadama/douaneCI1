@@ -66,8 +66,9 @@ def main():
         st.subheader("Les utilisateurs dans la base")
         mycursor.execute("select * from utilisateur")
         result = mycursor.fetchall()
+        result = pd.DataFrame(result)
         
-        gd = GridOptionsBuilder.from_dataframe(pd.DataFrame(result))
+        gd = GridOptionsBuilder.from_dataframe(result)
         gd.configure_pagination(enabled=True)
         gd.configure_default_column(editable=True, groupable=True)
         gd.configure_selection(selection_mode="multiple", use_checkbox=True)
