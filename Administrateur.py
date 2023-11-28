@@ -12,21 +12,17 @@ show_pages([
 
 
 #Etablir la connexion
-# IN ******************************
 #@st.cache_resource
-#def init_connection():
-    #host = 'sql11.freemysqlhosting.net'
-    #user = 'sql11664568'
-    #password = 'fMJHRX62M7'
-    #database = 'sql11664568'
-    #cursorclass=pymysql.cursors.DictCursor
-    #return pymysql.connect(host=host, database=database, user=user, password=password, cursorclass=cursorclass)
+def init_connection():
+    host = st.secrets["host"]#'sql11.freemysqlhosting.net'
+    user = st.secrets["user"]#'sql11664568'
+    password = st.secrets["password"]#'fMJHRX62M7'
+    database = st.secrets["database"]#'sql11664568'
+    cursorclass=pymysql.cursors.DictCursor
+    return pymysql.connect(host=host, database=database, user=user, password=password, cursorclass=cursorclass)
 
-#mydb = init_connection()
-# OUT ******************************
-st.write("DB user:", st.secrets['db_credentials']["user"])
+mydb = init_connection()
 
-mydb = pymysql.connect(**st.secrets.db_credentials)
 mycursor = mydb.cursor()
 
 
