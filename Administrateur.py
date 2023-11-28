@@ -67,6 +67,7 @@ def main():
         mycursor.execute("select * from utilisateur")
         result = mycursor.fetchall()
         result = pd.DataFrame(result, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
+        st.dataframe(result)
         
         gd = GridOptionsBuilder.from_dataframe(result)
         gd.configure_pagination(enabled=True)
