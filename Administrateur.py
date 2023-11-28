@@ -120,6 +120,7 @@ def main():
             st.write("Cet identifiant n'est pas créé.")
 
 if mycursor:
+    st.write("Connexion OK!")
     if __name__ == "__main__":
         main()
 else:
