@@ -43,20 +43,18 @@ def main():
         mycursor.execute("select * from habilitation")
         resultACC = pd.DataFrame(mycursor.fetchall())
 
-        with st.form(key= 'creer', clear_on_submit=True):
-            nom=st.text_input("Nom",'')
-            prenom=st.text_input("Prénom")
-            bur=st.selectbox("Bureau", [' '] + list(resultBur['NomBureau']))
-            bdd=st.selectbox("Base de données", [' '] + list(resultBDD['BDD']))
-            if bdd == 'Décisionnel':
-                acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'],)
-            if bdd == 'RFCV':
-                acc=st.selectbox("Privilège d'accès", [' '] + ['CB', 'CV'])
-            identifiant=st.text_input("Identifiant de connexion")
-            password=st.text_input("Mot de passe")
-            creer_button = st.form_submit_button('Créer')
-            
-        if creer_button:
+        nom=st.text_input("Nom",'')
+        prenom=st.text_input("Prénom")
+        bur=st.selectbox("Bureau", [' '] + list(resultBur['NomBureau']))
+        bdd=st.selectbox("Base de données", [' '] + list(resultBDD['BDD']))
+        if bdd == 'Décisionnel':
+            acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'],)
+        if bdd == 'RFCV':
+            acc=st.selectbox("Privilège d'accès", [' '] + ['CB', 'CV'])
+        identifiant=st.text_input("Identifiant de connexion")
+        password=st.text_input("Mot de passe")
+        
+        if st.button("Créer"):
             sql= "insert into utilisateur(nom,prenom,bureau,bdd,acces,identifiant,password) values(%s,%s,%s,%s,%s,%s,%s)"
             val= (nom,prenom,bur,bdd,acc,identifiant,password)
             mycursor.execute(sql,val)
