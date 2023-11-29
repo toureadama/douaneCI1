@@ -64,7 +64,9 @@ if st.button('Valider'):
     if (identifiant, mdp) in new_list:
         ind = new_list.index((identifiant, mdp))
         
-        if (new_list_acces[ind][0:3]==('CIAB1', 'Décisionnel', 'Vérificateur')) or (new_list_acces[ind][0:3]==('Scanner', 'Décisionnel', 'Vérificateur')):
+        if new_list_acces[ind][0]=='ADMIN':
+            switch_page('Admin')
+        elif (new_list_acces[ind][0:3]==('CIAB1', 'Décisionnel', 'Vérificateur')) or (new_list_acces[ind][0:3]==('Scanner', 'Décisionnel', 'Vérificateur')):
             switch_page('Variation1')
         elif new_list_acces[ind][0:3]==('CIAB3', 'Décisionnel', 'Vérificateur'):
             switch_page('Variation3')
@@ -82,8 +84,6 @@ if st.button('Valider'):
             switch_page('PU REC')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CB')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CB')):
             switch_page('Recherche')   
-        elif new_list_acces[ind][0]=='ADMIN':
-            switch_page('Admin')
         else:
             st.write("Cet utilisateur n'a pas d'accès défini")
     else:
