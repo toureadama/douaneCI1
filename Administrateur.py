@@ -47,6 +47,7 @@ def main():
         prenom=st.text_input("Prénom")
         bur=st.selectbox("Bureau", [' '] + list(resultBur['NomBureau']))
         bdd=st.selectbox("Base de données", [' '] + list(resultBDD['BDD']))
+        st.write(bdd)
         if bdd == 'Décisionnel':
             acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'],)
         if bdd == 'RFCV':
