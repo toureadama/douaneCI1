@@ -49,7 +49,7 @@ mycursor = mydb.cursor()
 
 st.title('Bienvenue sur le page de connexion!')
 
-st.subheader("Les utilisateurs dans la base")
+
 mycursor.execute("select * from utilisateur")
 result = mycursor.fetchall()
 result = pd.DataFrame(result)#, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
@@ -60,30 +60,31 @@ new_list_acces = list(zip(list(result["Bureau"]), list(result["BDD"]), list(resu
 identifiant = st.text_input("Votre identifiant", key="name")
 mdp = st.text_input("Votre mot de passe", key="password", type="password")
 
-if (identifiant, mdp) in new_list:
-    ind = new_list.index((identifiant, mdp))
-    st.write(new_list_acces[ind][0:3])
-    if (new_list_acces[ind][0:3]==('CIAB1', 'Décisionnel', 'Vérificateur')) or (new_list_acces[ind][0:3]==('Scanner', 'Décisionnel', 'Vérificateur')):
-        switch_page('Variation1')
-    elif new_list_acces[ind][0:3]==('CIAB3', 'Décisionnel', 'Vérificateur'):
-        switch_page('Variation3')
-    elif new_list_acces[ind][0:3]==('CIAB6Neuf', 'Décisionnel', 'Vérificateur'):
-        switch_page('Variation6')
-    elif new_list_acces[ind][0:3]==('BRP', 'Décisionnel', 'Vérificateur'):
-        switch_page('Variation5')
-    elif new_list_acces[ind][0:3]==('CIABP', 'Décisionnel', 'Vérificateur'):
-        switch_page('VariationP')
-    elif new_list_acces[ind][1:3]==('Décisionnel', 'Manager'):
-        switch_page('Contrôle 1er niveau') 
-    elif new_list_acces[ind][0:3]==('TOUT', 'Décisionnel', 'Vérificateur'):
-        switch_page('Variation')
-    elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CV')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CV')):
-        switch_page('PU REC')
-    elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CB')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CB')):
-        switch_page('Recherche')   
-    elif new_list_acces[ind][0]=='ADMIN':
-        switch_page('Admin')
+if st.button('Valider'):
+    if (identifiant, mdp) in new_list:
+        ind = new_list.index((identifiant, mdp))
+        
+        if (new_list_acces[ind][0:3]==('CIAB1', 'Décisionnel', 'Vérificateur')) or (new_list_acces[ind][0:3]==('Scanner', 'Décisionnel', 'Vérificateur')):
+            switch_page('Variation1')
+        elif new_list_acces[ind][0:3]==('CIAB3', 'Décisionnel', 'Vérificateur'):
+            switch_page('Variation3')
+        elif new_list_acces[ind][0:3]==('CIAB6Neuf', 'Décisionnel', 'Vérificateur'):
+            switch_page('Variation6')
+        elif new_list_acces[ind][0:3]==('BRP', 'Décisionnel', 'Vérificateur'):
+            switch_page('Variation5')
+        elif new_list_acces[ind][0:3]==('CIABP', 'Décisionnel', 'Vérificateur'):
+            switch_page('VariationP')
+        elif new_list_acces[ind][1:3]==('Décisionnel', 'Manager'):
+            switch_page('Contrôle 1er niveau') 
+        elif new_list_acces[ind][0:3]==('TOUT', 'Décisionnel', 'Vérificateur'):
+            switch_page('Variation')
+        elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CV')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CV')):
+            switch_page('PU REC')
+        elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CB')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CB')):
+            switch_page('Recherche')   
+        elif new_list_acces[ind][0]=='ADMIN':
+            switch_page('Admin')
+        else:
+            st.write("Cet utilisateur n'a pas d'accès défini")
     else:
-        st.write("Cet utilisateur n'a pas d'accès défini")
-else:
-    st.write("Mot de passe incorrect")
+        st.write("Mot de passe incorrect")
