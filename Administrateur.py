@@ -112,7 +112,7 @@ def main():
                 acc=st.text_input("Privilège d'accès", result['Acces'].iloc[0])
                 identifiant=st.text_input("nouvel identifiant de connexion", result['Identifiant'].iloc[0])
                 password=st.text_input("nouveau mot de passe", result['Password'].iloc[0])
-                modifier_button = st.form_submit_button('Mofifier')
+                modifier_button = st.form_submit_button('Modifier')
                 
             if modifier_button:
                 sql="update utilisateur set nom=%s, prenom=%s, bureau=%s, bdd=%s, acces=%s, identifiant=%s, password=%s where id =%s"
