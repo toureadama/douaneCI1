@@ -63,7 +63,7 @@ mdp = st.text_input("Votre mot de passe", key="password", type="password")
 if st.button('Valider'):
     if (identifiant, mdp) in new_list:
         ind = new_list.index((identifiant, mdp))
-        
+        st.write(new_list_acces[ind])
         if new_list_acces[ind][0]=='ADMIN':
             switch_page('Admin')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'Décisionnel', 'Vérificateur')) or (new_list_acces[ind][0:3]==('Scanner', 'Décisionnel', 'Vérificateur')):
