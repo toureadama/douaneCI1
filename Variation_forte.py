@@ -53,7 +53,7 @@ st.subheader("Les utilisateurs dans la base")
 mycursor.execute("select * from utilisateur")
 result = mycursor.fetchall()
 result = pd.DataFrame(result)#, columns=['ID','Nom','Prénom','Bureau','Base_de_donnees', 'Habilitation','Identifiant','Mot_de_passe'])
-st.dataframe(result)
+
 new_list = list(zip(list(result["Identifiant"]), list(result["Password"])))
 new_list_acces = list(zip(list(result["Bureau"]), list(result["BDD"]), list(result["Acces"])))
 
