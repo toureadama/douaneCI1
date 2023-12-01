@@ -7,7 +7,7 @@ from st_pages import Page, show_pages, hide_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("Administrateur.py","Admin"),
-    Page("read_xl2.py","XL2"),
+    #Page("read_xl2.py","XL2"),
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
@@ -27,7 +27,7 @@ show_pages([
 
 
 hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'VariationP','XL2',
+            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'VariationP',#'XL2',
              'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
              ])  
