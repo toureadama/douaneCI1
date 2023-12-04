@@ -7,7 +7,6 @@ from st_pages import Page, show_pages, hide_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("Administrateur.py","Admin"),
-    #Page("read_xl2.py","XL2"),
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
@@ -16,18 +15,18 @@ show_pages([
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
-    Page("pages/Variation.py","Variation"),
-    Page("pages/Variation_CIAB1.py","Variation1"),
-    Page("pages/Variation_CIAB3.py","Variation3"),
-    Page("pages/Variation_CIAB5.py","Variation5"),
-    Page("pages/Variation_CIAB6.py","Variation6"),
-    Page("pages/Variation_CIAB7.py","Variation7"),
-    Page("pages/Variation_CIABP.py","VariationP")
+    Page("pages/Controle.py","Controle"),
+    Page("pages/Controle_CIAB1.py","Controle1"),
+    Page("pages/Controle_CIAB3.py","Controle3"),
+    Page("pages/Controle_CIAB5.py","Controle5"),
+    Page("pages/Controle_CIAB6.py","Controle6"),
+    Page("pages/Controle_CIAB7.py","Controle7"),
+    Page("pages/Controle_CIABP.py","ControleP")
 ])
 
 
-hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'VariationP',#'XL2',
+hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1', 
+            'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
              'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
              ])  
@@ -67,19 +66,19 @@ if st.button('Valider'):
         if new_list_acces[ind][0]=='Admin':
             switch_page('Admin')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'Décisionnel', 'Vérificateur')) or (new_list_acces[ind][0:3]==('Scanner', 'Décisionnel', 'Vérificateur')):
-            switch_page('Variation1')
+            switch_page('Controle1')
         elif new_list_acces[ind][0:3]==('CIAB3', 'Décisionnel', 'Vérificateur'):
-            switch_page('Variation3')
+            switch_page('Controle3')
         elif new_list_acces[ind][0:3]==('CIAB6Neuf', 'Décisionnel', 'Vérificateur'):
-            switch_page('Variation6')
+            switch_page('Controle6')
         elif new_list_acces[ind][0:3]==('BRP', 'Décisionnel', 'Vérificateur'):
-            switch_page('Variation5')
+            switch_page('Controle5')
         elif new_list_acces[ind][0:3]==('CIABP', 'Décisionnel', 'Vérificateur'):
-            switch_page('VariationP')
+            switch_page('ControleP')
         elif new_list_acces[ind][1:3]==('Décisionnel', 'Manager'):
             switch_page('Contrôle 1er niveau') 
         elif new_list_acces[ind][0:3]==('TOUT', 'Décisionnel', 'Vérificateur'):
-            switch_page('Variation')
+            switch_page('Controle')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CV')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CV')):
             switch_page('PU REC')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CB')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CB')):
