@@ -16,12 +16,12 @@ show_pages([
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
     Page("pages/Controle.py","Controle"),
-    Page("pages/Controle_CIAB1.py","Controle1"),
-    Page("pages/Controle_CIAB3.py","Controle3"),
-    Page("pages/Controle_CIAB5.py","Controle5"),
-    Page("pages/Controle_CIAB6.py","Controle6"),
-    Page("pages/Controle_CIAB7.py","Controle7"),
-    Page("pages/Controle_CIABP.py","ControleP")
+    Page("pages/ControleCIAB1.py","Controle1"),
+    Page("pages/ControleCIAB3.py","Controle3"),
+    Page("pages/ControleCIAB5.py","Controle5"),
+    Page("pages/ControleCIAB6.py","Controle6"),
+    Page("pages/ControleCIAB7.py","Controle7"),
+    Page("pages/ControleCIABP.py","ControleP")
 ])
 
 
