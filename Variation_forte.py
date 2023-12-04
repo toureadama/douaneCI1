@@ -4,6 +4,7 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from st_pages import Page, show_pages, hide_pages
 
+# Identification des onglets à faire apparaître
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("Administrateur.py","Admin"),
