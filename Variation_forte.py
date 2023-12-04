@@ -34,7 +34,7 @@ hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1',
 
 
 #Etablir la connexion
-#@st.cache_resource
+@st.cache_resource
 def init_connection():
     host = 'sql11.freemysqlhosting.net'
     user = 'sql11664568'
