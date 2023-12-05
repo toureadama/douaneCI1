@@ -110,7 +110,7 @@ Comp = df[
     & (df["Sous_Produit"] == Libelle) 
     & (df["Origine"] == Origin)]
 
-Comp.loc[:, "Pds Net Rel"] = abs(Comp.loc[:, "Pds Net"] - PdsNet)
+Comp.loc[:, "Pds Net Rel"] = abs(Comp.loc[:, "Pds Net"].copy() - PdsNet)
 Comp.sort_values(by=["Pds Net Rel"], inplace=True)
 Comp.drop(columns=["Pds Net Rel"], inplace=True)
 
