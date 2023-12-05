@@ -5,17 +5,17 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    #Page("pages/Variation_CIAB5.py","Variation"),
-    Page("pages/ControleCIAB5.py","Contrôle"),
-    Page("pages/Suivi_CodeOperateurCIAB5.py","Suivi Opérateur")
+    #Page("pages/Variation_CIAB7.py","Variation"),
+    Page("pages/Controle_CIAB7.py","Contrôle"),
+    Page("pages/Suivi_CodeOperateurCIAB7.py","Suivi Opérateur")
 ])
 
-update = False
+update = True
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource 
 def load_all_file(update):
-    df = pd.read_csv('df_CIAB5.csv')
+    df = pd.read_csv('df_CIAB7.csv')
     
     return df
 

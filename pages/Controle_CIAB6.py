@@ -5,9 +5,9 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    #Page("pages/Variation_CIAB1.py","Variation"),
-    Page("pages/ControleCIAB1.py","Contrôle"),
-    Page("pages/Suivi_CodeOperateurCIAB1.py","Suivi Opérateur")
+    #Page("pages/Variation_CIAB6.py","Variation"),
+    Page("pages/Controle_CIAB6.py","Contrôle"),
+    Page("pages/Suivi_CodeOperateurCIAB6.py","Suivi Opérateur")
 ])
 
 update = False
@@ -15,30 +15,18 @@ update = False
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource 
 def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
-    df_Scan      = pd.read_csv('df_Scan.csv')
+    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv')
     
-    return df_CIAB1, df_Scan
+    return df_CIAB6_neuf
 
-df_CIAB1, df_Scan = load_all_file(update) 
+df = load_all_file(update) 
+
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 # Obligation de fournir le numéro de la déclaration
 NumDecla = st.sidebar.text_input("Renseigner le numéro de déclaration")
 
 if NumDecla :
-    department = st.sidebar.radio(
-            "Choisir le département",
-            ('CIAB1', 'Scanner'))
-
-    if department == 'CIAB1':
-        df = df_CIAB1
-    elif department == 'Scanner':
-        df = df_Scan
-    else:
-        st.sidebar.write("Veuillez sélectionner le département.")
-
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-
     PosTarif = st.sidebar.selectbox(
         'Choisir la position tarifaire',
         df['Produit'].unique())
@@ -103,17 +91,15 @@ if NumDecla :
         ":red[Suspicion confirmée?]",
         ('Oui', 'Non'))
 
-
     st.write(f"Quelques exemples de déclarations de la même catégorie.")
     st.write(Comp.T)
-    
+
     csv = Comp.to_csv(index=False).encode('utf-8')
 
+    # download button 1 to download dataframe as csv
     download1 = st.download_button(
         label="Export sous CSV",
         data=csv,
         file_name='Sortie.csv',
         mime='text/csv'
     )
-    
-    
