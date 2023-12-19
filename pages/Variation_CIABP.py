@@ -6,7 +6,7 @@ from st_pages import Page, show_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     #Page("pages/Variation_CIABP.py","Variation"),
-    Page("pages/ControleCIABP.py","Contrôle"),
+    Page("pages/Controle_CIABP.py","Contrôle"),
     Page("pages/Suivi_CodeOperateurCIABP.py","Suivi Opérateur")
 ])
 
