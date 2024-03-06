@@ -1,3 +1,5 @@
+#! C:\Users\HP 820 G3\Desktop\DOUANES CI\douanenv\Scripts\python.exe
+
 import pandas as pd
 import pymysql.cursors
 import streamlit as st

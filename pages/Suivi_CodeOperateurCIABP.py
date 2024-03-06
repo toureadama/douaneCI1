@@ -14,7 +14,7 @@ update = True
 
 @st.cache_resource 
 def load_all_file(update):
-    df_CIAB6_neuf  = pd.read_csv('df_CIABP.csv')
+    df_CIAB6_neuf  = pd.read_csv('df_CIABP.csv', sep=";")
     
     return df_CIAB6_neuf
 

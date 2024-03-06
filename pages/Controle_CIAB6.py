@@ -15,7 +15,7 @@ update = False
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource 
 def load_all_file(update):
-    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv')
+    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv', sep=";")
     
     return df_CIAB6_neuf
 

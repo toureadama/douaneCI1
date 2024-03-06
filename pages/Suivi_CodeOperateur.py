@@ -15,15 +15,15 @@ update = True
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
 def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
-    df_Scan      = pd.read_csv('df_Scan.csv')
-    df_BAE_Auto  = pd.read_csv('df_BAE.csv')
-    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv')
-    df_CIAB3     = pd.read_csv('df_CIAB3.csv')
-    df_Auto3     = pd.read_csv('df_Auto3.csv')
-    df_CIAB5     = pd.read_csv('df_CIAB5.csv')
-    df_CIAB7     = pd.read_csv('df_CIAB7.csv')
-    df_CIABP     = pd.read_csv('df_CIABP.csv')
+    df_CIAB1     = pd.read_csv('df_CIAB1.csv', sep=";")
+    df_Scan      = pd.read_csv('df_Scan.csv', sep=";")
+    df_BAE_Auto  = pd.read_csv('df_BAE.csv', sep=";")
+    df_CIAB6_neuf  = pd.read_csv('df_CIAB6_neuf.csv', sep=";")
+    df_CIAB3     = pd.read_csv('df_CIAB3.csv', sep=";")
+    df_Auto3     = pd.read_csv('df_Auto3.csv', sep=";")
+    df_CIAB5     = pd.read_csv('df_CIAB5.csv', sep=";")
+    df_CIAB7     = pd.read_csv('df_CIAB7.csv', sep=";")
+    df_CIABP     = pd.read_csv('df_CIABP.csv', sep=";")
     
     return df_CIAB1, df_Scan, df_BAE_Auto, df_CIAB6_neuf, df_CIAB3, df_Auto3, df_CIAB5, df_CIAB7, df_CIABP
 

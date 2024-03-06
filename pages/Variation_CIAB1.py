@@ -14,8 +14,8 @@ update = False
 
 @st.cache_resource
 def load_all_file(update):
-    df_CIAB1     = pd.read_csv('df_CIAB1.csv')
-    df_Scan      = pd.read_csv('df_Scan.csv')
+    df_CIAB1     = pd.read_csv('df_CIAB1.csv', sep=";")
+    df_Scan      = pd.read_csv('df_Scan.csv', sep=";")
     
     return df_CIAB1, df_Scan
 
