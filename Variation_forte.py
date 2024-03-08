@@ -15,6 +15,7 @@ show_pages([
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
     Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2"),
     Page("pages/testAllou.py","Recherche"),
+    Page("pages/Controle_All.py","Croisement"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
     Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
@@ -30,7 +31,7 @@ show_pages([
 
 hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1', 
             'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
-             'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
+             'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
              ])  
 
@@ -80,6 +81,8 @@ if st.button('Valider'):
             switch_page('ControleP')
         elif new_list_acces[ind][1:3]==('Décisionnel', 'Manager'):
             switch_page('Contrôle 1er niveau') 
+        elif new_list_acces[ind][0:3]==('TOUT_Croisement', 'Décisionnel', 'Vérificateur'):
+            switch_page('Croisement') 
         elif new_list_acces[ind][0:3]==('TOUT', 'Décisionnel', 'Vérificateur'):
             switch_page('Controle')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CV')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CV')):
