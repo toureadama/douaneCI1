@@ -1,8 +1,7 @@
-paandas
 st-pages==0.4.5
 streamlit-extras==0.3.5
 streamlit>=1.22.0
-openpyxl==3.0.10
+openpyxl
 pyxlsb==1.0.10
 pymysql==1.0.2    #mysqlclient==2.2.0
 SQLAlchemy==1.4.39
