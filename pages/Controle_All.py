@@ -4,8 +4,8 @@ from st_pages import Page, show_pages
 import openpyxl
 import sys
 
-st.write(openpyxl.__version__)
-st.write(sys.executable)
+#st.write(openpyxl.__version__)
+#st.write(sys.executable)
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -38,9 +38,9 @@ if uploaded_file is not None:
     #dataframe = pd.read_csv(uploaded_file, sep=';')
     df_anorm = pd.read_excel(
         uploaded_file, 
-        usecols= ["N°déclaration", "Bureau", "Déclarant", "Nom Opérateur", "Produit", "Type visite", "Origine", "Val FOB", "Pds Net"],
+        usecols= ["N°déclaration", "Bureau", "Déclarant", "Nom Opérateur", "Produit", "Type visite", "Origine", "Val FOB", "Pds Net"])
         #engine='openpyxl'
-        )
+        #)
     
     df_anorm["Libelle_Produit"] = df_anorm["Produit"].copy()
     df_anorm["Sous_Produit"] = df_anorm["Produit"].copy()
