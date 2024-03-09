@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 from st_pages import Page, show_pages
+import openpyxl
+
+st.write(openpyxl.__version__)
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
