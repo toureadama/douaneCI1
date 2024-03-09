@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from st_pages import Page, show_pages
 import openpyxl
+
 # A supprimer
 st.write(openpyxl.__version__)
 
