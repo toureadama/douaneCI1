@@ -39,7 +39,7 @@ if uploaded_file is not None:
     df_anorm = pd.read_excel(
         uploaded_file, 
         usecols= ["N°déclaration", "Bureau", "Déclarant", "Nom Opérateur", "Produit", "Type visite", "Origine", "Val FOB", "Pds Net"],
-        engine='openpyxl'
+        #engine='openpyxl'
         )
     
     df_anorm["Libelle_Produit"] = df_anorm["Produit"].copy()
