@@ -5,8 +5,8 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/Variation_CIAB3.py","Variation"),
-    Page("pages/ControleCIAB3.py","Contrôle"),
+    #Page("pages/Variation_CIAB3.py","Variation"),
+    Page("pages/Controle_CIAB3.py","Contrôle"),
     Page("pages/Suivi_CodeOperateurCIAB3.py","Suivi Opérateur")
 ])
 
@@ -14,7 +14,7 @@ update = False
 
 @st.cache_resource 
 def load_all_file(update):
-    df  = pd.read_csv('df_CIAB3.csv')
+    df  = pd.read_csv('df_CIAB3.csv', sep=";")
     
     return df
 

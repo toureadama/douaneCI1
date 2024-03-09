@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 st-pages==0.4.1
 streamlit-extras==0.2.7
 streamlit>=1.22.0
@@ -7,3 +8,16 @@ xlsxwriter==3.0.3
 mysqlclient==2.2.0
 SQLAlchemy==1.4.39
 mysql-connector-python==8.2.0
+=======
+st-pages==0.4.5
+streamlit-extras==0.3.5
+streamlit>=1.22.0
+openpyxl==3.1.2
+pyxlsb==1.0.10
+pymysql==1.0.2  
+SQLAlchemy==1.4.39
+mysql-connector-python==8.2.0
+streamlit-aggrid==0.3.4.post3
+pip==23.3.1
+altair
+>>>>>>> master
