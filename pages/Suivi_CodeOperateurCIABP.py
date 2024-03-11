@@ -5,8 +5,13 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
+<<<<<<< HEAD
+    Page("pages/Variation_CIABP.py","Variation"),
+    Page("pages/ControleCIABP.py","Contrôle"),
+=======
     #Page("pages/Variation_CIABP.py","Variation"),
     Page("pages/Controle_CIABP.py","Contrôle"),
+>>>>>>> master
     Page("pages/Suivi_CodeOperateurCIABP.py","Suivi Opérateur")
 ])
 
@@ -14,7 +19,11 @@ update = True
 
 @st.cache_resource 
 def load_all_file(update):
+<<<<<<< HEAD
+    df_CIAB6_neuf  = pd.read_csv('df_CIABP.csv')
+=======
     df_CIAB6_neuf  = pd.read_csv('df_CIABP.csv', sep=";")
+>>>>>>> master
     
     return df_CIAB6_neuf
 
