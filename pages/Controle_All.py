@@ -4,7 +4,7 @@ from st_pages import Page, show_pages
 import openpyxl
 
 # A supprimer
-st.write(openpyxl.__version__)
+st.write(" la version openpyxl:",openpyxl.__version__)
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
