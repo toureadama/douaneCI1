@@ -11,47 +11,11 @@ from st_pages import Page, show_pages, hide_pages
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("Administrateur.py","Admin"),
-<<<<<<< HEAD
-    Page("read_xl2.py","XL2"),
-=======
->>>>>>> master
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
     Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2"),
     Page("pages/testAllou.py","Recherche"),
-<<<<<<< HEAD
-    Page("pages/testAlloupareto.py","Analyse Valeurs"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces"),
-    Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
-    Page("pages/Variation.py","Variation"),
-    Page("pages/Variation_CIAB1.py","Variation1"),
-    Page("pages/Variation_CIAB3.py","Variation3"),
-    Page("pages/Variation_CIAB5.py","Variation5"),
-    Page("pages/Variation_CIAB6.py","Variation6"),
-    Page("pages/Variation_CIAB7.py","Variation7"),
-    Page("pages/Variation_CIABP.py","VariationP")
-])
-
-# Listes des mots de passe par département avec des tests.
-list_MDP_NIV1  = ['OUI' , 'NIV1' ]
-list_MDP       = ['BONJOUR' , 'BONSOIR', 'X', 'Y', 'Z' ]
-list_MDP_CIAB1 = ['BONJOUR1', 'BONSOIR1', 'A', 'B', 'C', 'D', 'E']
-list_MDP_CIAB3 = ['BONJOUR3', 'BONSOIR3', 'CIAB3']
-list_MDP_CIAB5 = ['BONJOUR5', 'BONSOIR5', 'CIAB5']
-list_MDP_CIAB6 = ['BONJOUR6', 'BONSOIR6', 'CIAB6']
-list_MDP_CIAB7 = ['BONJOUR7', 'BONSOIR7', 'CIAB7']
-list_MDP_CIABP = ['BONJOURP', 'BONSOIRP', 'CIABP']
-list_MDP_ALLOU  = ['BAP']
-list_MDP_KARIM  = ['CV']
-list_MDP_ADMIN  = ['SERGE']
-
-hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Variation', 'Variation1', 
-            'Variation3', 'Variation5', 'Variation6', 'Variation7', 'VariationP','XL2',
-             'Recherche', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
-             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
-             ]) # 
-=======
     Page("pages/Controle_All.py","Croisement"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
     Page("pages/testAllouEspeces.py","Analyse Espèces"),
@@ -71,37 +35,8 @@ hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1',
              'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
              ])  
->>>>>>> master
 
 
-<<<<<<< HEAD
-# You can access the value at any point with:
-if st.session_state.name in list_MDP:
-    switch_page('Variation')
-elif st.session_state.name in list_MDP_ADMIN:
-    switch_page('Admin') 
-elif st.session_state.name in list_MDP_NIV1:
-    switch_page('Contrôle 1er niveau') 
-elif st.session_state.name in list_MDP_ALLOU:
-    switch_page('Recherche')   
-elif st.session_state.name in list_MDP_KARIM:
-    switch_page('PU REC')   
-elif st.session_state.name in list_MDP_CIAB1:
-    switch_page('Variation1')
-elif st.session_state.name in list_MDP_CIAB3:
-    switch_page('Variation3')
-elif st.session_state.name in list_MDP_CIAB5:
-    switch_page('Variation5')
-elif st.session_state.name in list_MDP_CIAB6:
-    switch_page('Variation6')
-elif st.session_state.name in list_MDP_CIAB7:
-    switch_page('Variation7')
-elif st.session_state.name in list_MDP_CIABP:
-    switch_page('VariationP')
-else:
-    st.write("Mot de passe incorrect")
-    
-=======
 #Etablir la connexion
 #@st.cache_resource
 def init_connection():
@@ -161,4 +96,3 @@ if st.button('Valider'):
         st.write("Mot de passe incorrect")
 
         
->>>>>>> master
