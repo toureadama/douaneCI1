@@ -1,6 +1,7 @@
 #! C:\Users\HP 820 G3\Desktop\DOUANES CI\douanenv\Scripts\python.exe
 
 import pandas as pd
+import pymysql
 import pymysql.cursors
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
