@@ -26,16 +26,16 @@ show_pages([
     Page("pages/Controle_CIAB5.py","Controle5"),
     Page("pages/Controle_CIAB6.py","Controle6"),
     Page("pages/Controle_CIAB7.py","Controle7"),
-    Page("pages/Controle_CIABP.py","ControleP")
+    Page("pages/Controle_CIABP.py","ControleP"),
+    Page("pages/BazRec.py","RecherceBaz"),
+    Page("pages/BazAnalyse.py","AnalyseBaz")
 ])
-
 
 hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1', 
             'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
              'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
-             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2"
+             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz"
              ])  
-
 
 #Etablir la connexion
 #@st.cache_resource
@@ -86,6 +86,8 @@ if st.button('Valider'):
             switch_page('Croisement') 
         elif new_list_acces[ind][0:3]==('TOUT', 'Décisionnel', 'Vérificateur'):
             switch_page('Controle')
+        elif new_list_acces[ind][0:3]==('TOUT', 'BAZREC', 'Vérificateur'):
+            switch_page('RecherceBaz')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CV')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CV')):
             switch_page('PU REC')
         elif (new_list_acces[ind][0:3]==('CIAB1', 'RFCV', 'CB')) or (new_list_acces[ind][0:3]==('Scanner', 'RFCV', 'CB')):

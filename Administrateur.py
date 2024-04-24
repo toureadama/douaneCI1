@@ -14,10 +14,10 @@ show_pages([
 #Etablir la connexion
 #@st.cache_resource
 def init_connection():
-    host        = 'sql11.freemysqlhosting.net'
-    user        = 'sql11664568'
-    password    = 'fMJHRX62M7'
-    database    = 'sql11664568'
+    host        = 'sql11.freemysqlhosting.net' # 'sql205.infinityfree.com' #
+    user        = 'sql11664568' # 'if0_36410890' #
+    password    = 'fMJHRX62M7' #'ZiZROzlMya'#
+    database    = 'sql11664568' # 'if0_36410890_douanesci'#
     cursorclass = pymysql.cursors.DictCursor
     return pymysql.connect(host=host, database=database, user=user, password=password, cursorclass=cursorclass)
 
@@ -48,7 +48,9 @@ def main():
         bur=st.selectbox("Bureau", [' '] + list(resultBur['NomBureau']))
         bdd=st.selectbox("Base de données", [' '] + list(resultBDD['BDD']))
         if bdd == 'Décisionnel':
-            acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'],)
+            acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'])
+        if bdd == 'BAZREC':
+            acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'])
         if bdd == 'RFCV':
             acc=st.selectbox("Privilège d'accès", [' '] + ['CB', 'CV'])
         identifiant=st.text_input("Identifiant de connexion")
