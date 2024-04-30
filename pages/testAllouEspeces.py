@@ -27,24 +27,20 @@ df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
 esp = st.sidebar.selectbox(
     'Choisir la description de marchandise',
-    df['DESCRIPTION MARCHANDISE'].unique())
+    df['DESCRIPTION_PRODUIT_FCVR'].unique())
 
-result = df[df['DESCRIPTION MARCHANDISE']==esp]
+result = df[df['DESCRIPTION_PRODUIT_FCVR']==esp]
 
 res_max = result['TC'].max()
 
 result['DC'] = result.loc[:, 'DT'].copy()
 
 for i in range(result.shape[0]): 
-    result['DC'].iloc[i] = res_max * result['Valeur CAF'].iloc[i] - result['DT'].iloc[i]
-
-result = result[['DESCRIPTION MARCHANDISE', 'N°Déclaration', 'Date de la déclaration',
-                 'Déclarant', 'Opérateur', 'Origine', 'Position SH', 'Libelle SH', 'DT',
-                 'Valeur CAF', 'TC', 'Poids net', 'DC']]
+    result['DC'].iloc[i] = res_max * result['VALCAF'].iloc[i] - result['DT'].iloc[i]
 
 result['TC'] = result['TC'].map('{:.1%}'.format)
 result['DC'] = result['DC'].map('{:.0f}'.format)
-result['Position SH'] = result['Position SH'].map('{:.0f}'.format)
+result['SH_FCVR'] = result['SH_FCVR'].map('{:.0f}'.format)
 
 # Traitement des fraudes en valeur
 st.write('Tableau pour analyser les déclarations Espèces')

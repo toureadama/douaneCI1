@@ -25,9 +25,9 @@ dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
 codop = st.sidebar.selectbox(
     'Choisir le code opérateur',
-    dpp['Code opérateur'].unique())
+    dpp['CODE_OPERATEUR'].unique())
 
-resultcodop = dpp[dpp['Code opérateur']==codop]
+resultcodop = dpp[dpp['CODE_OPERATEUR']==codop]
 resultcodop = resultcodop.drop_duplicates()
 
 st.dataframe(resultcodop, use_container_width=True)

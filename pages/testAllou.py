@@ -24,28 +24,28 @@ dpp = load_file(update)
 
 dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
-dpp['Date de la déclaration'] = pd.to_datetime(dpp['Date de la déclaration'])
+dpp['DATENR'] = pd.to_datetime(dpp['DATENR'])
 
-date_min = min(dpp['Date de la déclaration'])
-date_max = max(dpp['Date de la déclaration'])
+date_min = min(dpp['DATENR'])
+date_max = max(dpp['DATENR'])
 
 debut = st.sidebar.date_input("Date de début:", value=date_min)
 fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 
-dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) & 
-          (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
+dpp = dpp[(dpp['DATENR'] >= pd.to_datetime(debut)) & 
+          (dpp['DATENR'] <= pd.to_datetime(fin))]
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
-    dpp['Position SH'].unique())
+    dpp['SH_FCVR'].unique())
 
-resultSH = dpp[dpp['Position SH']==prod]
+resultSH = dpp[dpp['SH_FCVR']==prod]
 
 descMarch = st.sidebar.selectbox(
     'Choisir la description de la marchandise',
-    resultSH['DESCRIPTION MARCHANDISE'].unique())
+    resultSH['DESCRIPTION_PRODUIT_FCVR'].unique())
 
-resultDesMarch = resultSH[resultSH['DESCRIPTION MARCHANDISE']==descMarch]
+resultDesMarch = resultSH[resultSH['DESCRIPTION_PRODUIT_FCVR']==descMarch]
 
 st.dataframe(resultDesMarch, use_container_width=True)
 st.write('Nombre de champs concernés:', resultDesMarch.shape[0])

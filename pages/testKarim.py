@@ -25,16 +25,16 @@ dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
 prod = st.sidebar.selectbox(
     'Choisir la position tarifaire',
-    dpp['Position SH'].unique())
+    dpp['SH_FCVR'].unique())
 
-resultSH = dpp[dpp['Position SH']==prod]
+resultSH = dpp[dpp['SH_FCVR']==prod]
 
 descMarch = st.sidebar.selectbox(
     'Choisir la description de la marchandise',
-    resultSH['DESCRIPTION MARCHANDISE'].unique())
+    resultSH['DESCRIPTION_PRODUIT_FCVR'].unique())
 
-resultDesMarch = resultSH[resultSH['DESCRIPTION MARCHANDISE']==descMarch]
-resultDesMarch = resultDesMarch[['Origine', 'PU REC', 'N°Déclaration REC']].drop_duplicates()
+resultDesMarch = resultSH[resultSH['DESCRIPTION_PRODUIT_FCVR']==descMarch]
+resultDesMarch = resultDesMarch[['ORIGINE', 'PU REC', 'NUMENR REC']].drop_duplicates()
 
 st.write('Données de comparaison')
 st.dataframe(resultDesMarch, use_container_width=True)

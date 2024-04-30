@@ -34,11 +34,11 @@ result['percent'] = result['percent'].map('{:.2f}'.format)
 #result['cum_percent'] = result['cum_percent'].map('{:.2f}'.format)
 #result['pareto']      = result['pareto'].map('{:.2f}'.format)
 
-st.dataframe(result[['code opérateur', 'nbre déclarations',	'percent']], use_container_width=True)
+st.dataframe(result[['CODE_OPERATEUR', 'nbre déclarations',	'percent']], use_container_width=True)
 
 st.write('Nombre opérateurs concernés ', result.shape[0], ' représentant ', f"{result['cum_percent'][-1:].iloc[0]:.0%}",' des opérateurs')
 
-csv = result[['code opérateur', 'nbre déclarations', 'percent']].to_csv(index=False).encode('utf-8')
+csv = result[['CODE_OPERATEUR', 'nbre déclarations', 'percent']].to_csv(index=False).encode('utf-8')
 
 # download button 1 to download dataframe as csv
 download1 = st.download_button(

@@ -1,1 +1,6 @@
 df_rfcv2.csv filter=lfs diff=lfs merge=lfs -text
+especes.csv filter=lfs diff=lfs merge=lfs -text
+sortie_viandes_abats.csv filter=lfs diff=lfs merge=lfs -text
+mens_sortie_viandes_abats.csv filter=lfs diff=lfs merge=lfs -text
+frm.csv filter=lfs diff=lfs merge=lfs -text
+frm_CC.csv filter=lfs diff=lfs merge=lfs -text

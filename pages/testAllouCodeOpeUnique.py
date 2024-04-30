@@ -17,7 +17,7 @@ update = False
 
 @st.cache_resource
 def load_file(update):
-    df = pd.read_csv('sortie_va.csv')
+    df = pd.read_csv('sortie_viandes_abats.csv') # sortie_va
     
     return df
 
@@ -25,24 +25,24 @@ dpp = load_file(update)
 
 dpp = dpp.loc[:, ~dpp.columns.str.contains('^Unnamed')]
 
-dpp['Date de la déclaration'] = pd.to_datetime(dpp['Date de la déclaration'])
+dpp['DATENR'] = pd.to_datetime(dpp['DATENR'])
 
-date_min = min(dpp['Date de la déclaration'])
-date_max = max(dpp['Date de la déclaration'])
+date_min = min(dpp['DATENR'])
+date_max = max(dpp['DATENR'])
 
 debut = st.sidebar.date_input("Date de début:", value=date_min)
 fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 
-dpp = dpp[(dpp['Date de la déclaration'] >= pd.to_datetime(debut)) & 
-          (dpp['Date de la déclaration'] <= pd.to_datetime(fin))]
+dpp = dpp[(dpp['DATENR'] >= pd.to_datetime(debut)) & 
+          (dpp['DATENR'] <= pd.to_datetime(fin))]
 
 #st.write(dpp.columns)
 
 codop = st.sidebar.selectbox(
     'Choisir le code opérateur',
-    dpp['Code opérateur'].unique())
+    dpp['CODE_OPERATEUR'].unique())
 
-resultcodop = dpp[dpp['Code opérateur']==codop]
+resultcodop = dpp[dpp['CODE_OPERATEUR']==codop]
 resultcodop = resultcodop.drop_duplicates()
 
 st.dataframe(resultcodop, use_container_width=True)
