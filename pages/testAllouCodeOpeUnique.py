@@ -17,7 +17,7 @@ update = False
 
 @st.cache_resource
 def load_file(update):
-    df = pd.read_csv('sortie_viandes_abats.csv') # sortie_va
+    df = pd.read_csv('sortie_viandes_abats.csv', sep=";") # sortie_va
     
     return df
 

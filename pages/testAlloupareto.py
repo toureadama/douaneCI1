@@ -17,7 +17,7 @@ update = True
 
 @st.cache_resource
 def load_file(update):
-    frm = pd.read_csv('frm.csv')
+    frm = pd.read_csv('frm.csv', sep=";")
     
     return frm
 
@@ -35,14 +35,14 @@ resultEsp = frm[frm['pareto'] > par/100].sort_values(by='nbre déclarations', as
 st.write('Tableau pour analyser les déclarations Valeurs')
 
 
-result['SH_FCVR'] = result['SH_FCVR'].map('{:.0f}'.format)
+result['Position SH'] = result['Position SH'].map('{:.0f}'.format)
 result['percent']     = result['percent'].map('{:.2f}'.format)
 
-st.dataframe(result[['DESCRIPTION_PRODUIT_FCVR', 'SH_FCVR', 'nbre déclarations',	'percent']], use_container_width=True)
+st.dataframe(result[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 'nbre déclarations',	'percent']], use_container_width=True)
 
 st.write('Nombre de marchandises concernées ', result.shape[0], ' représentant ', f"{result['cum_percent'][-1:].iloc[0]:.0%}",' des déclarations totales')
 
-csv = result[['DESCRIPTION_PRODUIT_FCVR', 'SH_FCVR', 'nbre déclarations',	'percent']].to_csv(index=False).encode('utf-8')
+csv = result[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 'nbre déclarations',	'percent']].to_csv(index=False).encode('utf-8')
 
 # download button 1 to download dataframe as csv
 download1 = st.download_button(

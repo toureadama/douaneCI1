@@ -15,7 +15,7 @@ update = True
 
 @st.cache_resource
 def load_file(update):
-    frmCC = pd.read_csv('frm_CC.csv')
+    frmCC = pd.read_csv('frm_CC.csv', sep=";")
     
     return frmCC
 
