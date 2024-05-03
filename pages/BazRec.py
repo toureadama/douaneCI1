@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from st_pages import Page, show_pages
+from io import BytesIO
+import xlsxwriter
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -73,12 +75,23 @@ df_Search = dfR[['DATENR', 'FOURNISSEUR_IMP_CLIENT_EXP', 'ORIGINE', 'LIBELLE_DEV
 
 if st.button('Rechercher'):
     st.dataframe(df_Search)
-        
-    csv = df_Search.to_csv(index=False).encode('utf-8')
+
+    buffer = BytesIO()
+    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+        df_Search.to_excel(writer, sheet_name='sortie')
 
     download1 = st.download_button(
-        label="Export sous CSV",
-        data=csv,
-        file_name='Sortie.csv',
-        mime='text/csv'
+        label="Export sous Excel",
+        data=buffer.getvalue(),
+        file_name='Sortie.xlsx',
+        mime='application/vnd.ms-excel'
     )
+        
+    #csv = df_Search.to_csv(index=False).encode('utf-8')
+
+    #download1 = st.download_button(
+        #label="Export sous CSV",
+        #data=csv,
+        #file_name='Sortie.csv',
+        #mime='text/csv'
+    #)

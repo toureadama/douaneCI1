@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 from st_pages import Page, show_pages
+import xlsxwriter
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -42,13 +43,15 @@ st.dataframe(result[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 'nb
 
 st.write('Nombre de marchandises concernées ', result.shape[0], ' représentant ', f"{result['cum_percent'][-1:].iloc[0]:.0%}",' des déclarations totales')
 
-csv = result[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 'nbre déclarations',	'percent']].to_csv(index=False).encode('utf-8')
+csv = result[['DESCRIPTION MARCHANDISE', 'Position SH', 'Libelle SH', 'nbre déclarations',	'percent']]
 
-# download button 1 to download dataframe as csv
+buffer = BytesIO()
+with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+    csv.to_excel(writer, sheet_name='sortie')
+
 download1 = st.download_button(
-    label="Export sous CSV",
-    data=csv,
-    file_name='SortieFrm.csv',
-    mime='text/csv'
+    label="Export sous Excel",
+    data=buffer.getvalue(),
+    file_name='Sortie.xlsx',
+    mime='application/vnd.ms-excel'
 )
-

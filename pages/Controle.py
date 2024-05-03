@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from st_pages import Page, show_pages
 from io import BytesIO
+import xlsxwriter
+
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/Variation.py","Variation"),
@@ -119,12 +121,14 @@ st.write(Comp.T)
 
 # Extraction sous Excel
 
-csv = Comp.to_csv(index=False).encode('utf-8')
 
-# download button 1 to download dataframe as csv
-download = st.download_button(
-    label="Export sous csv",
-    data=csv,
-    file_name="Sortie.csv",
-    mime="text/csv"
+buffer = BytesIO()
+with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+    Comp.to_excel(writer, sheet_name='sortie')
+
+download1 = st.download_button(
+    label="Export sous Excel",
+    data=buffer.getvalue(),
+    file_name='Sortie.xlsx',
+    mime='application/vnd.ms-excel'
 )

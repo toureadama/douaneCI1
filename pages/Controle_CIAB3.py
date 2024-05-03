@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 from st_pages import Page, show_pages
+import xlsxwriter
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -94,14 +95,17 @@ if NumDecla :
     st.write(f"Quelques exemples de déclarations de la même catégorie.")
     st.write(Comp.T)
 
-    csv = Comp.to_csv(index=False).encode('utf-8')
+    
+    from io import BytesIO
 
-    #download button 1 to download dataframe as csv
+    buffer = BytesIO()
+    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+        Comp.to_excel(writer, sheet_name='sortie')
+
     download1 = st.download_button(
-        label="Export sous CSV",
-        data=csv,
-        file_name='Sortie.csv',
-        mime='text/csv'
+        label="Export sous Excel",
+        data=buffer.getvalue(),
+        file_name='Sortie.xlsx',
+        mime='application/vnd.ms-excel'
     )
-
     
