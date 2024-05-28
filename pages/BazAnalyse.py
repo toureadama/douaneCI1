@@ -40,9 +40,9 @@ if DateDeb:# & DateFin:
     if SHrfcv != None:
         dfR = dfR[dfR['SH_FCVR'] == SHrfcv]
     
-    Devise = st.sidebar.selectbox('', dfR['LIBELLE_DEVISE'].unique(), index=None, placeholder="Choisir la devise")
+    Devise = st.sidebar.selectbox('', dfR['CODE_DEVISE'].unique(), index=None, placeholder="Choisir la devise")
     if Devise != None:
-        dfR = dfR[dfR['LIBELLE_DEVISE'] == Devise]
+        dfR = dfR[dfR['CODE_DEVISE'] == Devise]
     
     Origin = st.sidebar.selectbox('', dfR['ORIGINE'].unique(), index=None, placeholder="Choisir le pays d''origine")
     if Origin != None:

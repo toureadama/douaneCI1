@@ -61,16 +61,16 @@ if DateDeb:# & DateFin:
     ValFOB = st.sidebar.selectbox('', dfR['VALFOB'].unique(), index=None, placeholder="Choisir la valeur FOB")
     if ValFOB != None:
         dfR = dfR[dfR['VALFOB'] == ValFOB]
-    Devise = st.sidebar.selectbox('', dfR['LIBELLE_DEVISE'].unique(), index=None, placeholder="Choisir la devise")
+    Devise = st.sidebar.selectbox('', dfR['CODE_DEVISE'].unique(), index=None, placeholder="Choisir la devise")
     if Devise != None:
-        dfR = dfR[dfR['LIBELLE_DEVISE'] == Devise]
+        dfR = dfR[dfR['CODE_DEVISE'] == Devise]
         
     Fournisseur = st.sidebar.selectbox('', dfR['FOURNISSEUR_IMP_CLIENT_EXP'].unique(), index=None, placeholder="Choisir le fournisseur")
     if Fournisseur != None:
         dfR = dfR[dfR['FOURNISSEUR_IMP_CLIENT_EXP'] == Fournisseur]
     
 
-df_Search = dfR[['DATENR', 'FOURNISSEUR_IMP_CLIENT_EXP', 'ORIGINE', 'LIBELLE_DEVISE', 
+df_Search = dfR[['DATENR', 'FOURNISSEUR_IMP_CLIENT_EXP', 'ORIGINE', 'CODE_DEVISE', 
                  'NOMBRE_ARTICLE', 'POIDSNET', 'SH_FCVR', 'LIBELLE_SH_FCVR_SELON_LE_TARIF', 'NUM_AV_FCVR', 'NBL', 'PU']]
 
 if st.button('Rechercher'):
