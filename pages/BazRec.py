@@ -19,7 +19,7 @@ def load_all_file(update):
     #df  = pd.read_csv('C:/Users/HP 820 G3/Desktop/DOUANES CI/df_sortie/df_rfcv.csv', sep=";")
     df  = pd.read_csv('df_rfcv2.csv', sep=";")
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df['DATENR'] = pd.to_datetime(df['DATENR'], format='mixed')
+    df['DATENR'] = pd.to_datetime(df['DATENR'])
     # valeur unitaire (Val CAF / Poids net)
     df = df[df["POIDSNET"] != 0]
     df["PU"] = df["VALCAF"] / df["POIDSNET"]
