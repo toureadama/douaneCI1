@@ -38,9 +38,9 @@ DateFin = st.sidebar.date_input(label="Date de fin", value=DateDeb,min_value=Dat
 if DateDeb:# & DateFin:
     dfR = df[(df['DATENR'] >= pd.to_datetime(DateDeb)) & (df['DATENR'] <= pd.to_datetime(DateFin))]
     
-    LibelleSHrfcv = st.sidebar.selectbox('', dfR['LIBELLE_SH_DEC'].unique(), index=None, placeholder="Choisir le libéllé SH")
+    LibelleSHrfcv = st.sidebar.selectbox('', dfR['LIBELLE_SH_FCVR_SELON_LE_TARIF'].unique(), index=None, placeholder="Choisir le libéllé SH")
     if LibelleSHrfcv != None:
-        dfR = dfR[dfR['LIBELLE_SH_DEC'] == LibelleSHrfcv]
+        dfR = dfR[dfR['LIBELLE_SH_FCVR_SELON_LE_TARIF'] == LibelleSHrfcv]
     
     Origin = st.sidebar.selectbox('', dfR['ORIGINE'].unique(), index=None, placeholder="Choisir le pays d''origine")
     if Origin != None:
@@ -71,7 +71,7 @@ if DateDeb:# & DateFin:
     
 
 df_Search = dfR[['DATENR', 'FOURNISSEUR_IMP_CLIENT_EXP', 'ORIGINE', 'LIBELLE_DEVISE', 
-                 'NOMBRE_ARTICLE', 'POIDSNET', 'SH_FCVR', 'LIBELLE_SH_DEC', 'NUM_AV_FCVR', 'NBL', 'PU']]
+                 'NOMBRE_ARTICLE', 'POIDSNET', 'SH_FCVR', 'LIBELLE_SH_FCVR_SELON_LE_TARIF', 'NUM_AV_FCVR', 'NBL', 'PU']]
 
 if st.button('Rechercher'):
     st.dataframe(df_Search)
