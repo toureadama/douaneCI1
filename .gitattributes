@@ -4,3 +4,5 @@ sortie_viandes_abats.csv filter=lfs diff=lfs merge=lfs -text
 mens_sortie_viandes_abats.csv filter=lfs diff=lfs merge=lfs -text
 frm.csv filter=lfs diff=lfs merge=lfs -text
 frm_CC.csv filter=lfs diff=lfs merge=lfs -text
+df_RFCV.csv filter=lfs diff=lfs merge=lfs -text
+sortie_moy.csv filter=lfs diff=lfs merge=lfs -text

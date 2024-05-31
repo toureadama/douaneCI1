@@ -52,7 +52,7 @@ def main():
         if bdd == 'BAZREC':
             acc=st.selectbox("Privilège d'accès", [' '] + ['Manager', 'Vérificateur'])
         if bdd == 'RFCV':
-            acc=st.selectbox("Privilège d'accès", [' '] + ['CB', 'CV'])
+            acc=st.selectbox("Privilège d'accès", [' '] + ['CB', 'CV', 'Vérificateur'])
         identifiant=st.text_input("Identifiant de connexion")
         password=st.text_input("Mot de passe")
         

@@ -28,13 +28,17 @@ show_pages([
     Page("pages/Controle_CIAB7.py","Controle7"),
     Page("pages/Controle_CIABP.py","ControleP"),
     Page("pages/BazRec.py","RecherceBaz"),
-    Page("pages/BazAnalyse.py","AnalyseBaz")
+    Page("pages/BazAnalyse.py","AnalyseBaz"),
+    Page("pages/Controle_RFCV.py","ContrôleRFCV"),
+    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur RFCV"),
+    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV")
 ])
 
 hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1', 
             'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
              'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
-             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz"
+             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz",
+             'ContrôleRFCV', 'Suivi Opérateur RFCV', 'Contrôle 1er niveau RFCV'
              ])  
 
 #Etablir la connexion
@@ -82,6 +86,8 @@ if st.button('Valider'):
             switch_page('ControleP')
         elif new_list_acces[ind][1:3]==('Décisionnel', 'Manager'):
             switch_page('Contrôle 1er niveau') 
+        elif new_list_acces[ind][1:3]==('RFCV', 'Vérificateur'):
+            switch_page('ContrôleRFCV') 
         elif new_list_acces[ind][0:3]==('TOUT_Croisement', 'Décisionnel', 'Vérificateur'):
             switch_page('Croisement') 
         elif new_list_acces[ind][0:3]==('TOUT', 'Décisionnel', 'Vérificateur'):

@@ -4,7 +4,8 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/ControleNiveau1.py","Contrôle 1er niveau")
+    Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
+    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV")
 ])
 
 update = True
@@ -15,12 +16,13 @@ def load_all_file(update):
     df_moy = pd.read_csv('sortie_moy.csv')
     # Chargement des codes SH et libéllés 
     df_code = pd.read_csv("TEC_CEDEAO_SH_2017_LR_TAXES.csv")
+
+    df_moy  = df_moy.loc[:, ~df_moy.columns.str.contains('^Unnamed')]
+    df_code = df_code.loc[:, ~df_code.columns.str.contains('^Unnamed')]
+
     return df_moy, df_code
 
 df_moy, df_code = load_all_file(update) 
-
-df_moy  = df_moy.loc[:, ~df_moy.columns.str.contains('^Unnamed')]
-df_code = df_code.loc[:, ~df_code.columns.str.contains('^Unnamed')]
 
 PosTarif = st.sidebar.selectbox(
     'Choisir la position tarifaire',
