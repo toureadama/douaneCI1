@@ -7,7 +7,7 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from st_pages import Page, show_pages, hide_pages
 
-# Identification des onglets à faire apparaître
+# Identification des onglets 
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("Administrateur.py","Admin"),
@@ -42,7 +42,7 @@ hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1',
              'ContrôleRFCV', 'Suivi Opérateur RFCV', 'Contrôle 1er niveau RFCV',
              "Contrôle 1er niveau RFCV Karim"
              ])  
-
+             
 #Etablir la connexion
 #@st.cache_resource
 def init_connection():

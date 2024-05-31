@@ -6,10 +6,13 @@ from st_aggrid import AgGrid, GridUpdateMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_pages import Page, show_pages, hide_pages
 
-# Identification des onglets à faire apparaître
+#***********************************************************************
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("Administrateur.py","Admin"),
+    Page("Administrateur.py","Admin")
+])
+
+hide_pages([
     Page("pages/testKarim.py","PU REC"),
     Page("pages/testKarimpareto.py","Analyse CC"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
@@ -34,18 +37,7 @@ show_pages([
     Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim")
 ])
 
-hide_pages(['Contrôle 1er niveau', 'Controle', 'Controle1', 
-            'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
-             'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
-             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz",
-             'ContrôleRFCV', 'Suivi Opérateur RFCV', 'Contrôle 1er niveau RFCV',
-             "Contrôle 1er niveau RFCV Karim"
-             ])  
-
-#show_pages([
-    #Page("Variation_forte.py","Accueil"),
-    #Page("Administrateur.py","Admin")
-#])
+#***********************************************************************
 
 
 
@@ -168,3 +160,4 @@ if mycursor:
         main()
 else:
     st.write("Connexion impossible à établir")
+    
