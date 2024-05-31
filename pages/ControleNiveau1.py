@@ -4,8 +4,7 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
-    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV")
+    Page("pages/ControleNiveau1.py","Contrôle 1er niveau")
 ])
 
 update = True
@@ -19,6 +18,8 @@ def load_all_file(update):
 
     df_moy  = df_moy.loc[:, ~df_moy.columns.str.contains('^Unnamed')]
     df_code = df_code.loc[:, ~df_code.columns.str.contains('^Unnamed')]
+    
+    df_moy['POSTAR'] = df_moy['POSTAR'].astype(str)
 
     return df_moy, df_code
 
@@ -26,33 +27,33 @@ df_moy, df_code = load_all_file(update)
 
 PosTarif = st.sidebar.selectbox(
     'Choisir la position tarifaire',
-    df_moy['Produit'].unique())
+    df_moy['POSTAR'].unique())
 
 if PosTarif :
     Origin = st.sidebar.selectbox(
         'Choisir la provenance du produit',
-        df_moy[df_moy['Produit']==PosTarif]['Origine'].unique())
+        df_moy[df_moy['POSTAR']==PosTarif]['ORIGINE'].unique())
 
 st.write(f"Quelques statistiques unitaires récentes sur cette position tarifaire de cette origine.")
 
-st.write(df_moy[(df_moy["Produit"] == PosTarif) 
-                & (df_moy["Origine"] == Origin)][['Sous_Produit', 'PU_moy', 
+st.write(df_moy[(df_moy["POSTAR"] == PosTarif) 
+                & (df_moy["ORIGINE"] == Origin)][['LIBELLE_POSTAR', 'PU_moy', 
                                                   'PU_min', 'PU_max', 'PU_med']])
 
 PdsNet = st.number_input(
     'Renseigner le poids net (kgs)', 0)
 
 ValFOB_moy = df_moy[
-    (df_moy["Produit"] == PosTarif) 
-    & (df_moy["Origine"] == Origin)]['PU_moy'].iloc[0] * PdsNet
+    (df_moy["POSTAR"] == PosTarif) 
+    & (df_moy["ORIGINE"] == Origin)]['PU_moy'].iloc[0] * PdsNet
 
 ValFOB_min = df_moy[
-    (df_moy["Produit"] == PosTarif) 
-    & (df_moy["Origine"] == Origin)]['PU_min'].iloc[0] * PdsNet
+    (df_moy["POSTAR"] == PosTarif) 
+    & (df_moy["ORIGINE"] == Origin)]['PU_min'].iloc[0] * PdsNet
 
 ValFOB_max = df_moy[
-    (df_moy["Produit"] == PosTarif) 
-    & (df_moy["Origine"] == Origin)]['PU_max'].iloc[0] * PdsNet
+    (df_moy["POSTAR"] == PosTarif) 
+    & (df_moy["ORIGINE"] == Origin)]['PU_max'].iloc[0] * PdsNet
 
 st.write(f"La valeur FOB doit être d'environ:")
 st.subheader(f"**:blue[{ValFOB_moy:,.0f}]** FCFA")

@@ -9,8 +9,10 @@ show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
     Page("pages/testKarimpareto.py","Analyse CC"),
-    Page("pages/testKarim.py","PU REC")
+    Page("pages/testKarim.py","PU REC"),
+    Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV")
 ])
+
 # Chargement et observation du fichier 
 
 update = False

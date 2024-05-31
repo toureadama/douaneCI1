@@ -4,12 +4,10 @@ from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/testAllou.py","Recherche"),
-    Page("pages/testKarimAllou.py","PU REC"),
-    Page("pages/testAlloupareto.py","Analyse Valeurs"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces"),
-    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur"),
-    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV")
+    Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
+    Page("pages/testKarimpareto.py","Analyse CC"),
+    Page("pages/testKarim.py","PU REC"),
+    Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV")
 ])
 
 update = True

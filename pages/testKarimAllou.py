@@ -9,8 +9,11 @@ show_pages([
     Page("pages/testAllou.py","Recherche"),
     Page("pages/testKarimAllou.py","PU REC"),
     Page("pages/testAlloupareto.py","Analyse Valeurs"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces")
+    Page("pages/testAllouEspeces.py","Analyse Espèces"),
+    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur"),
+    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV")
 ])
+
 # Chargement et observation du fichier 
 
 update = False
