@@ -34,7 +34,7 @@ show_pages([
     Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim")
 ])
 
-hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1', 
+hide_pages(['Contrôle 1er niveau', 'Controle', 'Controle1', 
             'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
              'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz",
@@ -42,10 +42,10 @@ hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1',
              "Contrôle 1er niveau RFCV Karim"
              ])  
 
-show_pages([
-    Page("Variation_forte.py","Accueil"),
-    Page("Administrateur.py","Admin")
-])
+#show_pages([
+    #Page("Variation_forte.py","Accueil"),
+    #Page("Administrateur.py","Admin")
+#])
 
 
 
