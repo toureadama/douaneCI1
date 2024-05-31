@@ -4,11 +4,49 @@ import streamlit as st
 from st_pages import Page, show_pages
 from st_aggrid import AgGrid, GridUpdateMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
+from st_pages import Page, show_pages, hide_pages
+
+# Identification des onglets à faire apparaître
+show_pages([
+    Page("Variation_forte.py","Accueil"),
+    Page("Administrateur.py","Admin"),
+    Page("pages/testKarim.py","PU REC"),
+    Page("pages/testKarimpareto.py","Analyse CC"),
+    Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
+    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2"),
+    Page("pages/testAllou.py","Recherche"),
+    Page("pages/Controle_All.py","Croisement"),
+    Page("pages/testAlloupareto.py","Analyse Valeurs"),
+    Page("pages/testAllouEspeces.py","Analyse Espèces"),
+    Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
+    Page("pages/Controle.py","Controle"),
+    Page("pages/Controle_CIAB1.py","Controle1"),
+    Page("pages/Controle_CIAB3.py","Controle3"),
+    Page("pages/Controle_CIAB5.py","Controle5"),
+    Page("pages/Controle_CIAB6.py","Controle6"),
+    Page("pages/Controle_CIAB7.py","Controle7"),
+    Page("pages/Controle_CIABP.py","ControleP"),
+    Page("pages/BazRec.py","RecherceBaz"),
+    Page("pages/BazAnalyse.py","AnalyseBaz"),
+    Page("pages/Controle_RFCV.py","ContrôleRFCV"),
+    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur RFCV"),
+    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV"),
+    Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim")
+])
+
+hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1', 
+            'Controle3', 'Controle5', 'Controle6', 'Controle7', 'ControleP',
+             'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
+             "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz",
+             'ContrôleRFCV', 'Suivi Opérateur RFCV', 'Contrôle 1er niveau RFCV',
+             "Contrôle 1er niveau RFCV Karim"
+             ])  
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("Administrateur.py","Admin")
 ])
+
 
 
 #Etablir la connexion
