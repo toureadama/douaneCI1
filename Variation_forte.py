@@ -88,7 +88,7 @@ if st.button('Valider'):
             switch_page('ControleP')
         elif new_list_acces[ind][1:3]==('Décisionnel', 'Manager'):
             switch_page('Contrôle 1er niveau') 
-        elif new_list_acces[ind][1:3]==('TOUT', 'RFCV', 'Vérificateur'):
+        elif new_list_acces[ind][0:3]==('TOUT', 'RFCV', 'Vérificateur'):
             switch_page('ContrôleRFCV') 
         elif new_list_acces[ind][0:3]==('TOUT_Croisement', 'Décisionnel', 'Vérificateur'):
             switch_page('Croisement') 
