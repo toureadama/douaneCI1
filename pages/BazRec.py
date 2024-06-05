@@ -71,7 +71,8 @@ if DateDeb:# & DateFin:
     
 
 df_Search = dfR[['DATENR', 'FOURNISSEUR_IMP_CLIENT_EXP', 'ORIGINE', 'CODE_DEVISE', 
-                 'NOMBRE_ARTICLE', 'POIDSNET', 'SH_FCVR', 'LIBELLE_SH_FCVR_SELON_LE_TARIF', 'NUM_AV_FCVR', 'NBL', 'PU']]
+                 'NOMBRE_ARTICLE', 'POIDSNET', 'SH_FCVR', 'LIBELLE_SH_FCVR_SELON_LE_TARIF',
+                 'DESCRIPTION_PRODUIT_FCVR', 'NUM_AV_FCVR', 'VALCAF', 'VALFOB', 'PU']]
 
 if st.button('Rechercher'):
     st.dataframe(df_Search)
