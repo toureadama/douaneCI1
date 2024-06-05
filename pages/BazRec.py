@@ -24,6 +24,8 @@ def load_all_file(update):
     df = df[df["POIDSNET"] != 0]
     df["PU"] = df["VALCAF"] / df["POIDSNET"]
     
+    df["PU"] = df["PU"].astype(int)
+    
     return df
 
 df = load_all_file(update) 
