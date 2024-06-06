@@ -7,7 +7,8 @@ import xlsxwriter
 show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/Controle_RFCV.py","Contrôle"),
-    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur")
+    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"),
+    Page("pages/testEspecesRFCV.py","Analyse Espèces")
 ])
 
 update = False

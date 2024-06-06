@@ -32,6 +32,7 @@ show_pages([
     Page("pages/Controle_RFCV.py","ContrôleRFCV"),
     Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur RFCV"),
     Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV"),
+    Page("pages/testEspecesRFCV.py","Analyse Espèces RFCV"),
     Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim")
 ])
 
@@ -40,7 +41,7 @@ hide_pages(['Accueil', 'Admin', 'Contrôle 1er niveau', 'Controle', 'Controle1',
              'Recherche', 'Croisement', 'Analyse Valeurs', 'PU REC', "Contrôle Code Opérateur",
              "Analyse Espèces", "Analyse CC", "Contrôle Code Opérateur 2", "RecherceBaz", "AnalyseBaz",
              'ContrôleRFCV', 'Suivi Opérateur RFCV', 'Contrôle 1er niveau RFCV',
-             "Contrôle 1er niveau RFCV Karim"
+             "Contrôle 1er niveau RFCV Karim", "Analyse Espèces RFCV"
              ])  
              
 #Etablir la connexion
