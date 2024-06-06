@@ -34,7 +34,8 @@ hide_pages([
     Page("pages/Controle_RFCV.py","ContrôleRFCV"),
     Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur RFCV"),
     Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV"),
-    Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim")
+    Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim"),
+    Page("pages/testEspecesRFCV.py","Analyse Espèces RFCV")
 ])
 
 #***********************************************************************
@@ -124,14 +125,15 @@ def main():
                     mydb.commit()
                     st.success("Suppression réussie!!!")
 
-
     elif option=="Modifier":
-        st.subheader("Modifiier un enregistrement")
-        id=st.number_input("Enter ID",min_value=1)
+        st.subheader("Modifier un enregistrement")
+        #id=st.number_input("Entrer ID",min_value=1)
 
         mycursor.execute("select * from utilisateur")
         result = mycursor.fetchall()
         result = pd.DataFrame(result)
+        #result['ID'] = result['ID'].astype(int)
+        id=st.selectbox("Entrer ID", result['ID'].unique())
         result = result[result.ID==id]
 
 
