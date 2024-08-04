@@ -9,7 +9,7 @@ show_pages([
 ])
 
 
-update = True
+update = False
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
