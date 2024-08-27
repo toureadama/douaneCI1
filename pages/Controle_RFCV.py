@@ -16,7 +16,7 @@ update = False
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource 
 def load_all_file(update):
-    df = pd.read_csv('C:/Users/HP 820 G3/Desktop/DOUANES CI/MIN_MAX/gitMINIMAX2/df_RFCV.csv', sep=";")
+    df = pd.read_csv('df_RFCV.csv', sep=";")
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     
     return df
