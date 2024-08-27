@@ -56,7 +56,8 @@ Val_max = df[
 ValFOBref = PdsNet * Val_moy
 
 st.write(f"La valeur FOB moyenne doit être:")
-st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
+#st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
+st.subheader(ValFOBref)
 st.write(f"La valeur FOB minimale :blue[{PdsNet * Val_min:,.0f}] FCFA")
 st.write(f"La valeur FOB maximale :blue[{PdsNet * Val_max:,.0f}] FCFA")
 
