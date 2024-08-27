@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
+#import numpy as np
 from io import BytesIO
 from st_pages import Page, show_pages
-import xlsxwriter
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -16,7 +16,7 @@ update = False
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource 
 def load_all_file(update):
-    df = pd.read_csv('df_RFCV.csv', sep=";")
+    df = pd.read_csv('C:/Users/HP 820 G3/Desktop/DOUANES CI/MIN_MAX/gitMINIMAX2/df_RFCV.csv', sep=";")
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     
     return df
@@ -33,7 +33,7 @@ if Descriptif:
         df[df['DESCRIPTION_PRODUIT_FCVR']==Descriptif]['ORIGINE'].unique())
 
 PdsNet = st.sidebar.number_input(
-    'Renseigner le poids net (kgs)', 0)
+    'Renseigner le poids net (kgs)', 1)
 
 ValeurFOB = st.sidebar.number_input(
     'Renseigner la valeur FOB')
@@ -57,14 +57,16 @@ ValFOBref = PdsNet * Val_moy
 
 st.write(f"La valeur FOB moyenne doit être:")
 #st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
-st.subheader(ValFOBref)
-st.write(f"La valeur FOB minimale :blue[{PdsNet * Val_min:,.0f}] FCFA")
-st.write(f"La valeur FOB maximale :blue[{PdsNet * Val_max:,.0f}] FCFA")
+st.subheader("**:blue[{}]** FCFA".format(ValFOBref))
+st.write("La valeur FOB minimale :blue[{}] FCFA".format(PdsNet * Val_min))
+st.write("La valeur FOB maximale :blue[{}] FCFA".format(PdsNet * Val_max))
 
-ValDD = ValFOBref - ValeurFOB * exch
+
+ValDD = float((ValFOBref).replace(',','.')) - ValeurFOB * exch
+
 if ValDD > 0:
-    st.write(f"La valeur FOB déclarée par l'opérateur est de **:blue[{ValeurFOB * exch:,.0f}]** FCFA. Elle est sous-évaluée. Donc, ")
-    st.write(f"la valeur taxable du DC est :red[{ValDD:,.0f}] FCFA")
+    st.write("La valeur FOB déclarée par l'opérateur est de **:blue[{:0.2f}]** FCFA. Elle est sous-évaluée. Donc, ".format(ValeurFOB * exch))
+    st.write("la valeur taxable du DC est :red[{:0.2f}] FCFA".format(ValDD))
 
 Comp = df[
     (df['DESCRIPTION_PRODUIT_FCVR']==Descriptif)  
