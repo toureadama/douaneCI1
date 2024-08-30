@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-#import numpy as np
 from io import BytesIO
 from st_pages import Page, show_pages
 
@@ -62,11 +61,11 @@ st.write("La valeur FOB minimale :blue[{}] FCFA".format(PdsNet * Val_min))
 st.write("La valeur FOB maximale :blue[{}] FCFA".format(PdsNet * Val_max))
 
 
-ValDD = float((ValFOBref).replace(',','.')) - ValeurFOB * exch
+ValDD = ValFOBref - ValeurFOB * exch
 
 if ValDD > 0:
     st.write("La valeur FOB déclarée par l'opérateur est de **:blue[{:0.2f}]** FCFA. Elle est sous-évaluée. Donc, ".format(ValeurFOB * exch))
-    st.write("la valeur taxable du DC est :red[{:0.2f}] FCFA".format(ValDD))
+    st.write("la valeur taxable du DC est :red[{:0.0f}] FCFA".format(ValDD))
 
 Comp = df[
     (df['DESCRIPTION_PRODUIT_FCVR']==Descriptif)  
