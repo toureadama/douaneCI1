@@ -23,7 +23,7 @@ def load_file(update):
     return df
 
 df = load_file(update)
-st.write(df.columns)
+st.write(len(df.columns), df.columns)
 
 date_min = min(df['DATENR'])
 date_max = max(df['DATENR'])
