@@ -1,87 +1,104 @@
-import streamlit as st
 import pandas as pd
+from datetime import datetime
+import streamlit as st
 from io import BytesIO
 from st_pages import Page, show_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/Controle_RFCV.py","Contrôle"),
-    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"),
-    Page("pages/testEspecesRFCV.py","Analyse Espèces")
+    Page("pages/Controle_RFCV.py","Contrôle"), # FOBUn2.py
+    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"), # FOBUn3.py
+    Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
 ])
 
 update = False
 
 # Chargement des fichiers contenant déjà les variables retraitées
-@st.cache_resource 
-def load_all_file(update):
-    df = pd.read_csv('df_RFCV.csv', sep=";")
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+@st.cache_resource
+def load_file(update):
     
+    df = pd.read_csv("sortie_ViAb_enquete.csv", sep=';', low_memory=False)
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df['DATENR'] = df['DATENR'].apply(lambda x:datetime.strptime(x, "%d/%m/%Y"))
+       
     return df
 
-df = load_all_file(update) 
-
-Descriptif = st.sidebar.selectbox(
-    'Choisir le descriptif de marchandise',
-    df['DESCRIPTION_PRODUIT_FCVR'].unique())
-
-if Descriptif:
-    Origin = st.sidebar.selectbox(
-        'Origine de la marchandise',
-        df[df['DESCRIPTION_PRODUIT_FCVR']==Descriptif]['ORIGINE'].unique())
-
-PdsNet = st.sidebar.number_input(
-    'Renseigner le poids net (kgs)', 1)
-
-ValeurFOB = st.sidebar.number_input(
-    'Renseigner la valeur FOB')
-
-exch = st.sidebar.number_input(
-    'Renseigner le taux de change de la devise du FOB et le FCFA', 1.00)
-
-Val_moy = df[
-    (df['DESCRIPTION_PRODUIT_FCVR']==Descriptif) 
-    & (df["ORIGINE"] == Origin)]["PU_moy"].unique()[0]
-
-Val_min = df[
-    (df['DESCRIPTION_PRODUIT_FCVR']==Descriptif) 
-    & (df["ORIGINE"] == Origin)]["PU_min"].unique()[0]
-
-Val_max = df[
-    (df['DESCRIPTION_PRODUIT_FCVR']==Descriptif) 
-    & (df["ORIGINE"] == Origin)]["PU_max"].unique()[0]
-
-ValFOBref = PdsNet * Val_moy
-
-st.write(f"La valeur FOB moyenne doit être:")
-#st.subheader(f"**:blue[{ValFOBref:,.0f}]** FCFA")
-st.subheader("**:blue[{}]** FCFA".format(ValFOBref))
-st.write("La valeur FOB minimale :blue[{}] FCFA".format(PdsNet * Val_min))
-st.write("La valeur FOB maximale :blue[{}] FCFA".format(PdsNet * Val_max))
+df = load_file(update)
 
 
-ValDD = ValFOBref - ValeurFOB * exch
-
-if ValDD > 0:
-    st.write("La valeur FOB déclarée par l'opérateur est de **:blue[{:0.2f}]** FCFA. Elle est sous-évaluée. Donc, ".format(ValeurFOB * exch))
-    st.write("la valeur taxable du DC est :red[{:0.0f}] FCFA".format(ValDD))
-
-Comp = df[
-    (df['DESCRIPTION_PRODUIT_FCVR']==Descriptif)  
-    & (df["ORIGINE"] == Origin)]
-
-Comp.loc[:, "Pds Net Rel"] = abs(Comp.loc[:, "POIDSNET"] - PdsNet)
-Comp.sort_values(by=["Pds Net Rel"], inplace=True)
-Comp.drop(columns=["Pds Net Rel"], inplace=True)
+date_min = min(df['DATENR'])
+date_max = max(df['DATENR'])
 
 
-st.write(f"Quelques exemples de déclarations de la même catégorie.")
-st.write(Comp.T)
+debut = st.sidebar.date_input("Date de début:", value=date_min)
+fin   = st.sidebar.date_input("Date de fin:", value=date_max)
+
+df = df[(df['DATENR'] >= pd.to_datetime(debut)) & 
+        (df['DATENR'] <= pd.to_datetime(fin))]
+
+SH = st.sidebar.selectbox(
+    'Renseigner la position SH',
+    df['SH_FCVR'].unique(), index=0)
+
+if SH:
+    origine = st.sidebar.selectbox(
+        'Choisir la provenance',
+        df[df['SH_FCVR']==SH]['ORIGINE'].unique())
+
+    
+data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
+
+#data.sort_values(by='PU REC', inplace=True, ignore_index=True)
+
+#data['PU min']   = data['PU'].copy()
+#data['NUMENR min'] = data['NUMENR'].copy()
+#data['FOURNISSEUR min'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
+
+data['PU moyen'] = data['PU'].copy()
+data['NB Déclarations'] = data['PU'].copy()
+#data['NUMENR moyen'] = data['NUMENR'].copy()
+#data['FOURNISSEUR moyen'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
+
+data['PU REF']   = data['PU'].copy()
+data['NUMENR max'] = data['NUMENR'].copy()
+data['FOURNISSEUR max'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
+
+for val in data.index: #range(data.shape[0]):
+    TAB = data[data['DESCRIPTION_PRODUIT_FCVR']==data.loc[val, 'DESCRIPTION_PRODUIT_FCVR']]
+    
+    data.loc[val, 'NB Déclarations'] = TAB.shape[0]
+    
+    #MINI  = TAB['PU'].min()
+    MOYEN = TAB['PU'].mean()
+    MAX   = TAB['PU'].max()
+    
+    #idx_min = TAB.loc[TAB['PU']==MINI].index
+    #data.loc[val, 'PU min'] = TAB.loc[idx_min[0], 'PU']
+    #data.loc[val, 'NUMENR min'] = TAB.loc[idx_min[0], 'NUMENR']
+    #data.loc[val, 'FOURNISSEUR min'] = TAB.loc[idx_min[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
+    
+    idx_mean = TAB.loc[TAB['PU']==MOYEN].index
+    #data.loc[val, 'PU moyen'] = TAB.loc[idx_mean[0], 'PU']
+    #data.loc[val, 'NUMENR moyen'] = TAB.loc[idx_mean[0], 'NUMENR']
+    #data.loc[val, 'FOURNISSEUR moyen'] = TAB.loc[idx_mean[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
+    
+    idx_max = TAB.loc[TAB['PU']==MAX].index
+    data.loc[val, 'PU_REC'] = TAB.loc[idx_max[0], 'PU']
+    data.loc[val, 'NUMENR_REC'] = TAB.loc[idx_max[0], 'NUMENR']
+    data.loc[val, 'FOURNISSEUR_REC'] = TAB.loc[idx_max[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
+
+data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_index=True)
+
+data.sort_values(by='DESCRIPTION_PRODUIT_FCVR', inplace=True, ignore_index=True)
+
+st.dataframe(data=data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen', 'PU_REC', 
+                        'NUMENR_REC', 'FOURNISSEUR_REC']])
+
+# Extraction sous Excel
 
 buffer = BytesIO()
 with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-    Comp.to_excel(writer, sheet_name='sortie')
+    data.to_excel(writer, sheet_name='sortie')
 
 download1 = st.download_button(
     label="Export sous Excel",

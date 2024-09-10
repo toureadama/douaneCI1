@@ -13,29 +13,9 @@ show_pages([
 ])
 
 hide_pages([
-    Page("pages/testKarim.py","PU REC"),
-    Page("pages/testKarimpareto.py","Analyse CC"),
-    Page("pages/testKarimCodeOpeUnique.py","Contrôle Code Opérateur"),
-    Page("pages/testAllouCodeOpeUnique.py","Contrôle Code Opérateur 2"),
-    Page("pages/testAllou.py","Recherche"),
-    Page("pages/Controle_All.py","Croisement"),
-    Page("pages/testAlloupareto.py","Analyse Valeurs"),
-    Page("pages/testAllouEspeces.py","Analyse Espèces"),
-    Page("pages/ControleNiveau1.py","Contrôle 1er niveau"),
-    Page("pages/Controle.py","Controle"),
-    Page("pages/Controle_CIAB1.py","Controle1"),
-    Page("pages/Controle_CIAB3.py","Controle3"),
-    Page("pages/Controle_CIAB5.py","Controle5"),
-    Page("pages/Controle_CIAB6.py","Controle6"),
-    Page("pages/Controle_CIAB7.py","Controle7"),
-    Page("pages/Controle_CIABP.py","ControleP"),
-    Page("pages/BazRec.py","RecherceBaz"),
-    Page("pages/BazAnalyse.py","AnalyseBaz"),
     Page("pages/Controle_RFCV.py","ContrôleRFCV"),
     Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur RFCV"),
-    Page("pages/ControleNiveau1RFCV.py","Contrôle 1er niveau RFCV"),
-    Page("pages/ControleNiveau1RFCVKarim.py","Contrôle 1er niveau RFCV Karim"),
-    Page("pages/testEspecesRFCV.py","Analyse Espèces RFCV")
+    Page("pages/testEspecesRFCV.py","Frêt")
 ])
 
 #***********************************************************************

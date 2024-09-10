@@ -1,63 +1,83 @@
-import streamlit as st
 import pandas as pd
-from io import BytesIO
+from datetime import datetime
+import streamlit as st
 from st_pages import Page, show_pages
-import xlsxwriter
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
-    Page("pages/Controle_RFCV.py","Contrôle"),
-    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"),
-    Page("pages/testEspecesRFCV.py","Analyse Espèces")
+    Page("pages/Controle_RFCV.py","Contrôle"), # FOBUn2.py
+    Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"), # FOBUn3.py
+    Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
 ])
-
-# Chargement et observation du fichier 
 
 update = True
 
+# Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
 def load_file(update):
-    df = pd.read_csv('especes.csv', sep=";")
     
+    df = pd.read_csv("Fret_1er_SEMESTRE_2024.csv", sep=';', low_memory=False) # C:/Users/HP 820 G3/Desktop/ZZ/
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df['Date Déclaration'] = df['Date Déclaration'].apply(lambda x:datetime.strptime(x, "%d/%m/%Y"))
+       
     return df
 
 df = load_file(update)
 
-df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-esp = st.sidebar.selectbox(
-    'Choisir la description de marchandise',
-    df['DESCRIPTION_PRODUIT_FCVR'].unique())
-
-result = df[df['DESCRIPTION_PRODUIT_FCVR']==esp]
-
-res_max = result['TC'].max()
-
-result['DC'] = result.loc[:, 'DT'].copy()
-
-for i in range(result.shape[0]): 
-    result['DC'].iloc[i] = res_max * result['VALCAF'].iloc[i] - result['DT'].iloc[i]
-
-result['TC'] = result['TC'].map('{:.1%}'.format)
-result['DC'] = result['DC'].map('{:.0f}'.format)
-result['SH_FCVR'] = result['SH_FCVR'].map('{:.0f}'.format)
-
-# Traitement des fraudes en valeur
-st.write('Tableau pour analyser les déclarations Espèces')
+date_min = min(df['Date Déclaration'])
+date_max = max(df['Date Déclaration'])
 
 
-st.dataframe(result.sort_values(by='TC', ascending=False), use_container_width=True)
-st.write('Nombre de champs concernés:', result.shape[0])
+debut = st.sidebar.date_input("Date de début:", value=date_min)
+fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 
-# Extraction sous Excel
+df = df[(df['Date Déclaration'] >= pd.to_datetime(debut)) & 
+          (df['Date Déclaration'] <= pd.to_datetime(fin))]
 
-buffer = BytesIO()
-with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-    result.to_excel(writer, sheet_name='sortie')
+origine = st.sidebar.selectbox(
+    'Renseigner la provenance',
+    df['Origine'].unique(), index=0)
 
-download1 = st.download_button(
-    label="Export sous Excel",
-    data=buffer.getvalue(),
-    file_name='Sortie.xlsx',
-    mime='application/vnd.ms-excel'
-)
+if origine:
+    conteneur = st.sidebar.selectbox(
+        'Choisir le type de conteneur',
+        df[df['Origine']==origine]['Type Conteneur'].unique())
+    
+    if conteneur:
+        sh = st.sidebar.selectbox(
+            'Choisir la position tarifaire',
+            df[(df['Origine']==origine) & (df['Type Conteneur']==conteneur)]['SH Déclaré'].unique())
+        
+        if sh:
+            Dev = st.sidebar.selectbox(
+                'Choisir la devise', 
+                df[(df['Origine']==origine) 
+                    & (df['Type Conteneur']==conteneur)
+                    & (df['SH Déclaré']==sh)]['Devise'].unique())
+
+
+            data = df[(df['Origine']==origine) 
+                      & (df['Type Conteneur']==conteneur)
+                      & (df['SH Déclaré'] == sh)
+                      & (df['Devise'] == Dev)]
+            
+            data.sort_values(by=["Fret Unitaire"], inplace=True, ignore_index=True)
+            
+            donnees = pd.DataFrame.from_dict({'Fret Unitaire min': [round(data['Fret Unitaire'].iloc[0], 0)], 
+                                              'Fret Unitaire moyen': [round(data['Fret Unitaire'].mean(), 0)],
+                                              'Fret Unitaire max': [round(data['Fret Unitaire'].iloc[-1], 0)], 
+                                              'Devise': [data['Devise'].iloc[0]],
+                                              'Decla inf': [data['N° Déclaration'].iloc[0]], 
+                                              'Decla sup': [data['N° Déclaration'].iloc[-1]]})
+
+            st.dataframe(donnees)
+            
+            NBCont = st.number_input('Renseigner le nombre de conteneurs', 1)
+            NBCont_inf = NBCont * donnees['Fret Unitaire min'].iloc[0]
+            NBCont_sup = NBCont * donnees['Fret Unitaire max'].iloc[0]
+            Dev = donnees['Devise'].iloc[0]
+            
+            st.write("Le fret devrait être compris entre {} {} et {} {}".format(NBCont_inf, Dev, NBCont_sup, Dev))
+
+            #st.write("Le fret devrait être compris entre {} et {}".format(NBCont * data['Fret Unitaire min'].iloc[0], NBCont * data['Fret Unitaire max'].iloc[0]))
