@@ -91,8 +91,9 @@ data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_i
 
 data.sort_values(by='DESCRIPTION_PRODUIT_FCVR', inplace=True, ignore_index=True)
 
-st.dataframe(data=data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen', 'PU_REC', 
-                        'NUMENR_REC', 'FOURNISSEUR_REC']])
+data = data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen',
+             'PU_REC', 'NUMENR_REC', 'FOURNISSEUR_REC']]
+st.dataframe(data=data)
 
 # Extraction sous Excel
 
