@@ -18,7 +18,7 @@ def load_file(update):
     
     df = pd.read_csv("sortie_ViAb_enquete.csv", sep=';', low_memory=False)
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df['DATENR'] = df['DATENR'].apply(lambda x:datetime.strptime(x, "%d/%m/%Y"))
+    #df['DATENR'] = df['DATENR'].apply(lambda x:datetime.strptime(x, "%d/%m/%Y"))
        
     return df
 
