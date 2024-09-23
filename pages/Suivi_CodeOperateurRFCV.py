@@ -10,7 +10,7 @@ show_pages([
     Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
 ])
 
-update = False
+update = True
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource

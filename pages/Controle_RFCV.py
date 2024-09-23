@@ -11,7 +11,7 @@ show_pages([
     Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
 ])
 
-update = False
+update = True
 
 # Chargement des fichiers contenant déjà les variables retraitées
 @st.cache_resource
@@ -48,16 +48,8 @@ if SH:
     
 data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
 
-#data.sort_values(by='PU REC', inplace=True, ignore_index=True)
-
-#data['PU min']   = data['PU'].copy()
-#data['NUMENR min'] = data['NUMENR'].copy()
-#data['FOURNISSEUR min'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
-
 data['PU moyen'] = data['PU'].copy()
 data['NB Déclarations'] = data['PU'].copy()
-#data['NUMENR moyen'] = data['NUMENR'].copy()
-#data['FOURNISSEUR moyen'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
 
 data['PU REF']   = data['PU'].copy()
 data['NUMENR max'] = data['NUMENR'].copy()
@@ -68,19 +60,10 @@ for val in data.index: #range(data.shape[0]):
     
     data.loc[val, 'NB Déclarations'] = TAB.shape[0]
     
-    #MINI  = TAB['PU'].min()
     MOYEN = TAB['PU'].mean()
     MAX   = TAB['PU'].max()
     
-    #idx_min = TAB.loc[TAB['PU']==MINI].index
-    #data.loc[val, 'PU min'] = TAB.loc[idx_min[0], 'PU']
-    #data.loc[val, 'NUMENR min'] = TAB.loc[idx_min[0], 'NUMENR']
-    #data.loc[val, 'FOURNISSEUR min'] = TAB.loc[idx_min[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
-    
     idx_mean = TAB.loc[TAB['PU']==MOYEN].index
-    #data.loc[val, 'PU moyen'] = TAB.loc[idx_mean[0], 'PU']
-    #data.loc[val, 'NUMENR moyen'] = TAB.loc[idx_mean[0], 'NUMENR']
-    #data.loc[val, 'FOURNISSEUR moyen'] = TAB.loc[idx_mean[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
     
     idx_max = TAB.loc[TAB['PU']==MAX].index
     data.loc[val, 'PU_REC'] = TAB.loc[idx_max[0], 'PU']
