@@ -64,8 +64,6 @@ if origine:
             
             data.sort_values(by=["Fret Unitaire"], inplace=True, ignore_index=True)
             
-            st.write(data['Fret Unitaire'].iloc[0])
-            
             donnees = pd.DataFrame.from_dict({'Fret Unitaire min': [round(data['Fret Unitaire'].iloc[0], 0)], 
                                               'Fret Unitaire moyen': [round(data['Fret Unitaire'].mean(), 0)],
                                               'Fret Unitaire max': [round(data['Fret Unitaire'].iloc[-1], 0)], 
