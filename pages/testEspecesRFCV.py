@@ -16,7 +16,7 @@ update = False
 @st.cache_resource
 def load_file(update):
     
-    df = pd.read_csv("Fret_1er_SEMESTRE_2024.csv", sep=';', low_memory=False) 
+    df = pd.read_csv("Fret.csv", sep=';', low_memory=False) 
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df['Date Déclaration'] = df['Date Déclaration'].apply(lambda x:datetime.strptime(x, "%d/%m/%Y"))
        
