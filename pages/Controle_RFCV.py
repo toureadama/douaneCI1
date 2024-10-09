@@ -64,6 +64,7 @@ for val in data.index: #range(data.shape[0]):
     MAX   = TAB['PU'].max()
     
     idx_mean = TAB.loc[TAB['PU']==MOYEN].index
+    data.loc[val, 'PU moyen'] = MOYEN
     
     idx_max = TAB.loc[TAB['PU']==MAX].index
     data.loc[val, 'PU_REC'] = TAB.loc[idx_max[0], 'PU']
