@@ -19,18 +19,17 @@ hide_pages([
 ])
 
 
-timeout = 30
+
 connection = pymysql.connect(
-    #charset="utf8mb4",
-    connect_timeout=timeout,
-    cursorclass=pymysql.cursors.DictCursor,
-    db="defaultdb",
-    host='mysql-a54ef6c-toureadama-2bc0.c.aivencloud.com',
-    password='AVNS_O9FSI98GLiPqRHk5e0H',
-    read_timeout=timeout,
-    port=15107,
-    user='avnadmin',
-    write_timeout=timeout,
+    connect_timeout=st.secrets["timeout"],
+    cursorclass=st.secrets["cursorclass"],
+    db=st.secrets["db"],
+    host=st.secrets["host"],
+    password=st.secrets["password"],
+    read_timeout=st.secrets["timeout"],
+    port=st.secrets["port"],
+    user=st.secrets["user"],
+    write_timeout=st.secrets["timeout"],
 )
 
 try:
