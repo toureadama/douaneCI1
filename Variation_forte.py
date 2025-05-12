@@ -39,6 +39,8 @@ connection = pymysql.connect(
 st.write(timeout)
 st.write(timeout)
 
+cursor = connection.cursor()
+
 try:
     cursor = connection.cursor()
     
