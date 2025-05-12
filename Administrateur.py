@@ -36,7 +36,7 @@ try:
     cursor = connection.cursor()
     
 except:
-    st.write('pas ok') #connection.close()
+    st.write('pas ok') 
     
     
 def main():

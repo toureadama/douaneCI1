@@ -38,7 +38,7 @@ try:
     cursor = connection.cursor()
     
 except:
-    st.write('pas ok') #connection.close()
+    st.write('pas ok') 
 
 st.title('Bienvenue sur le page de connexion!')
 
