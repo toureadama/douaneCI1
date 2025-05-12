@@ -1,5 +1,5 @@
 import pandas as pd
-import pymysql.cursors
+import pymysql
 import streamlit as st
 from st_pages import Page, show_pages
 from st_aggrid import AgGrid, GridUpdateMode
@@ -18,25 +18,28 @@ hide_pages([
     Page("pages/testEspecesRFCV.py","Frêt")
 ])
 
-#***********************************************************************
 
+timeout = 30
+connection = pymysql.connect(
+    #charset="utf8mb4",
+    connect_timeout=timeout,
+    cursorclass=pymysql.cursors.DictCursor,
+    db="defaultdb",
+    host='mysql-a54ef6c-toureadama-2bc0.c.aivencloud.com',
+    password='AVNS_O9FSI98GLiPqRHk5e0H',
+    read_timeout=timeout,
+    port=15107,
+    user='avnadmin',
+    write_timeout=timeout,
+)
 
-
-#Etablir la connexion
-#@st.cache_resource
-def init_connection():
-    host        = 'sql11.freemysqlhosting.net' # 'sql205.infinityfree.com' #
-    user        = 'sql11664568' # 'if0_36410890' #
-    password    = 'fMJHRX62M7' #'ZiZROzlMya'#
-    database    = 'sql11664568' # 'if0_36410890_douanesci'#
-    cursorclass = pymysql.cursors.DictCursor
-    return pymysql.connect(host=host, database=database, user=user, password=password, cursorclass=cursorclass)
-
-mydb = init_connection()
-
-mycursor = mydb.cursor()
-
-
+try:
+    cursor = connection.cursor()
+    
+except:
+    st.write('pas ok') #connection.close()
+    
+    
 def main():
     st.title("Opérations de l'administrateur d'utilisateurs")
 
@@ -45,14 +48,14 @@ def main():
     # Perform Selected CRUD Operations
     if option=="Créer":
         st.subheader("Créer un nouvel utilisateur")
-        mycursor.execute("select * from bureau")
-        resultBur = pd.DataFrame(mycursor.fetchall())
+        cursor.execute("select * from bureau")
+        resultBur = pd.DataFrame(cursor.fetchall())
 
-        mycursor.execute("select * from basededonnees")
-        resultBDD = pd.DataFrame(mycursor.fetchall())
+        cursor.execute("select * from basededonnees")
+        resultBDD = pd.DataFrame(cursor.fetchall())
 
-        mycursor.execute("select * from habilitation")
-        resultACC = pd.DataFrame(mycursor.fetchall())
+        cursor.execute("select * from habilitation")
+        resultACC = pd.DataFrame(cursor.fetchall())
 
         nom=st.text_input("Nom",'')
         prenom=st.text_input("Prénom")
@@ -70,16 +73,16 @@ def main():
         if st.button("Créer"):
             sql= "insert into utilisateur(nom,prenom,bureau,bdd,acces,identifiant,password) values(%s,%s,%s,%s,%s,%s,%s)"
             val= (nom,prenom,bur,bdd,acc,identifiant,password)
-            mycursor.execute(sql,val)
-            mydb.commit()
+            cursor.execute(sql,val)
+            connection.commit()
             st.success("Enregistrement réussi!!!")
             
 
 
     elif option=="Lire":
         st.subheader("Les utilisateurs dans la base")
-        mycursor.execute("select * from utilisateur")
-        result = mycursor.fetchall()
+        cursor.execute("select * from utilisateur")
+        result = cursor.fetchall()
         result = pd.DataFrame(result)
 
         gd = GridOptionsBuilder.from_dataframe(result)
@@ -101,16 +104,16 @@ def main():
                 for id in df_sel_row['ID']:
                     sql="delete from utilisateur where id =%s"
                     val=(id,)
-                    mycursor.execute(sql,val)
-                    mydb.commit()
+                    cursor.execute(sql,val)
+                    connection.commit()
                     st.success("Suppression réussie!!!")
 
     elif option=="Modifier":
         st.subheader("Modifier un enregistrement")
         #id=st.number_input("Entrer ID",min_value=1)
 
-        mycursor.execute("select * from utilisateur")
-        result = mycursor.fetchall()
+        cursor.execute("select * from utilisateur")
+        result = cursor.fetchall()
         result = pd.DataFrame(result)
         #result['ID'] = result['ID'].astype(int)
         id=st.selectbox("Entrer ID", result['ID'].unique())
@@ -119,27 +122,26 @@ def main():
 
         if result.shape[0]==1:
             with st.form(key= 'modifier', clear_on_submit=True):
-                nom=st.text_input("nouveau Nom", result['Nom'].iloc[0])
-                prenom=st.text_input("nouveau Prénom", result['Prenom'].iloc[0])
-                bur=st.text_input("nouveau Bureau", result['Bureau'].iloc[0])
-                bdd=st.text_input("Base de données", result['BDD'].iloc[0])
-                acc=st.text_input("Privilège d'accès", result['Acces'].iloc[0])
-                identifiant=st.text_input("nouvel identifiant de connexion", result['Identifiant'].iloc[0])
-                password=st.text_input("nouveau mot de passe", result['Password'].iloc[0])
+                nom=st.text_input("nouveau Nom", result['nom'].iloc[0])
+                prenom=st.text_input("nouveau Prénom", result['prenom'].iloc[0])
+                bur=st.text_input("nouveau Bureau", result['bureau'].iloc[0])
+                bdd=st.text_input("Base de données", result['bdd'].iloc[0])
+                acc=st.text_input("Privilège d'accès", result['acces'].iloc[0])
+                identifiant=st.text_input("nouvel identifiant de connexion", result['identifiant'].iloc[0])
+                password=st.text_input("nouveau mot de passe", result['password'].iloc[0])
                 modifier_button = st.form_submit_button('Modifier')
                 
             if modifier_button:
                 sql="update utilisateur set nom=%s, prenom=%s, bureau=%s, bdd=%s, acces=%s, identifiant=%s, password=%s where id =%s"
                 val= (nom,prenom,bur,bdd,acc,identifiant,password,id)
-                mycursor.execute(sql,val)
-                mydb.commit()
+                cursor.execute(sql,val)
+                connection.commit()
                 st.success("Mise à jour réussie!!!")
         else:
             st.write("Cet identifiant n'est pas créé.")
 
-if mycursor:
+if cursor:
     if __name__ == "__main__":
         main()
 else:
     st.write("Connexion impossible à établir")
-    
