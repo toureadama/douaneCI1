@@ -25,8 +25,8 @@ hide_pages(['Accueil', 'Admin', 'ContrôleRFCV', 'Suivi Opérateur RFCV', "Frêt
 timeout=st.secrets["timeout"]
 
 connection = pymysql.connect(
-    connect_timeout=st.secrets["timeout"],
-    cursorclass=st.secrets["cursorclass"],
+    connect_timeout=timeout,
+    cursorclass=pymysql.cursors.DictCursor,
     db=st.secrets["db"],
     host=st.secrets["host"],
     password=st.secrets["password"],
@@ -36,10 +36,7 @@ connection = pymysql.connect(
     write_timeout=timeout,
 )
 
-st.write(timeout)
-st.write(timeout)
-
-cursor = connection.cursor()
+#cursor = connection.cursor()
 
 try:
     cursor = connection.cursor()

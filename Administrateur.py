@@ -23,8 +23,8 @@ hide_pages([
 timeout=st.secrets["timeout"]
 
 connection = pymysql.connect(
-    connect_timeout=st.secrets["timeout"],
-    cursorclass=st.secrets["cursorclass"],
+    connect_timeout=timeout,
+    cursorclass=pymysql.cursors.DictCursor,
     db=st.secrets["db"],
     host=st.secrets["host"],
     password=st.secrets["password"],
