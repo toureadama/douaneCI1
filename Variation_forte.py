@@ -63,10 +63,11 @@ if st.button('Valider'):
         
         if new_list_acces[ind][0]=='Admin':
             switch_page('Admin')
-        elif new_list_acces[ind][0:3]==('TOUT', 'RFCV', 'Vérificateur'):
-            switch_page('ContrôleRFCV')  
+        #elif new_list_acces[ind][0:3]==('TOUT', 'RFCV', 'Vérificateur'):
+            #switch_page('ContrôleRFCV')  
         else:
-            st.write("Cet utilisateur n'a pas d'accès défini")
+            switch_page('ContrôleRFCV')
+            #st.write("Cet utilisateur n'a pas d'accès défini")
     else:
         st.write("Mot de passe incorrect")
 

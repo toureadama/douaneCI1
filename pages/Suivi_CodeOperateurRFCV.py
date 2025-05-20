@@ -1,7 +1,7 @@
 import pandas as pd
 from datetime import datetime
 import streamlit as st
-from st_pages import Page, show_pages
+from st_pages import Page, show_pages, hide_pages
 
 show_pages([
     Page("Variation_forte.py","Accueil"),
@@ -9,6 +9,8 @@ show_pages([
     Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"), # FOBUn3.py
     Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
 ])
+
+hide_pages([ "Frêt"])
 
 update = True
 
