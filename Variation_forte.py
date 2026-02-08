@@ -22,17 +22,17 @@ hide_pages(['Accueil', 'Admin', 'ContrôleRFCV', 'Suivi Opérateur RFCV', "Frêt
 #Etablir la connexion
 #@st.cache_resource
 
-timeout=st.secrets["timeout"] or os.getenv('timeout')
+timeout=os.getenv('timeout') or st.secrets["timeout"]
 
 connection = pymysql.connect(
     connect_timeout=timeout,
     cursorclass=pymysql.cursors.DictCursor,
-    db=st.secrets["db"] or os.getenv('db'),
-    host=st.secrets["host"] or os.getenv('host'),
-    password=st.secrets["password"] or os.getenv('password'),
+    db=os.getenv('db') or st.secrets["db"],
+    host= os.getenv('host') or st.secrets["host"],
+    password= os.getenv('password') or st.secrets["password"],
     read_timeout=timeout,
-    port=st.secrets["port"] or os.getenv('port'),
-    user=st.secrets["user"] or os.getenv('user'),
+    port=os.getenv('port') or st.secrets["port"],
+    user= os.getenv('user') or st.secrets["user"],
     write_timeout=timeout
 )
 
