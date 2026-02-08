@@ -22,6 +22,20 @@ hide_pages([
 
 
 timeout=int(os.getenv('timeout')) or st.secrets["timeout"]
+#************************************************************************
+db=os.getenv('db') or st.secrets["db"]
+host= os.getenv('host') or st.secrets["host"],
+password= os.getenv('password') or st.secrets["password"]
+port=int(os.getenv("PORT") if os.getenv("PORT").isdigit() else os.getenv("PORT")[4:-1]) or st.secrets["port"],
+user= os.getenv('user') or st.secrets["user"]
+
+st.write(timeout)
+st.write(db)
+st.write(host)
+st.write(password)
+st.write(port)
+st.write(user) 
+#*************************************************************************
 
 connection = pymysql.connect(
     connect_timeout=timeout,
