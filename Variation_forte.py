@@ -31,7 +31,7 @@ connection = pymysql.connect(
     host= os.getenv('host') or st.secrets["host"],
     password= os.getenv('password') or st.secrets["password"],
     read_timeout=timeout,
-    port=os.getenv('port') or st.secrets["port"],
+    port=int(os.getenv("PORT") if os.getenv("PORT").isdigit() else os.getenv("PORT")[4:-1]) or st.secrets["port"],
     user= os.getenv('user') or st.secrets["user"],
     write_timeout=timeout
 )
