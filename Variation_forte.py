@@ -22,7 +22,7 @@ hide_pages(['Accueil', 'Admin', 'ContrôleRFCV', 'Suivi Opérateur RFCV', "Frêt
 #Etablir la connexion
 #@st.cache_resource
 
-timeout=os.getenv('timeout') or st.secrets["timeout"]
+timeout=int(os.getenv('timeout')) or st.secrets["timeout"]
 
 connection = pymysql.connect(
     connect_timeout=timeout,

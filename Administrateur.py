@@ -21,7 +21,7 @@ hide_pages([
 
 
 
-timeout=os.getenv('timeout') or st.secrets["timeout"]
+timeout=int(os.getenv('timeout')) or st.secrets["timeout"]
 
 connection = pymysql.connect(
     connect_timeout=timeout,
