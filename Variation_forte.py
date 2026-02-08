@@ -25,7 +25,7 @@ hide_pages(['Accueil', 'Admin', 'ContrôleRFCV', 'Suivi Opérateur RFCV', "Frêt
 timeout=int(os.getenv('timeout')) or st.secrets["timeout"]
 #************************************************************************
 db=os.getenv('db') or st.secrets["db"]
-host= os.getenv('host') or st.secrets["host"],
+host= os.getenv('host') or st.secrets["host"]
 password= os.getenv('password') or st.secrets["password"]
 port=int(15107)# int(os.getenv("PORT") if os.getenv("PORT").isdigit() else os.getenv("PORT")[4:-1]) or st.secrets["port"],
 user= os.getenv('user') or st.secrets["user"]
@@ -45,7 +45,7 @@ connection = pymysql.connect(
     host= os.getenv('host') or st.secrets["host"],
     password= os.getenv('password') or st.secrets["password"],
     read_timeout=timeout,
-    port=int(15107)# int(os.getenv("PORT") if os.getenv("PORT").isdigit() else os.getenv("PORT")[4:-1]) or st.secrets["port"],
+    port=int(15107),# int(os.getenv("PORT") if os.getenv("PORT").isdigit() else os.getenv("PORT")[4:-1]) or st.secrets["port"],
     user= os.getenv('user') or st.secrets["user"],
     write_timeout=timeout
 )
