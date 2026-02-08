@@ -1,5 +1,5 @@
 #! C:\Users\HP 820 G3\Desktop\DOUANES CI\douanenv\Scripts\python.exe
-
+import os
 import pandas as pd
 import pymysql
 import pymysql.cursors
@@ -22,18 +22,18 @@ hide_pages(['Accueil', 'Admin', 'ContrôleRFCV', 'Suivi Opérateur RFCV', "Frêt
 #Etablir la connexion
 #@st.cache_resource
 
-timeout=st.secrets["timeout"]
+timeout=st.secrets["timeout"] or os.getenv('timeout')
 
 connection = pymysql.connect(
     connect_timeout=timeout,
     cursorclass=pymysql.cursors.DictCursor,
-    db=st.secrets["db"],
-    host=st.secrets["host"],
-    password=st.secrets["password"],
+    db=st.secrets["db"] or os.getenv('db'),
+    host=st.secrets["host"] or os.getenv('host'),
+    password=st.secrets["password"] or os.getenv('password'),
     read_timeout=timeout,
-    port=st.secrets["port"],
-    user=st.secrets["user"],
-    write_timeout=timeout,
+    port=st.secrets["port"] or os.getenv('port'),
+    user=st.secrets["user"] or os.getenv('user'),
+    write_timeout=timeout
 )
 
 #cursor = connection.cursor()
