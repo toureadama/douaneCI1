@@ -55,6 +55,7 @@ data['NB Déclarations'] = data['PU'].copy()
 
 data['PU REF']   = data['PU'].copy()
 data['NUMENR max'] = data['NUMENR'].copy()
+data['NUMRFCV max'] = data['NUMRFCV'].copy()
 data['FOURNISSEUR max'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
 
 for val in data.index: #range(data.shape[0]):
@@ -71,6 +72,7 @@ for val in data.index: #range(data.shape[0]):
     idx_max = TAB.loc[TAB['PU']==MAX].index
     data.loc[val, 'PU_REC'] = TAB.loc[idx_max[0], 'PU']
     data.loc[val, 'NUMENR_REC'] = TAB.loc[idx_max[0], 'NUMENR']
+    data.loc[val, 'NUMRFCV_REC'] = TAB.loc[idx_max[0], 'NUMRFCV']       
     data.loc[val, 'FOURNISSEUR_REC'] = TAB.loc[idx_max[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
 
 data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_index=True)
@@ -78,7 +80,7 @@ data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_i
 data.sort_values(by='DESCRIPTION_PRODUIT_FCVR', inplace=True, ignore_index=True)
 
 data = data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen',
-             'PU_REC', 'NUMENR_REC', 'FOURNISSEUR_REC']]
+             'PU_REC', 'NUMENR_REC', 'NUMRFCV_REC', 'FOURNISSEUR_REC']]
 st.dataframe(data=data)
 
 # Extraction sous Excel
