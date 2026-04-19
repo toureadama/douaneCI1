@@ -49,32 +49,7 @@ if SH:
 
     
 data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
-"""
-data['PU moyen'] = data['PU'].copy()
-data['NB Déclarations'] = data['PU'].copy()
 
-#data['PU REF']   = data['PU'].copy()
-#data['NUMENR max'] = data['NUMENR'].copy()
-#data['NUMRFCV max'] = data['NUMRFCV'].copy()
-#data['FOURNISSEUR max'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
-
-for val in data.index: #range(data.shape[0]):
-    TAB = data[data['DESCRIPTION_PRODUIT_FCVR']==data.loc[val, 'DESCRIPTION_PRODUIT_FCVR']]
-    
-    data.loc[val, 'NB Déclarations'] = TAB.shape[0]
-    
-    MOYEN = TAB['PU'].mean()
-    MAX   = TAB['PU'].max()
-    
-    idx_mean = TAB.loc[TAB['PU']==MOYEN].index
-    data.loc[val, 'PU moyen'] = MOYEN
-    
-    idx_max = TAB.loc[TAB['PU']==MAX].index
-    data.loc[val, 'PU_REC'] = TAB.loc[idx_max[0], 'PU']
-    data.loc[val, 'NUMENR_REC'] = TAB.loc[idx_max[0], 'NUMENR']
-    data.loc[val, 'NUMRFCV_REC'] = TAB.loc[idx_max[0], 'NUMRFCV']       
-    data.loc[val, 'FOURNISSEUR_REC'] = TAB.loc[idx_max[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
-"""
 data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_index=True)
 
 data.sort_values(by='DESCRIPTION_PRODUIT_FCVR', inplace=True, ignore_index=True)
