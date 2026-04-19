@@ -53,10 +53,10 @@ data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
 data['PU moyen'] = data['PU'].copy()
 data['NB Déclarations'] = data['PU'].copy()
 
-data['PU REF']   = data['PU'].copy()
-data['NUMENR max'] = data['NUMENR'].copy()
-data['NUMRFCV max'] = data['NUMRFCV'].copy()
-data['FOURNISSEUR max'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
+#data['PU REF']   = data['PU'].copy()
+#data['NUMENR max'] = data['NUMENR'].copy()
+#data['NUMRFCV max'] = data['NUMRFCV'].copy()
+#data['FOURNISSEUR max'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
 
 for val in data.index: #range(data.shape[0]):
     TAB = data[data['DESCRIPTION_PRODUIT_FCVR']==data.loc[val, 'DESCRIPTION_PRODUIT_FCVR']]
