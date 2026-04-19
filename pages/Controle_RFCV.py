@@ -49,7 +49,7 @@ if SH:
 
     
 data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
-
+"""
 data['PU moyen'] = data['PU'].copy()
 data['NB Déclarations'] = data['PU'].copy()
 
@@ -74,13 +74,13 @@ for val in data.index: #range(data.shape[0]):
     data.loc[val, 'NUMENR_REC'] = TAB.loc[idx_max[0], 'NUMENR']
     data.loc[val, 'NUMRFCV_REC'] = TAB.loc[idx_max[0], 'NUMRFCV']       
     data.loc[val, 'FOURNISSEUR_REC'] = TAB.loc[idx_max[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
-
+"""
 data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_index=True)
 
 data.sort_values(by='DESCRIPTION_PRODUIT_FCVR', inplace=True, ignore_index=True)
 
-data = data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen',
-             'PU_REC', 'NUMENR_REC', 'NUMRFCV_REC', 'FOURNISSEUR_REC']]
+#data = data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen',
+ #            'PU_REC', 'NUMENR_REC', 'NUMRFCV_REC', 'FOURNISSEUR_REC']]
 st.dataframe(data=data)
 
 # Extraction sous Excel
