@@ -35,20 +35,20 @@ date_max = max(df['DATENR'])
 debut = st.sidebar.date_input("Date de début:", value=date_min)
 fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 
-df = df[(df['DATENR'] >= pd.to_datetime(debut)) & 
+df_per = df[(df['DATENR'] >= pd.to_datetime(debut)) & 
         (df['DATENR'] <= pd.to_datetime(fin))]
 
 SH = st.sidebar.selectbox(
     'Renseigner la position SH',
-    df['SH_FCVR'].unique(), index=0)
+    df_per['SH_FCVR'].unique(), index=0)
 
 if SH:
     origine = st.sidebar.selectbox(
         'Choisir la provenance',
-        df[df['SH_FCVR']==SH]['ORIGINE'].unique())
+        df_per[df_per['SH_FCVR']==SH]['ORIGINE'].unique())
 
     
-data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
+data = df_per[(df_per['SH_FCVR']==SH) & (df_per['ORIGINE']==origine)]
 
 data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_index=True)
 
