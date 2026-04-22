@@ -21,7 +21,7 @@ def load_file(update):
     
     df = pd.read_csv("sortie_ViAb_enquete.csv", sep=';', low_memory=False)
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df['DATENR'] = pd.to_datetime(df['DATENR'], format="%Y-%m-%d", errors='coerce')
+    df['DATENR'] = df['DATENR'].apply(lambda x:datetime.strptime(x, "%Y-%m-%d"))
        
     return df
 
@@ -35,30 +35,52 @@ date_max = max(df['DATENR'])
 debut = st.sidebar.date_input("Date de début:", value=date_min)
 fin   = st.sidebar.date_input("Date de fin:", value=date_max)
 
-df_per = df[(df['DATENR'] >= pd.to_datetime(debut)) & 
+df = df[(df['DATENR'] >= pd.to_datetime(debut)) & 
         (df['DATENR'] <= pd.to_datetime(fin))]
 
 SH = st.sidebar.selectbox(
     'Renseigner la position SH',
-    df_per['SH_FCVR'].unique(), index=0)
+    df['SH_FCVR'].unique(), index=0)
 
 if SH:
     origine = st.sidebar.selectbox(
         'Choisir la provenance',
-        df_per[df_per['SH_FCVR']==SH]['ORIGINE'].unique())
+        df[df['SH_FCVR']==SH]['ORIGINE'].unique())
 
     
-data = df_per[(df_per['SH_FCVR']==SH) & (df_per['ORIGINE']==origine)]
+data = df[(df['SH_FCVR']==SH) & (df['ORIGINE']==origine)]
+
+data['PU moyen'] = data['PU'].copy()
+data['NB Déclarations'] = data['PU'].copy()
+
+data['PU REF']   = data['PU'].copy()
+data['NUMENR max'] = data['NUMENR'].copy()
+data['NUMRFCV max'] = data['NUMRFCV'].copy()
+data['FOURNISSEUR max'] = data['FOURNISSEUR_IMP_CLIENT_EXP'].copy()
+
+for val in data.index: #range(data.shape[0]):
+    TAB = data[data['DESCRIPTION_PRODUIT_FCVR']==data.loc[val, 'DESCRIPTION_PRODUIT_FCVR']]
+    
+    data.loc[val, 'NB Déclarations'] = TAB.shape[0]
+    
+    MOYEN = TAB['PU'].mean()
+    MAX   = TAB['PU'].max()
+    
+    idx_mean = TAB.loc[TAB['PU']==MOYEN].index
+    data.loc[val, 'PU moyen'] = MOYEN
+    
+    idx_max = TAB.loc[TAB['PU']==MAX].index
+    data.loc[val, 'PU_REC'] = TAB.loc[idx_max[0], 'PU']
+    data.loc[val, 'NUMENR_REC'] = TAB.loc[idx_max[0], 'NUMENR']
+    data.loc[val, 'NUMRFCV_REC'] = TAB.loc[idx_max[0], 'NUMRFCV']       
+    data.loc[val, 'FOURNISSEUR_REC'] = TAB.loc[idx_max[0], 'FOURNISSEUR_IMP_CLIENT_EXP']
 
 data.drop_duplicates(subset=['DESCRIPTION_PRODUIT_FCVR'], inplace=True, ignore_index=True)
 
 data.sort_values(by='DESCRIPTION_PRODUIT_FCVR', inplace=True, ignore_index=True)
 
-<<<<<<< HEAD
-#data = data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen',
- #            'PU_REC', 'NUMENR_REC', 'NUMRFCV_REC', 'FOURNISSEUR_REC']]
-=======
->>>>>>> 58686a7 (Save local changes)
+data = data[['DESCRIPTION_PRODUIT_FCVR', 'NB Déclarations', 'PU moyen',
+             'PU_REC', 'NUMENR_REC', 'NUMRFCV_REC', 'FOURNISSEUR_REC']]
 st.dataframe(data=data)
 
 # Extraction sous Excel
