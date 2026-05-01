@@ -7,7 +7,7 @@ show_pages([
     Page("Variation_forte.py","Accueil"),
     Page("pages/Controle_RFCV.py","Contrôle"), # FOBUn2.py
     Page("pages/Suivi_CodeOperateurRFCV.py","Suivi Opérateur"), # FOBUn3.py
-    Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
+    #Page("pages/testEspecesRFCV.py","Frêt") # FOBUn.py
 ])
 
 hide_pages([ "Frêt"])
